@@ -11,19 +11,24 @@ app.use("/img", express.static("./public/imgs"));
 app.use("/fonts", express.static("./public/fonts"));
 app.use("/html", express.static("./public/html"));
 
+app.use(session(
+    {
+        secret: "noonewilleverguessthissecretphrasehtmltftrankistrash",
+        name: "wazaSessionID",
+        resave: false,
+        // create a unique identifier for that client
+        saveUninitialized: true
+    })
+);
 
 app.get("/", function (req, res) {
 
-    if (req.session.loggedIn) {
-        res.redirect("/profile");
-    } else {
-        
-        let doc = fs.readFileSync("./app/html/index.html", "utf8");
+    let index = fs.readFileSync("./app/html/index.html", "utf8");
+    let indexDOM = new JSDOM(index);
 
-        res.set("Server", "Wazubi Engine");
-        res.set("X-Powered-By", "Wazubi");
-        res.send(doc);
-    }
+    res.set("Server", "Wazubi Engine");
+    res.set("X-Powered-By", "Wazubi");
+    res.send(indexDOM.serialize());
 });
 
 app.use(express.json());
