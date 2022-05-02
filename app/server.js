@@ -34,10 +34,6 @@ app.get("/sign-up", (req, res) => {
     res.sendFile(htmlDir + "/sign-up.html");
 });
 
-app.get("/home", (req, res) => {
-    res.sendFile(htmlDir + "/home.html");
-});
-
 app.post("/register", (req, res) => {
     db.collection("user").insertOne({
         username: req.body.username,
@@ -55,5 +51,76 @@ app.get("/admin", (req, res) => {
         res.json({
             users: result
         });
+    });
+});
+
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const session = require("express-session");
+
+app.use(session({
+    secret: "secret code",
+    resave: true,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.post("/sign-in", passport.authenticate("local", {
+    failureRedirect: "/fail"
+}), (req, res) => {
+    res.redirect("/home");
+});
+
+app.get("/home", isSignedIn, (req, res) => {
+    res.sendFile(htmlDir + "/home.html");
+});
+
+function isSignedIn(req, res, next) {
+    if (req.user) {
+        next()
+    } else {
+        res.send("You are not signed in");
+    }
+};
+
+app.get("/sign-out", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
+
+passport.use(new LocalStrategy({
+    usernameField: "username",
+    passwordField: "password",
+    session: true,
+    passReqToCallback: false
+}, (inputUsername, inputPassword, done) => {
+    db.collection("user").findOne({
+        username: inputUsername
+    }, (error, result) => {
+        if (error) {
+            return done(error);
+        }
+        if (!result) {
+            return done(null, false, {
+                message: "Username doesn't exist"
+            });
+        }
+        if (inputPassword == result.password) {
+            return done(null, result);
+        } else {
+            return done(null, false, {message: "Password is incorrect"});
+        }
+    })
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user.username);
+});
+passport.deserializeUser((username, done) => {
+    db.collection("user").findOne({
+        username: username
+    }, (error, result) => {
+        done(null, result);
     });
 });
