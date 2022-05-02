@@ -8,12 +8,8 @@ const express = require("express");
 const app = express();
 // set static files
 app.use("/public", express.static("public"));
-// file system module
-const fs = require("fs");
-app.set('view engine', 'ejs');
 // body-parser module
 const bodyParser = require("body-parser");
-const { response } = require("express");
 app.use(bodyParser.urlencoded({ extended: true }));
 // mongoDB setting
 const MongoClient = require("mongodb").MongoClient;
@@ -32,10 +28,6 @@ MongoClient.connect("mongodb+srv://bby20:unified20@cluster0.wphdm.mongodb.net/Un
 
 app.get("/", (req, res) => {
     res.sendFile(htmlDir + "/index.html");
-});
-
-app.get("/home", (req, res) => {
-    res.sendFile(htmlDir + "/home.html");
 });
 
 app.get("/sign-up", (req, res) => {
@@ -60,7 +52,7 @@ app.post("/register", (req, res) => {
 app.get("/admin", (req, res) => {
     db.collection("user").find().toArray((error, result) => {
         console.log(result);
-        res.sendFile(htmlDir + "/admin.html", {
+        res.json({
             users: result
         });
     });
