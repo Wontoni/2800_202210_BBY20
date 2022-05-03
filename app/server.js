@@ -36,10 +36,6 @@ app.get("/sign-up", (req, res) => {
     res.sendFile(htmlDir + "/sign-up.html");
 });
 
-app.get("/home", (req, res) => {
-    res.sendFile(htmlDir + "/home.html");
-});
-
 app.post('/register', (req, res) => {
     db.collection('count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
         var totalUsers = result.totalUser;
@@ -66,14 +62,15 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.get("/admin", (req, res) => {
-    db.collection("user").find().toArray((error, result) => {
-        console.log(result);
-        res.json({
-            users: result
-        });
-    });
-});
+// incomplete
+// app.get("/admin", (req, res) => {
+//     db.collection("user").find().toArray((error, result) => {
+//         //console.log(result);
+//         res.json({
+//             users: result
+//         });
+//     });
+// });
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -94,7 +91,12 @@ app.post("/sign-in", passport.authenticate("local", {
 });
 
 app.get("/home", isSignedIn, (req, res) => {
-    res.sendFile(htmlDir + "/home.html");
+    console.log(req.user);
+    if (req.user.role === "admin") {
+        res.sendFile(htmlDir + "/admin.html");
+    } else if (req.user.role === "regular") {
+        res.sendFile(htmlDir + "/home.html");
+    }
 });
 
 function isSignedIn(req, res, next) {
