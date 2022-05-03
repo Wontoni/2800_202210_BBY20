@@ -43,12 +43,17 @@ app.get("/home", (req, res) => {
 app.post('/register', (req, res) => {
     db.collection('count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
         var totalUsers = result.totalUser;
+        // set role
+        let role = "regular";
+        if (req.body.role) {
+            role = "admin"
+        }
         // add a user
         db.collection('user').insertOne({
             _id: totalUsers + 1,
             username: req.body.username,
             password: req.body.password,
-            role: req.body.input_check
+            role: role
         }, (error, result) => {
             // increment the total number of users
             console.log('saved successfully');
