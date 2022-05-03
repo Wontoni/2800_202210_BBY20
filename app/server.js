@@ -42,21 +42,29 @@ app.get("/home", (req, res) => {
 
 app.post('/register', (req, res) => {
     db.collection('count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
-        var totalUsers = result.totalUser;
+        // check if it is null
+        if (!req.body.username || !req.body.password) {
+            return res.redirect("/sign-up");
+        } 
         // set role
         let role = "regular";
         if (req.body.role) {
             role = "admin"
         }
         // add a user
+        var totalUsers = result.totalUser;
         db.collection('user').insertOne({
             _id: totalUsers + 1,
             username: req.body.username,
             password: req.body.password,
             role: role
         }, (error, result) => {
-            // increment the total number of users
             console.log('saved successfully');
+            // increment the total number of admin users
+            if (role == "admin") {
+                db.collection('count').updateOne({name: 'NumberOfAdmins'}, {$inc: { totalAdmin : 1} });
+            }
+            // increment the total number of users
             db.collection('count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
                 if (result.acknowledged) {
                     res.redirect("/");
