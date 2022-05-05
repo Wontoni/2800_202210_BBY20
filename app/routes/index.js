@@ -37,10 +37,6 @@ router.get("/sign-up", (req, res) => {
 // sign-up => register user info in the database
 router.post('/register', (req, res) => {
     db.collection('count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
-        // check if it is null
-        if (!req.body.username || !req.body.password) {
-            return res.redirect("/index");
-        } 
         // set role
         let role = "regular";
         if (req.body.role) {
