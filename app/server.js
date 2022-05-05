@@ -29,6 +29,10 @@ MongoClient.connect(URL, (error, client) => {
 });
 
 app.get("/", (req, res) => {
+    res.sendFile(htmlDir + "/home.html");
+});
+
+app.get("/login", (req, res) => {
     res.sendFile(htmlDir + "/index.html");
 });
 
@@ -103,7 +107,7 @@ app.get("/home", isSignedIn, (req, res) => {
     if (req.user.role === "admin") {
         res.sendFile(htmlDir + "/admin.html");
     } else if (req.user.role === "regular") {
-        res.sendFile(htmlDir + "/home.html");
+        res.sendFile(htmlDir + "/main.html");
     }
 });
 

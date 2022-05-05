@@ -1,0 +1,147 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    font-family:"obviously-wide";
+}
+
+.homeContainer {
+    display: grid;
+    grid-template-columns: 20vw 20vw 20vw 20vw;
+    grid-template-rows: 30vh 40vh 90vh 40vh 40vh 40vh 5vh;
+}
+
+.homeNav {
+    grid-column: 1 / span 5;
+    grid-row: 1 / span 1;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+}
+
+.homeBody {
+    grid-column: 1 / span 5;
+    grid-row: 2 / span 1;
+}
+
+.homeImage {
+    grid-column: 1 / span 5;
+    grid-row: 3 / span 1;
+}
+
+.aboutUs {
+    grid-column: 1 / span 5;
+    grid-row: 4 / span 1;
+}
+
+.contactUs {
+    grid-column: 1 / span 5;
+    grid-row: 5 / span 1;
+}
+
+.service {
+    grid-column: 1 / span 5;
+    grid-row: 6 / span 1;
+}
+
+/** Navbar expanded styles. */
+
+.description {
+    margin: 1.5% 20%;
+    text-align: center;
+    place-self: center;
+}
+
+.title {
+    text-align: center;
+    place-self: center;
+    font-size: 25px;
+    margin-top: 5%;
+
+}
+
+.homeFooter {
+    grid-column: 1 / span 5;
+    grid-row: 7 / span 1;
+    border-top: 1px solid rgb(184, 184, 184);
+    color: rgb(184, 184, 184);
+    font-size: 15px;
+    padding: 0.5% 1.5%;
+}
+
+
+/** Navbar Styling */
+.navList {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.homeNav img {
+    width: 500px;
+    height: auto;
+    padding-top: 10%;
+}
+
+
+.homeNav a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+#navItem {
+    padding-top: 110px;
+    font-size: 25px;
+    color: #F85C3A;
+}
+
+/** Body Styling */
+.homeBodyText {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+
+
+.btnDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+.joinBtn {
+    padding: 20px 50px;
+    color: #F85C3A;
+    font-size: 30px;
+    border: 7px solid #F85C3A;
+}
+
+.joinBtn:hover {
+    padding: 20px 50px;
+    color: white;
+    font-size: 30px;
+    background-color: #F85C3A;
+    border: 7px solid #F85C3A;
+    cursor: pointer;
+}
+
+/** Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#homepageImage {
+    background-image: url('../assets/homepage/UnifiedHomePageImage.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
