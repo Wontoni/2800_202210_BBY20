@@ -106,7 +106,8 @@ router.get("/home", isSignedIn, (req, res) => {
                 <title>Unified</title>
             </head>
             <body>
-                <h1>List of Users</h1>
+                <h1>Admin Dashboard</h1>
+                <h3>List of Users</h3>
                 <div id="user-list">
                 ${list}
                 </div>

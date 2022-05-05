@@ -1,7 +1,7 @@
 "use strict";
 
 /* ------------------------------ Module ------------------------------ */
-const express =  require("express");
+const express = require("express");
 const router = express.Router();
 const path = require("path");
 
@@ -37,24 +37,19 @@ router.get("/sign-up", (req, res) => {
 // sign-up => register user info in the database
 router.post('/register', (req, res) => {
     db.collection('count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
-        // set role
-        let role = "regular";
-        if (req.body.role) {
-            role = "admin"
-        }
         // add a user
         var totalUsers = result.totalUser;
-
         db.collection('user').insertOne({
             _id: totalUsers + 1,
             username: req.body.username,
+            email: req.body.email,
             password: req.body.password,
-            role: role
+            role: "regular"
         }, (error, result) => {
             console.log('saved successfully');
             // increment the total number of admin users
             if (role == "admin") {
-                db.collection('count').updateOne({name: 'NumberOfAdmins'}, {$inc: { totalAdmin : 1} });
+                db.collection('count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: 1 } });
             }
             // increment the total number of users
             db.collection('count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
