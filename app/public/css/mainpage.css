@@ -127,11 +127,20 @@
 .userProfileName {
     color: white;
     float: right;
-    padding-top: 15px;
     padding-left: 10px;
     padding-bottom: 20px;
 }
 
+.userProfileName button{
+    font-size: 15px;
+    padding: 10% 10%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #F85C3A;
+    color: white;
+    float: left;
+    cursor: pointer;
+}
 
 /* Change color of dropdown links on hover */
 .dropdownProfile a:hover {
