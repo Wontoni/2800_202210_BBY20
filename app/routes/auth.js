@@ -126,7 +126,7 @@ router.get("/main", isSignedIn, (req, res) => {
 
 // sign-in => authenticate 
 router.post("/sign-in", passport.authenticate("local", {
-    failureRedirect: "/fail"
+    failureRedirect: "/login"
 }), (req, res) => {
     res.redirect("/main");
 });
