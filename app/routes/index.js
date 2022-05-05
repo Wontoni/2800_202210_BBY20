@@ -19,14 +19,15 @@ MongoClient.connect(URL, (error, client) => {
 
 /* ------------------------------ File Directories ------------------------------ */
 const directory = {
-    landing: path.join(__dirname, "../views", "index.html"),
-    signup: path.join(__dirname, "../views", "sign-up.html")
+    index: path.join(__dirname, "../views", "index.html"),
+    signup: path.join(__dirname, "../views", "sign-up.html"),
+    login: path.join(__dirname, "../views", "login.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
 // show landing page
 router.get("/", (req, res) => {
-    res.sendFile(directory.landing);
+    res.sendFile(directory.index);
 });
 
 // show signup page
@@ -34,11 +35,16 @@ router.get("/sign-up", (req, res) => {
     res.sendFile(directory.signup);
 });
 
+// show login page
+router.get("/login", (req, res) => {
+    res.sendFile(directory.login);
+});
+
 // sign-up => register user info in the database
 router.post('/register', (req, res) => {
     db.collection('count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
         // add a user
-        var totalUsers = result.totalUser;
+        let totalUsers = result.totalUser;
         db.collection('user').insertOne({
             _id: totalUsers + 1,
             username: req.body.username,
@@ -46,7 +52,6 @@ router.post('/register', (req, res) => {
             password: req.body.password,
             role: "regular"
         }, (error, result) => {
-            console.log('saved successfully');
             // increment the total number of admin users
             // if (role == "admin") {
             //     db.collection('count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: 1 } });
@@ -54,7 +59,7 @@ router.post('/register', (req, res) => {
             // increment the total number of users
             db.collection('count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
                 if (result.acknowledged) {
-                    res.redirect("/home");
+                    res.redirect("/login");
                 }
             });
         });

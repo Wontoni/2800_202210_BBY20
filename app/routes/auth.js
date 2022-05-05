@@ -72,7 +72,7 @@ passport.deserializeUser((username, done) => {
 
 /* ------------------------------ File Directories ------------------------------ */
 const directory = {
-    home: path.join(__dirname, "../views", "home.html"),
+    main: path.join(__dirname, "../views", "main.html"),
     admin: path.join(__dirname, "../views", "admin.html")
 };
 
@@ -87,7 +87,8 @@ function isSignedIn(req, res, next) {
 
 /* ------------------------------ Routers ------------------------------ */
 // sign-in => redirect by users' role
-router.get("/home", isSignedIn, (req, res) => {
+router.get("/main", isSignedIn, (req, res) => {
+    // if user.role is admin, show admin.html
     if (req.user.role === "admin") {
         db.collection("user").find().toArray((error, result) => {
             let next = "<br><br>";
@@ -96,27 +97,30 @@ router.get("/home", isSignedIn, (req, res) => {
             for (var i = 0; i < result.length; i++) {
                 list += JSON.stringify(result[i]) + button + next;
             }
+            // admin.html code goes here
             res.send(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Unified</title>
-            </head>
-            <body>
-                <h1>Admin Dashboard</h1>
-                <h3>List of Users</h3>
-                <div id="user-list">
-                ${list}
-                </div>
-                <script src="/public/js/admin.js"></script>
-            </body>
-            </html>`);
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Unified</title>
+                </head>
+                <body>
+                    <h1>Admin Dashboard</h1>
+                    <h3>List of Users</h3>
+                    <div id="user-list">
+                    ${list}
+                    </div>
+                    <script src="/public/js/admin.js"></script>
+                </body>
+                </html>
+            `);
         });
+    // if user.role is regular, show main.html
     } else if (req.user.role === "regular") {
-        res.sendFile(directory.home);
+        res.sendFile(directory.main);
     }
 });
 
@@ -124,7 +128,7 @@ router.get("/home", isSignedIn, (req, res) => {
 router.post("/sign-in", passport.authenticate("local", {
     failureRedirect: "/fail"
 }), (req, res) => {
-    res.redirect("/home");
+    res.redirect("/main");
 });
 
 // sign-out => redirect to landing page
