@@ -41,7 +41,7 @@ app.post('/register', (req, res) => {
         // check if it is null
         if (!req.body.username || !req.body.password) {
             return res.redirect("/sign-up");
-        } 
+        }
         // set role
         let role = "regular";
         if (req.body.role) {
@@ -58,7 +58,7 @@ app.post('/register', (req, res) => {
             console.log('saved successfully');
             // increment the total number of admin users
             if (role == "admin") {
-                db.collection('count').updateOne({name: 'NumberOfAdmins'}, {$inc: { totalAdmin : 1} });
+                db.collection('count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: 1 } });
             }
             // increment the total number of users
             db.collection('count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
@@ -70,15 +70,33 @@ app.post('/register', (req, res) => {
     });
 });
 
-// incomplete
-// app.get("/admin", (req, res) => {
-//     db.collection("user").find().toArray((error, result) => {
-//         //console.log(result);
-//         res.json({
-//             users: result
-//         });
-//     });
-// });
+app.get("/home", (req, res) => {
+    db.collection("user").find().toArray((error, result) => {
+        let next = "<br><br>";
+        let button = "&nbsp<button>EDIT</button>";
+        let list = "";
+        for (var i = 0; i < result.length; i++) {
+            list += JSON.stringify(result[i]) + button + next;
+        }
+        res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Unified</title>
+        </head>
+        <body>
+            <h1>List of Users</h1>
+            <div id="user-list">
+            ${list}
+            </div>
+            <script src="/public/js/admin.js"></script>
+        </body>
+        </html>`);
+    });
+});
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
