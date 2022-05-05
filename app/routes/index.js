@@ -48,13 +48,13 @@ router.post('/register', (req, res) => {
         }, (error, result) => {
             console.log('saved successfully');
             // increment the total number of admin users
-            if (role == "admin") {
-                db.collection('count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: 1 } });
-            }
+            // if (role == "admin") {
+            //     db.collection('count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: 1 } });
+            // }
             // increment the total number of users
             db.collection('count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
                 if (result.acknowledged) {
-                    res.redirect("/");
+                    res.redirect("/home");
                 }
             });
         });
