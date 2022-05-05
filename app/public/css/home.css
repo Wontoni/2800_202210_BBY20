@@ -73,6 +73,7 @@
 .navList {
     display: flex;
     justify-content: space-evenly;
+    padding-right: 7.5%;
 }
 
 .homeNav img {
@@ -93,6 +94,14 @@
     padding-top: 110px;
     font-size: 25px;
     color: #F85C3A;
+}
+
+#navItem:hover {
+    color: black;
+}
+
+.logo {
+    cursor: pointer;
 }
 
 /** Body Styling */
