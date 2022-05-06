@@ -109,6 +109,7 @@ router.get("/main", isSignedIn, (req, res) => {
                 </head>
                 <body>
                     <h1>Admin Dashboard</h1>
+                    <a href="/sign-out"><button id="sign-out">Sign Out</button></a>
                     <h3>List of Users</h3>
                     <div id="user-list">
                     ${list}
