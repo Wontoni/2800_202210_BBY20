@@ -1,7 +1,7 @@
 * {
     margin: 0%;
     padding: 0%;
-    font-family:"nunito-sans";
+    font-family: "nunito-sans";
 }
 
 .userContainer {
@@ -48,19 +48,6 @@
     float: left;
 }
 
-#profilePic_Default {
-    text-align: right;
-    place-self: center;
-}
-
-#profilePic_Default img {
-    width: 50px;
-    height: auto;
-    padding-bottom: 0.5%;
-    padding-right: 0.5%;
-}
-
-
 .searchIcon {
     background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
     background-size: 20px;
@@ -71,6 +58,7 @@
     float: left;
     padding-left: 2.5%;
     padding-top: 0.35%;
+    padding-right: 5%;
 }
 
 .searchForm input[type=text] {
@@ -84,8 +72,13 @@
 }
 
 .icons {
-    text-align: center;
+    list-style: none;
 }
+
+.icons li {
+    padding-left: 10%;
+}
+
 .icons button {
     font-size: 15px;
     padding: 0.5% 1.5%;
@@ -93,11 +86,67 @@
     border-radius: 5px;
     background-color: #F85C3A;
     color: white;
+    float: left;
+    cursor: pointer;
 }
 
-.icons button:hover{
-    background-color:#ff2f00;
+.icons button:hover {
+    background-color: #ff2f00;
 }
+
+#profilePic{
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+}
+
+#dropdown {
+    float: right;
+    padding-right: 3%;
+}
+
+.dropdownProfile {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+
+.dropdownProfile a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.showDrop {
+    display: block;
+}
+
+.userProfileName {
+    color: white;
+    float: right;
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+
+.userProfileName button{
+    font-size: 15px;
+    padding: 10% 10%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #F85C3A;
+    color: white;
+    float: left;
+    cursor: pointer;
+}
+
+/* Change color of dropdown links on hover */
+.dropdownProfile a:hover {
+    background-color: #ddd;
+}
+
 
 /** Content styling. */
 .noPosts {
@@ -105,4 +154,3 @@
     text-align: center;
     place-self: center;
 }
-
