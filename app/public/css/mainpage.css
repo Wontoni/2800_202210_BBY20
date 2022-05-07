@@ -94,7 +94,7 @@
     background-color: #ff2f00;
 }
 
-#profilePic{
+#profilePic {
     width: 50px;
     height: auto;
     cursor: pointer;
@@ -110,8 +110,8 @@
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  }
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
 
 .dropdownProfile a {
     color: black;
@@ -131,7 +131,7 @@
     padding-bottom: 20px;
 }
 
-.userProfileName button{
+.userProfileName button {
     font-size: 15px;
     padding: 10% 10%;
     border: 1px solid black;
@@ -153,4 +153,91 @@
     margin: 40% 0%;
     text-align: center;
     place-self: center;
+}
+
+@media only screen and (max-width: 500px) {
+    .userContainer {
+        display: grid;
+        grid-template-columns: 100vw;
+        grid-template-rows: 8vh 90vh 5vh;
+    }
+
+    .userNav {
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+        position: fixed;
+        width: 100%;
+        background-color: #F85C3A;
+    }
+
+    .userContent {
+        grid-column: 1 / span 1;
+        grid-row: 2 / span 1;
+        background-color: rgb(209, 209, 209);
+    }
+
+    .userFooter {
+        grid-column: 1 / span 1;
+        grid-row: 3 / span 1;
+        border-top: 1px solid rgb(184, 184, 184);
+        color: rgb(184, 184, 184);
+        font-size: 15px;
+        padding: 0.5% 1.5%;
+    }
+
+    .icons {
+        display: none;
+    }
+
+    /** Navbar Styling */
+    #logo {
+        padding: 1%;
+    }
+
+    #logo img {
+        width: 65px;
+        height: auto;
+        padding-left: 4px;
+        padding-top: 2px;
+        float: left;
+    }
+
+    .searchIcon {
+        background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
+        background-size: 20px;
+        background-position-x: 7px;
+    }
+
+    .searchForm {
+        float: left;
+        padding-left: 2.5%;
+        padding-top: 2%;
+    }
+
+    .searchForm input[type=text] {
+        padding: 5px 35px;
+        width: 20%;
+        border: 0px;
+        border-radius: 5px;
+        background-color: white;
+        width: 70px;
+        height: 20px;
+    }
+}
+
+
+@media only screen and (max-width: 1230px) and (min-width: 501px){
+    .searchForm input[type=text] {
+        padding: 5px 35px;
+        width: 20%;
+        border: 0px;
+        border-radius: 5px;
+        background-color: white;
+        width: 190px;
+        height: 20px;
+    }
+
+    .icons {
+        display: none;
+    }
 }

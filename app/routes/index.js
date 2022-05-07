@@ -52,10 +52,6 @@ router.post('/register', (req, res) => {
             password: req.body.password,
             role: "regular"
         }, (error, result) => {
-            // increment the total number of admin users
-            // if (role == "admin") {
-            //     db.collection('count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: 1 } });
-            // }
             // increment the total number of users
             db.collection('count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
                 if (result.acknowledged) {

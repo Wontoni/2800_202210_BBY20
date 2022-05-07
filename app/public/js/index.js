@@ -4,6 +4,8 @@ let aboutLocation = window.innerHeight * 1.55 - 400;
 let contactLocation = window.innerHeight * 1.95 - 400;
 let serviceLocation = window.innerHeight * 2.35 - 400;
 
+var x = window.matchMedia("(max-width: 500px)")
+
 // Show/Hide Homepage elements
 $(document).scroll(function() {
     var y = $(this).scrollTop();
@@ -13,23 +15,24 @@ $(document).scroll(function() {
     } else {
         $(".homeNav").css("box-shadow", "none");
     }
-
-    if (y > aboutLocation && y < aboutLocation + 200) {
-        $(".aboutUs").fadeIn();
-    } else {
-        $(".aboutUs").fadeOut();
-    }
-
-    if (y > contactLocation && y < contactLocation + 200) {
-        $(".contactUs").fadeIn();
-    } else {
-        $(".contactUs").fadeOut();
-    }
-
-    if (y > serviceLocation - 100) {
-        $(".service").fadeIn();
-    } else {
-        $(".service").fadeOut();
+    if(!x.matches){
+        if (y > aboutLocation && y < aboutLocation + 200) {
+            $(".aboutUs").fadeIn();
+        } else {
+            $(".aboutUs").fadeOut();
+        }
+    
+        if (y > contactLocation && y < contactLocation + 200) {
+            $(".contactUs").fadeIn();
+        } else {
+            $(".contactUs").fadeOut();
+        }
+    
+        if (y > serviceLocation - 100) {
+            $(".service").fadeIn();
+        } else {
+            $(".service").fadeOut();
+        }
     }
 });
 
