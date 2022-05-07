@@ -25,6 +25,10 @@
     margin-top: 1rem;
 }
 
+.signup-section .section-left {
+    padding-inline: 1rem;
+}
+
 .signup-section .section-right {
     background-color: #f85c3a;
 }
@@ -32,4 +36,13 @@
 .signup-section img {
     min-width: 200px;
     width: 60%;
+}
+
+@media screen and (max-width: 500px) {
+    .signup-section .section-left {
+        width: 100vw;
+    }
+    .signup-section .section-right {
+        display: none;
+    }
 }
