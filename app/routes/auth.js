@@ -81,7 +81,7 @@ function isSignedIn(req, res, next) {
     if (req.user) {
         next()
     } else {
-        res.send("You are not signed in");
+        res.redirect("/");
     }
 };
 
