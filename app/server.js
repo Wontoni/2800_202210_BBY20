@@ -1,7 +1,7 @@
 "use strict";
 
 /* ------------------------------ Port ------------------------------ */
-const PORT = 2800;
+const PORT = 8000;
 /* ------------------------------ Module ------------------------------ */
 // express
 const express = require("express");
@@ -22,5 +22,5 @@ app.use("/", authRoute);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT, () => {
-    console.log("Server is operating on port 2800");
+    console.log("Server is operating on port " + PORT);
 });
