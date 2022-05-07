@@ -1,7 +1,7 @@
 * {
     margin: 0%;
     padding: 0%;
-    font-family:"obviously-wide";
+    font-family: "obviously-wide";
 }
 
 .homeContainer {
@@ -153,4 +153,113 @@ img {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
+}
+
+@media only screen and (max-width: 500px) {
+    * {
+        font-size: 14px;
+    }
+
+    .homeContainer {
+        display: grid;
+        grid-template-columns: 100vw;
+        grid-template-rows: 10vh 30vh 40vh 40vh 40vh 40vh 5vh;
+    }
+
+    .homeNav {
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+        width: 100%;
+        background-color: white;
+    }
+
+    .homeBody {
+        grid-column: 1 / span 1;
+        grid-row: 2 / span 1;
+    }
+
+    .homeImage {
+        grid-column: 1 / span 1;
+        grid-row: 3 / span 1;
+    }
+
+    .aboutUs {
+        grid-column: 1 / span 1;
+        grid-row: 4 / span 1;
+    }
+
+    .contactUs {
+        grid-column: 1 / span 1;
+        grid-row: 5 / span 1;
+    }
+
+    .service {
+        grid-column: 1 / span 1;
+        grid-row: 6 / span 1;
+    }
+
+    /** Navbar Styling */
+    .navList {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .homeNav img {
+        width: 300px;
+        height: auto;
+    }
+
+
+    .homeNav a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    #navItem {
+        display: none;
+    }
+
+    /** Body Styling */
+    .homeBodyText {
+        height: 50%;
+        text-align: center;
+        font-size: 25px;
+    }
+
+
+    .btnDiv {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+    }
+
+    .joinBtn {
+        padding: 15px 40px;
+        color: #F85C3A;
+        font-size: 20px;
+        border: 7px solid #F85C3A;
+    }
+
+    .joinBtn:hover {
+        padding: 15px 40px;
+        color: white;
+        font-size: 20px;
+        background-color: #F85C3A;
+        cursor: pointer;
+    }
+
+    #homepageImage {
+        background-image: url('../assets/homepage/UnifiedHomePageImage.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+    }
+
 }
