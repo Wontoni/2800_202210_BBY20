@@ -55,13 +55,15 @@ passport.use(new LocalStrategy({
         }
         if (!result) {
             return done(null, false, {
-                message: "Username doesn't exist"
+                message: "Incorrect username"
             });
         }
         if (inputPassword == result.password) {
             return done(null, result);
         } else {
-            return done(null, false, { message: "Password is incorrect" });
+            return done(null, false, {
+                message: "Incorrect password"
+            });
         }
     })
 }));
@@ -110,7 +112,7 @@ router.get("/main", isSignedIn, (req, res) => {
             var html = adminTemplate.HTML(list);
             res.send(html);
         });
-    // if user.role is regular, show main.html
+        // if user.role is regular, show main.html
     } else if (req.user.role === "regular") {
         var name = "";
         name = req.user.username;
@@ -132,10 +134,10 @@ router.get("/login", (req, res, next) => {
     console.log(msg);
     let feedback = "";
     if (msg.error) {
-        feedback = msg.error[1];
+        feedback = msg.error[0];
     }
-    res.send(loginHTML(feedback));
-    //res.sendFile(directory.login);
+    var html = loginTemplate.HTML(feedback);
+    res.send(html);
 });
 
 //authenticate

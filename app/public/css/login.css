@@ -38,6 +38,11 @@
     width: 60%;
 }
 
+.errorMsg {
+    color: red;
+    margin-bottom: 10px;
+}
+
 @media screen and (max-width: 500px) {
     .login-section .section-left {
         width: 100vw;

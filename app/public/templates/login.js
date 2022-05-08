@@ -31,8 +31,9 @@ module.exports = {
                             <div class="login-form">
                                 <h2>Welcome back</h2>
                                 <form action="/login-process" method="POST">
+                                    <div class="errorMsg">${text}</div>
                                     <div class="form-group">
-                                        <label for="username">Username${text}</label>
+                                        <label for="username">Username  </label>
                                         <input type="text" class="input" id="username" name="username"
                                             placeholder="Enter your username" required>
                                         <small id="usernameError" class="form-error">*Please check your username.</small>
