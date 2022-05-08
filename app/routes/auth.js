@@ -119,7 +119,7 @@ router.get("/main", isSignedIn, (req, res) => {
                 </html>
             `);
         });
-        // if user.role is regular, show main.html
+    // if user.role is regular, show main.html
     } else if (req.user.role === "regular") {
         let name = "";
         name = req.user.username;
