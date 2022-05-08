@@ -73,7 +73,7 @@ passport.serializeUser((user, done) => {
     done(null, user.username);
 });
 passport.deserializeUser((username, done) => {
-    db.collection("user").findOne({
+    db.collection("BBY_20_User").findOne({
         username: username
     }, (error, result) => {
         done(null, result);
