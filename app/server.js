@@ -27,5 +27,5 @@ app.use("/", authRoute);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT, () => {
-    console.log("Server is operating on port 2800");
+    console.log("Server is operating on port " + PORT);
 });
