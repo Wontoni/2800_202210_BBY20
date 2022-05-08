@@ -16,6 +16,7 @@ router.use(session({
 // html templates
 var regularTemplate = require('../public/templates/regular');
 var adminTemplate = require('../public/templates/admin');
+var loginTemplate = require('../public/templates/login');
 // flash
 const flash = require("connect-flash");
 router.use(flash());
