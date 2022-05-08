@@ -47,7 +47,7 @@ passport.use(new LocalStrategy({
     session: true,
     passReqToCallback: false
 }, (inputUsername, inputPassword, done) => {
-    db.collection("user").findOne({
+    db.collection("BBY_20_User").findOne({
         username: inputUsername
     }, (error, result) => {
         if (error) {
@@ -102,7 +102,7 @@ function isSignedIn(req, res, next) {
 router.get("/main", isSignedIn, (req, res) => {
     // if user.role is admin, show admin.html
     if (req.user.role === "admin") {
-        db.collection("user").find().toArray((error, result) => {
+        db.collection("BBY_20_User").find().toArray((error, result) => {
             var next = "<br><br>";
             var button = "&nbsp<button>EDIT</button>";
             var list = "";
