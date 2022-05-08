@@ -13,6 +13,9 @@ router.use(session({
     resave: true,
     saveUninitialized: false
 }));
+// flash
+const flash = require("connect-flash");
+router.use(flash());
 // passport
 const passport = require("passport");
 router.use(passport.initialize());
@@ -72,8 +75,9 @@ passport.deserializeUser((username, done) => {
 
 /* ------------------------------ File Directories ------------------------------ */
 const directory = {
-    main: path.join(__dirname, "../views", "main.html"),
-    admin: path.join(__dirname, "../views", "admin.html")
+    main: path.join(__dirname, "../public/html", "main.html"),
+    admin: path.join(__dirname, "../public/html", "admin.html"),
+    login: path.join(__dirname, "../public/html", "login.html")
 };
 
 /* ------------------------------ Middleware Function ------------------------------ */
@@ -209,8 +213,20 @@ router.get("/main", isSignedIn, (req, res) => {
     }
 });
 
-// sign-in => authenticate 
-router.post("/sign-in", passport.authenticate("local", {
+// show login page
+router.get("/login", (req, res, next) => {
+    // middleware => logged in user cannot access login page
+    if (!req.user) {
+        next();
+    } else {
+        res.redirect("/main");
+    }
+}, (req, res) => {
+    res.sendFile(directory.login);
+});
+
+//authenticate
+router.post("/login-process", passport.authenticate("local", {
     failureRedirect: "/login"
 }), (req, res) => {
     res.redirect("/main");

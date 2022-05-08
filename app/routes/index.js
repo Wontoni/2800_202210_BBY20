@@ -19,9 +19,9 @@ MongoClient.connect(URL, (error, client) => {
 
 /* ------------------------------ File Directories ------------------------------ */
 const directory = {
-    index: path.join(__dirname, "../views", "index.html"),
-    signup: path.join(__dirname, "../views", "sign-up.html"),
-    login: path.join(__dirname, "../views", "login.html")
+    index: path.join(__dirname, "../public/html", "index.html"),
+    signup: path.join(__dirname, "../public/html", "sign-up.html"),
+    login: path.join(__dirname, "../public/html", "login.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -33,11 +33,6 @@ router.get("/", (req, res) => {
 // show signup page
 router.get("/sign-up", (req, res) => {
     res.sendFile(directory.signup);
-});
-
-// show login page
-router.get("/login", (req, res) => {
-    res.sendFile(directory.login);
 });
 
 // sign-up => register user info in the database
