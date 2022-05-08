@@ -41,6 +41,4 @@ const authRoute = require("./routes/auth");
 app.use("/", authRoute);
 
 /* ------------------------------ Listen to Server ------------------------------ */
-app.listen(PORT, () => {
-    console.log("Server is operating on port 8000");
-});
+app.listen(PORT);
