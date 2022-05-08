@@ -131,7 +131,6 @@ router.get("/login", (req, res, next) => {
     }
 }, (req, res) => {
     let msg = req.flash();
-    console.log(msg);
     let feedback = "";
     if (msg.error) {
         feedback = msg.error[0];
@@ -226,8 +225,8 @@ function loginHTML(message) {
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            username: document.getElementsByName("username").value,
-                            password: document.getElementsByName("password").value
+                            username: document.getElementsByName("username")[0].value,
+                            password: document.getElementsByName("password")[0].value
                         })
                     }).then((res) => {
                         res.json();
