@@ -2,12 +2,12 @@
 
 Team Members:
 [Winston Nguyen], [Student ID], [Set C], [5/8]
-[Noufil Saqib], [Student ID], [Set C], [5/8]
-[Skylar Park], [Student ID], [Set C], [5/8]
-[Dong-chan Koh], [Student ID], [Set C], [5/8]
+[Noufil Saqib], [A01167801], [Set C], [5/8]
+[Skylar Park], [A01261472], [Set C], [5/8]
+[Dong-chan Koh], [A01261746], [Set C], [5/8]
 This assignment is [90]% complete.
 
 Not completed:
-- Admin dashboard media queries
+- Admin dashboard UI
 - Datastore code in separate file
-- Login/landing page doesn’t refresh on incorrect login
+- Login page still refresh on incorrect login

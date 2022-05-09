@@ -84,7 +84,8 @@ passport.deserializeUser((username, done) => {
 const directory = {
     main: path.join(__dirname, "../public/html", "main.html"),
     admin: path.join(__dirname, "../public/html", "admin.html"),
-    login: path.join(__dirname, "../public/html", "login.html")
+    login: path.join(__dirname, "../public/html", "login.html"),
+    index: path.join(__dirname, "../public/html", "index.html")
 };
 
 /* ------------------------------ Middleware Function ------------------------------ */
@@ -98,7 +99,6 @@ function isSignedIn(req, res, next) {
 
 /* ------------------------------ Routers ------------------------------ */
 // sign-in => redirect by users' role
-
 router.get("/main", isSignedIn, (req, res) => {
     // if user.role is admin, show admin.html
     if (req.user.role === "admin") {
@@ -151,6 +151,18 @@ router.post("/login-process", passport.authenticate("local", {
 router.get("/sign-out", (req, res) => {
     req.logout();
     res.redirect("/");
+});
+
+// show landing page
+router.get("/", (req, res, next) => {
+    // middleware => logged in user cannot access landing page
+    if (!req.user) {
+        next();
+    } else {
+        res.redirect(`/main?username=${req.user.username}`);
+    }
+}, (req, res) => {
+    res.sendFile(directory.index);
 });
 
 /* ------------------------------ Export Module ------------------------------ */

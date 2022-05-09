@@ -26,9 +26,9 @@ const directory = {
 
 /* ------------------------------ Routers ------------------------------ */
 // show landing page
-router.get("/", (req, res) => {
-    res.sendFile(directory.index);
-});
+// router.get("/", (req, res) => {
+//     res.sendFile(directory.index);
+// });
 
 // show signup page
 router.get("/sign-up", (req, res) => {
