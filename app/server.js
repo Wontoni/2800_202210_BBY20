@@ -10,6 +10,10 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// fs
+const fs = require("fs");
+//JSDOM
+const {JSDOM} = require("jsdom");
 // security middleware
 app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -28,7 +32,6 @@ MongoClient.connect(URL, (error, client) => {
         db = client.db("Unified");
     }
 });
-app.db = db;
 
 /* ------------------------------ Static Path ------------------------------ */
 app.use("/public", express.static("public"));

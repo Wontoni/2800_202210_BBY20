@@ -6,6 +6,10 @@ const express = require("express");
 const router = express.Router();
 // path
 const path = require("path");
+// fs
+const fs = require("fs");
+//JSDOM
+const {JSDOM} = require("jsdom");
 // session
 const session = require("express-session");
 router.use(session({
@@ -22,7 +26,6 @@ const flash = require("connect-flash");
 router.use(flash());
 // passport
 const passport = require("passport");
-const { Template } = require("ejs");
 router.use(passport.initialize());
 router.use(passport.session());
 // LocalStrategy
@@ -93,7 +96,7 @@ function isSignedIn(req, res, next) {
     if (req.user) {
         next()
     } else {
-        res.redirect("/");
+        res.redirect("/login");
     }
 };
 
@@ -114,6 +117,7 @@ router.get("/main", isSignedIn, (req, res) => {
         });
         // if user.role is regular, show main.html
     } else if (req.user.role === "regular") {
+
         var name = "";
         name = req.user.username;
         var html = regularTemplate.HTML(name);
@@ -163,6 +167,16 @@ router.get("/", (req, res, next) => {
     }
 }, (req, res) => {
     res.sendFile(directory.index);
+});
+
+// show profile page
+router.get("/profile", isSignedIn, (req, res) => {
+    const profile = fs.readFileSync(directory.main);
+    const profileHTML = new JSDOM(profile);
+    profileHTML.window.document.getElementById("username").innerHTML = req.user.username;
+    res.set("BBY-20", "Unified");
+    res.set("CST", "COMP2537");
+    res.send(profileHTML.serialize());
 });
 
 /* ------------------------------ Export Module ------------------------------ */
