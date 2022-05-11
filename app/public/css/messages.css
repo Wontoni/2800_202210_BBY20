@@ -1,0 +1,143 @@
+.container {
+    display: grid;
+    grid-template-columns: 20vw 80vw;
+    grid-template-rows: 10vh 15vh 70vh 5vh;
+}
+
+.msgNav {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 1;
+    background-color: #F85C3A;
+    background-image: url(../assets/logo/un-logo-mini_lightOrange.svg);
+    background-size: 50px;
+    padding: 1rem;
+}
+
+.friendTitle {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+
+    font-family: "obviously-wide";
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 30px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.leftFriends {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 2;
+    border-right: 1px solid black;
+    overflow-y: scroll;
+}
+
+.rightMsg {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 2;
+
+    overflow-y: scroll;
+}
+
+.sendMsg {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+}
+
+/** Nav Styling */
+
+.navHamburger {
+    text-align: left;
+}
+
+.navHamburger span:hover {
+    cursor: pointer;
+}
+
+/** Friends List Styling */
+
+.searchIcon {
+    background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
+    background-size: 20px;
+    background-position-x: 7px;
+}
+
+.sForm {
+    display: flex;
+    padding-left: 2rem;
+}
+
+.sForm input[type=text] {
+    padding: 5px 35px;
+    width: 65%;
+    border: 0px;
+    border-radius: 5px;
+    background-color: white;
+    width: 13vw;
+    height: 35px;
+}
+
+#addFriends {
+    font-size: 2rem;
+}
+
+.friendItem {
+    display: flex;
+    padding-left: 1rem;
+}
+
+#profilePic {
+    font-size: 4rem;
+}
+
+#friendName {
+    font-size: 20px;
+    align-self: center;
+    padding-left: 1rem;
+}
+
+/** Scrollbar Styling */
+
+.leftFriends::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leftFriends::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.leftFriends::-webkit-scrollbar-thumb {
+    background: #F85C3A;
+    border-radius: 10px;
+}
+
+.leftFriends::-webkit-scrollbar-thumb:hover {
+    background: #ff481f;
+}
+
+/** Messages Styling */
+
+.sForm input[name=message] {
+    padding: 5px 20px;
+    width: 65%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    width: 70vw;
+    height: 35px;
+}
+
+#sendBtn{
+    font-size: 2rem;
+    padding-left: 1rem;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#sendBtn:hover {
+    cursor: pointer;
+}
