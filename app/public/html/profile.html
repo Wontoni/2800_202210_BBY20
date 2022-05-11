@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/profile.css">
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <nav class="profileNav">
+            <div class="navHamburger"><span class="material-icons">menu</span></div>
+            <div class="navButton"><button class="navSignout" id="sign-out">Sign Out</button></div>
+        </nav>
+
+        <div class="account-head">
+            <div class="profile">
+                <span class="material-icons">account_circle</span>
+            </div>
+        </div>
+
+        <div class="account-body">
+            <!-- Pull accounts full name from database here -->
+            <h2 class="h2" id="userAccTitle"></h2>
+
+            <!-- Add values to the form for current user information -->
+            <div id="signUpForm">
+                <div class="form-group">
+                    <label for="userFullName">Name</label>
+                    <input type="text" class="input" id="userFullName" placeholder="Change your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="userName">Username</label>
+                    <input type="tel" class="input" id="username" placeholder="Change your username">
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" class="input" id="userEmail" placeholder="Change your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">School</label>
+                    <input type="email" class="input" id="userEmail" placeholder="What school do you go to?">
+                </div>
+
+                <button type="button" class="primary-button" onclick="updateAccount()">Save</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Custom JS -->
+    <script src="/public/js/skeleton.js"></script>
+    <script src="/public/js/global.js"></script>
+    <script src="../../public/js/profile.js"></script>
+</body>
+
+</html>
