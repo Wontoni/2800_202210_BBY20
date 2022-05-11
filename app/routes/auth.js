@@ -17,15 +17,15 @@ router.use(session({
     resave: true,
     saveUninitialized: false
 }));
+// html templates
+var regularTemplate = require('../public/templates/regular');
+var adminTemplate = require('../public/templates/admin');
+var loginTemplate = require('../public/templates/login');
 // flash
 const flash = require("connect-flash");
 router.use(flash());
 // passport
 const passport = require("passport");
-router.use(passport.initialize());
-router.use(passport.session());
-// LocalStrategy
-const LocalStrategy = require("passport-local").Strategy;
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -37,46 +37,6 @@ MongoClient.connect(URL, (error, client) => {
     } else {
         db = client.db("Unified");
     }
-});
-
-/* ------------------------- Auth Strategy ------------------------- */
-passport.use(new LocalStrategy({
-    usernameField: "username",
-    passwordField: "password",
-    session: true,
-    passReqToCallback: false
-}, (inputUsername, inputPassword, done) => {
-    db.collection("BBY_20_User").findOne({
-        username: inputUsername
-    }, (error, result) => {
-        if (error) {
-            return done(error);
-        }
-        if (!result) {
-            return done(null, false, {
-                message: "Incorrect username"
-            });
-        }
-        if (inputPassword == result.password) {
-            return done(null, result);
-        } else {
-            return done(null, false, {
-                message: "Incorrect password"
-            });
-        }
-    })
-}));
-
-/* ------------------------- Session Data ------------------------- */
-passport.serializeUser((user, done) => {
-    done(null, user.username);
-});
-passport.deserializeUser((username, done) => {
-    db.collection("BBY_20_User").findOne({
-        username: username
-    }, (error, result) => {
-        done(null, result);
-    });
 });
 
 /* ------------------------------ File Directories ------------------------------ */
@@ -176,13 +136,17 @@ router.get("/", (req, res, next) => {
 // show profile page
 router.get("/profile", (req, res) => {
     if (!req.user) {
-        res.sendFile(directory.login);
+        res.redirect("/login");
     } else {
         const profile = fs.readFileSync(directory.profile);
         const profileHTML = new JSDOM(profile);
-        profileHTML.window.document.getElementById("username").innerHTML = req.user.username;
-        res.set("Developed by", "BBY-20");
-        res.set("BCIT CST", "COMP2537");
+        console.log(req.user);
+        profileHTML.window.document.getElementById("username").setAttribute("value", `${req.user.username}`);
+        profileHTML.window.document.getElementById("userEmail").setAttribute("value", `${req.user.email}`);
+        profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
+        profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
+        res.set("Developed-By", "BBY-20");
+        res.set("BCIT-CST", "COMP2537");
         res.send(profileHTML.serialize());
     }
 });

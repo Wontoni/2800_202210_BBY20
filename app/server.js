@@ -10,10 +10,6 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// fs
-const fs = require("fs");
-//JSDOM
-const {JSDOM} = require("jsdom");
 // security middleware
 app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -21,6 +17,56 @@ app.use(function (req, res, next) {
     res.header('Pragma', 'no-cache');
     next();
 });
+// session
+const session = require("express-session");
+app.use(session({
+    secret: "BBY-20-Unified",
+    resave: true,
+    saveUninitialized: false
+}));
+// passport
+const passport = require("passport");
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => {
+    done(null, user.username);
+});
+passport.deserializeUser((username, done) => {
+    db.collection("BBY_20_User").findOne({
+        username: username
+    }, (error, result) => {
+        done(null, result);
+    });
+});
+// LocalStrategy
+const LocalStrategy = require("passport-local").Strategy;
+passport.use(new LocalStrategy({
+    usernameField: "username",
+    passwordField: "password",
+    session: true,
+    passReqToCallback: false
+}, (inputUsername, inputPassword, done) => {
+    db.collection("BBY_20_User").findOne({
+        username: inputUsername
+    }, (error, result) => {
+        if (error) {
+            return done(error);
+        }
+        if (!result) {
+            return done(null, false, {
+                message: "Incorrect username"
+            });
+        }
+        if (inputPassword == result.password) {
+            return done(null, result);
+        } else {
+            return done(null, false, {
+                message: "Incorrect password"
+            });
+        }
+    })
+}));
+
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
 const URL = "mongodb+srv://bby20:unified20@cluster0.wphdm.mongodb.net/Unified?retryWrites=true&w=majority";
