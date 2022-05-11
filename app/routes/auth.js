@@ -88,7 +88,8 @@ const directory = {
     main: path.join(__dirname, "../public/html", "main.html"),
     admin: path.join(__dirname, "../public/html", "admin.html"),
     login: path.join(__dirname, "../public/html", "login.html"),
-    index: path.join(__dirname, "../public/html", "index.html")
+    index: path.join(__dirname, "../public/html", "index.html"),
+    profile: path.join(__dirname, "../public/html", "profile.html")
 };
 
 /* ------------------------------ Middleware Function ------------------------------ */
@@ -170,13 +171,17 @@ router.get("/", (req, res, next) => {
 });
 
 // show profile page
-router.get("/profile", isSignedIn, (req, res) => {
-    const profile = fs.readFileSync(directory.main);
-    const profileHTML = new JSDOM(profile);
-    profileHTML.window.document.getElementById("username").innerHTML = req.user.username;
-    res.set("BBY-20", "Unified");
-    res.set("CST", "COMP2537");
-    res.send(profileHTML.serialize());
+router.get("/profile", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const profile = fs.readFileSync(directory.profile);
+        const profileHTML = new JSDOM(profile);
+        profileHTML.window.document.getElementById("username").innerHTML = req.user.username;
+        res.set("Developed by", "BBY-20");
+        res.set("BCIT CST", "COMP2537");
+        res.send(profileHTML.serialize());
+    }
 });
 
 /* ------------------------------ Export Module ------------------------------ */
