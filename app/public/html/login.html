@@ -28,6 +28,7 @@
                     <div class="login-form">
                         <h2>Welcome back</h2>
                         <form action="/login-process" method="POST">
+                            <div class="errorMsg" id="errorMsg"></div>
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="input" id="username" name="username"
@@ -43,7 +44,6 @@
                             </div>
 
                             <button type="submit" class="primary-button">Login</button>
-                            <button type="submit" id="test" class="primary-button">LoginTest</button>
                         </form>
                         <p>Don't have an account yet? <a href="/sign-up" class="text-button">Sign Up Now</a></p>
                     </div>
@@ -55,26 +55,7 @@
             </div>
         </div>
     </div>
-    <!-- Custom JS -->
-    <script>
-        document.querySelector("#test").addEventListener("click", () => {
-            fetch("/login-process", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: document.getElementsByName("username").value,
-                    password: document.getElementsByName("password").value
-                })
-            });
-            // .then((res) => {
-            //     res.json();
-            // }).then((res) => {
-                
-            // });
-        });
-    </script>
+    
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
 </body>

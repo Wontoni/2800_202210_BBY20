@@ -17,10 +17,6 @@ router.use(session({
     resave: true,
     saveUninitialized: false
 }));
-// html templates
-var regularTemplate = require('../public/templates/regular');
-var adminTemplate = require('../public/templates/admin');
-var loginTemplate = require('../public/templates/login');
 // flash
 const flash = require("connect-flash");
 router.use(flash());
@@ -113,16 +109,21 @@ router.get("/main", isSignedIn, (req, res) => {
             for (var i = 0; i < result.length; i++) {
                 list += JSON.stringify(result[i]) + button + next;
             }
-            var html = adminTemplate.HTML(list);
-            res.send(html);
+            const admin = fs.readFileSync(directory.admin);
+            const adminHTML = new JSDOM(admin);
+            adminHTML.window.document.getElementById("username").innerHTML = req.user.username;
+            adminHTML.window.document.getElementById("user-list").innerHTML = list;
+
+            res.send(adminHTML.serialize());
         });
         // if user.role is regular, show main.html
     } else if (req.user.role === "regular") {
-
         var name = "";
         name = req.user.username;
-        var html = regularTemplate.HTML(name);
-        res.send(html);
+        const main = fs.readFileSync(directory.main);
+        const mainHTML = new JSDOM(main);
+        mainHTML.window.document.getElementById("username").innerHTML = name;
+        res.send(mainHTML.serialize());
     }
 });
 
@@ -140,8 +141,10 @@ router.get("/login", (req, res, next) => {
     if (msg.error) {
         feedback = msg.error[0];
     }
-    var html = loginTemplate.HTML(feedback);
-    res.send(html);
+    const login = fs.readFileSync(directory.login);
+    const loginHTML = new JSDOM(login);
+    loginHTML.window.document.getElementById("errorMsg").innerHTML = feedback;
+    res.send(loginHTML.serialize());
 });
 
 //authenticate
