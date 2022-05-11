@@ -1,8 +1,11 @@
 "use strict";
 
 /* ------------------------------ Module ------------------------------ */
+// express
 const express = require("express");
+// Router
 const router = express.Router();
+// path
 const path = require("path");
 
 /* ------------------------------ DB Setting ------------------------------ */
@@ -25,18 +28,13 @@ const directory = {
 };
 
 /* ------------------------------ Routers ------------------------------ */
-// show landing page
-// router.get("/", (req, res) => {
-//     res.sendFile(directory.index);
-// });
-
 // show signup page
 router.get("/sign-up", (req, res) => {
     res.sendFile(directory.signup);
 });
 
 // sign-up => register user info in the database
-router.post('/register', (req, res) => {
+router.post('/signup-process', (req, res) => {
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
         // add a user
         let totalUsers = result.totalUser;
@@ -45,6 +43,7 @@ router.post('/register', (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
+            school: "",
             role: "regular"
         }, (error, result) => {
             // increment the total number of users
