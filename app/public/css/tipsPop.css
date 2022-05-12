@@ -2,6 +2,7 @@
     margin: 0%;
     padding: 0%;
     font-family: "nunito-sans";
+    transition: width 2s, height 4s;
 }
 
 .tipsPop {
@@ -11,6 +12,12 @@
     border: 2px solid #F85C3A;
     border-radius: 20px;
     padding: 1rem;
+
+    max-width: 15vw;
+}
+
+.tipTitle {
+    font-family:"obviously-wide";
 }
 
 #readMore {
@@ -24,7 +31,7 @@
 
 #readLess {
     font-size: 0.7rem;
-    color: rgb(97, 86, 86)
+    color: blue;
 }
 
 #readLess:hover {
@@ -44,9 +51,23 @@
     font-size: 1rem;
     position: absolute;
     right: 0.5rem;
+    bottom: 0.5rem;
 }
 
 .closePop:hover {
     cursor: pointer;
     color: red;
+}
+
+/* Responsive */
+@media screen and (min-width: 401px) and (max-width: 1000px) {
+    .tipsPop {
+        max-width: 45vw;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .tipsPop {
+        max-width: 85vw;
+    }
 }
