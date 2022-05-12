@@ -1,0 +1,52 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    font-family: "nunito-sans";
+}
+
+.tipsPop {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    border: 2px solid #F85C3A;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+#readMore {
+    font-size: 0.7rem;
+    color: blue;
+}
+
+#readMore:hover {
+    cursor: pointer;
+}
+
+#readLess {
+    font-size: 0.7rem;
+    color: rgb(97, 86, 86)
+}
+
+#readLess:hover {
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+
+#createPopup {
+    margin: 2rem 2rem;
+}
+
+.closePop {
+    font-size: 1rem;
+    position: absolute;
+    right: 0.5rem;
+}
+
+.closePop:hover {
+    cursor: pointer;
+    color: red;
+}
