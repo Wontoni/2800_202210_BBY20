@@ -16,6 +16,7 @@
     "express-session": "^1.17.2",
     "fs": "^0.0.1-security",
     "helmet": "^5.0.2",
+    "jsdom": "^19.0.0",
     "mongodb": "^4.5.0",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0"
