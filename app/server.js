@@ -66,6 +66,9 @@ passport.use(new LocalStrategy({
         }
     })
 }));
+// flash
+const flash = require("connect-flash");
+app.use(flash());
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;

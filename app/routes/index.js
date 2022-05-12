@@ -7,6 +7,10 @@ const express = require("express");
 const router = express.Router();
 // path
 const path = require("path");
+// fs
+const fs = require("fs");
+// JSDOM
+const {JSDOM} = require("jsdom");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -23,17 +27,59 @@ MongoClient.connect(URL, (error, client) => {
 /* ------------------------------ File Directories ------------------------------ */
 const directory = {
     index: path.join(__dirname, "../public/html", "index.html"),
+    main: path.join(__dirname, "../public/html", "main.html"),
     signup: path.join(__dirname, "../public/html", "sign-up.html"),
-    login: path.join(__dirname, "../public/html", "login.html")
+    login: path.join(__dirname, "../public/html", "login.html"),
+    profile: path.join(__dirname, "../public/html", "profile.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
+// show landing page
+router.get("/", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.index);
+    } else {
+        res.redirect("/main");
+    }
+});
+
+// show main page by role
+router.get("/main", (req, res) => {
+    if (req.user) {
+        // admin => admin.html
+        if (req.user.role === "admin") {
+            db.collection("BBY_20_User").find().toArray((error, result) => {
+                var next = "<br><br>";
+                var button = "&nbsp<button>EDIT</button>";
+                var list = "";
+                for (var i = 0; i < result.length; i++) {
+                    list += JSON.stringify(result[i]) + button + next;
+                }
+                const admin = fs.readFileSync(directory.admin);
+                const adminHTML = new JSDOM(admin);
+                adminHTML.window.document.getElementById("username").innerHTML = req.user.username;
+                adminHTML.window.document.getElementById("user-list").innerHTML = list;
+    
+                res.send(adminHTML.serialize());
+            });
+        // regular => main.html
+        } else if (req.user.role === "regular") {
+            const main = fs.readFileSync(directory.main);
+            const mainHTML = new JSDOM(main);
+            mainHTML.window.document.getElementById("username").innerHTML = req.user.username;
+            res.send(mainHTML.serialize());
+        }
+    } else {
+        res.redirect("/login");
+    }
+});
+
 // show signup page
 router.get("/sign-up", (req, res) => {
     res.sendFile(directory.signup);
 });
 
-// sign-up => register user info in the database
+// signup process
 router.post('/signup-process', (req, res) => {
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
         // add a user
@@ -54,6 +100,21 @@ router.post('/signup-process', (req, res) => {
             });
         });
     });
+});
+
+// show profile page
+router.get("/profile", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const profile = fs.readFileSync(directory.profile);
+        const profileHTML = new JSDOM(profile);
+        profileHTML.window.document.getElementById("username").setAttribute("value", `${req.user.username}`);
+        profileHTML.window.document.getElementById("userEmail").setAttribute("value", `${req.user.email}`);
+        profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
+        profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
+        res.send(profileHTML.serialize());
+    }
 });
 
 /* ------------------------------ Export Module ------------------------------ */
