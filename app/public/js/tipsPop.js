@@ -5,7 +5,6 @@ function getRandomInt(upperBound) {
     return Math.floor(Math.random() * upperBound);
 }
 
-
 // Change this array to an array of items in the quick tips table
 let tips = [
     ["Get into a routine", "Getting into a routine lets you get used to studying, and helps make the transition to post-secondary much easier!"],
