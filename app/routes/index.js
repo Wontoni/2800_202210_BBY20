@@ -195,5 +195,10 @@ router.post('/create', (req, res) => {
     });
 });
 
+// edit page
+router.get("/edit", (req, res) => {
+    res.sendFile(directory.edit);
+});
+
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;

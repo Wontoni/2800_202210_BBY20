@@ -5,14 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Unified</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
+=======
+
+    <title>Dashboard | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+>>>>>>> c3b342627bd6b6c8090bb02e44a9226ef17f5080
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<<<<<<< HEAD
     <!-- Fonts (Obviously Wide + Nunito Sans) -->
     <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
 
@@ -20,11 +32,17 @@
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/profile.css">
 
+=======
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+>>>>>>> c3b342627bd6b6c8090bb02e44a9226ef17f5080
 </head>
 
 <body>
 
     <div class="wrapper">
+<<<<<<< HEAD
         <nav class="profileNav">
             <div class="navHamburger"><span class="material-icons">menu</span></div>
             <div class="navButton"><button class="navSignout" id="sign-out">Sign Out</button></div>
@@ -82,6 +100,105 @@
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
     <script src="../../public/js/profile.js"></script>
+=======
+        <div class="navbar nav">
+            <div class="account">
+                <div class="user-icon">
+                    <span class="material-icons">account_circle</span>
+                </div>
+                <div id="username"></div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="#">Home</a></li>
+                    <li><a class="link-animation" href="#">Friends</a></li>
+                    <li><a class="link-animation" href="#">Planner</a></li>
+                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="#">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out" id="sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                    width="125px">
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>Dashboard</h1>
+
+            <div class="container">
+                <!-- <div class="users" id="listTemplate">
+                    <div class="total-users" id="total-users">
+                    </div>
+
+                    <div class="user" id="userTemplate">
+                        <div class="user-icon">
+                            <span class="material-icons">account_circle</span>
+                        </div>
+                        <div class="user-info">
+                            <div id="name"></div>
+                            <div class="rest">
+                                <div id="email"></div>
+                                <div id="password"></div>
+                                <div id="role"></div>
+                                <span class="admin">Admin</span>
+                            </div>
+                        </div>
+
+                        <div class="user-more">
+                            <button class="delete" id="number">Delete</button>
+                            <button id="number" href="/edit">Edit</button>
+                            <span class="material-icons">more_vert</span>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="create-user">
+                    <h1>Edit User</h1>
+
+                    <div class="form">
+                        <form action="//profile-edit?_method=PUT" method="POST">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="tel" class="input" id="username" name="username"
+                                    placeholder="Change username">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userEmail">Email</label>
+                                <input type="email" class="input" id="userEmail" name="email"
+                                    placeholder="Change email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userPassword">Password</label>
+                                <input type="text" class="input" id="userPassword" name="password"
+                                    placeholder="Change password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userSchool">School</label>
+                                <input type="text" class="input" id="userSchool" name="school"
+                                    placeholder="Change school">
+                            </div>
+
+                            <button type="submit" class="primary-button">Save</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="/public/js/admin.js"></script>
+>>>>>>> c3b342627bd6b6c8090bb02e44a9226ef17f5080
 </body>
 
 </html>
