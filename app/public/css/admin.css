@@ -2,11 +2,6 @@
     height: 150vh;
 }
 
-.content {
-    margin-left: 20rem;
-    padding: 1rem 2.5rem;
-}
-
 .content .search {
     position: relative;
     margin-top: 1.5rem;
@@ -34,7 +29,7 @@
 
 .content .users {
     width: 60%;
-    min-width: 25rem;
+    min-width: 20rem;
 }
 
 .content .user {
@@ -80,25 +75,26 @@
 
 .content .user .user-more {
     display: flex;
+    gap: 1.5rem;
     align-items: center;
+    cursor: pointer;
 }
 
 .content .create-user {
     width: 40%;
-    min-width: 25rem;
+    min-width: 22rem;
     margin-left: 3rem;
     padding: 1rem 1rem 2rem;
     border: 1px solid #e5e5e5;
     border-radius: 2rem;
 }
 
-.content h1 {
-    text-align: center;
+.content .create-user h1 {
     margin-bottom: 1rem;
 }
 
 .content .form {
-    padding-inline: 3rem;
+    padding-inline: 2rem;
 }
 
 .content .input {
@@ -111,15 +107,28 @@
     width: 100%;
 }
 
+/* Laptop */
 @media only screen and (max-width: 1250px) {
     .content .container {
         flex-direction: column;
+        margin-top: 2rem;
     }
     .content .users {
         width: 100%;
     }
     .content .create-user {
+        width: 60%;
         margin: auto;
         margin-top: 4rem;
+    }
+    .content .form {
+        padding-inline: 1rem;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .content .create-user {
+        margin-top: 2rem;
     }
 }
