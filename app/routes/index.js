@@ -10,7 +10,7 @@ const path = require("path");
 // fs
 const fs = require("fs");
 // JSDOM
-const {JSDOM} = require("jsdom");
+const { JSDOM } = require("jsdom");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -44,40 +44,6 @@ router.get("/", (req, res) => {
     }
 });
 
-// // show main page by role
-// router.get("/main", (req, res) => {
-//     if (req.user) {
-//         // admin => admin.html
-//         if (req.user.role === "admin") {
-//             var userTemplate = document.getElementById("userTemplate");
-//             var listTemplate = document.getElementById("listTemplate");
-//             db.collection("BBY_20_User").find().toArray((error, result) => {
-                
-//                 var next = "<br><br>";
-//                 var button = "&nbsp<button>EDIT</button>";
-//                 var list = "";
-//                 for (var i = 0; i < result.length; i++) {
-//                     list += JSON.stringify(result[i]) + button + next;
-//                 }
-//                 const admin = fs.readFileSync(directory.admin);
-//                 const adminHTML = new JSDOM(admin);
-//                 adminHTML.window.document.getElementById("username").innerHTML = req.user.username;
-//                 adminHTML.window.document.getElementById("user-list").innerHTML = list;
-//                 adminHTML.window.document.getElementById("total-users").innerHTML = result.length + " users";
-//                 res.send(adminHTML.serialize());
-//             });
-//         // regular => main.html
-//         } else if (req.user.role === "regular") {
-//             const main = fs.readFileSync(directory.main);
-//             const mainHTML = new JSDOM(main);
-//             mainHTML.window.document.getElementById("username").innerHTML = req.user.username;
-//             res.send(mainHTML.serialize());
-//         }
-//     } else {
-//         res.redirect("/login");
-//     }
-// });
-
 // show main page by role
 router.get("/main", (req, res) => {
     if (req.user) {
@@ -89,12 +55,14 @@ router.get("/main", (req, res) => {
             var listTemplate = adminHTML.window.document.getElementById("listTemplate");
             db.collection("BBY_20_User").find().toArray((error, result) => {
                 for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
                     var username = result[i].username;
                     var email = result[i].email;
                     var password = result[i].password;
                     var role = result[i].role;
                     var userInfo = userTemplate.cloneNode(true);
                     userTemplate.remove();
+                    userInfo.querySelector("#number").setAttribute("data-number", `${number}`);
                     userInfo.querySelector("#name").innerHTML = username;
                     userInfo.querySelector("#email").innerHTML = email;
                     userInfo.querySelector("#password").innerHTML = password;
@@ -105,7 +73,7 @@ router.get("/main", (req, res) => {
                 adminHTML.window.document.getElementById("total-users").innerHTML = result.length + " users";
                 res.send(adminHTML.serialize());
             });
-        // regular => main.html
+            // regular => main.html
         } else if (req.user.role === "regular") {
             const main = fs.readFileSync(directory.main);
             const mainHTML = new JSDOM(main);
@@ -158,6 +126,31 @@ router.get("/profile", (req, res) => {
         profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
         res.send(profileHTML.serialize());
     }
+});
+
+router.delete('/delete', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_User').findOne({ _id: req.body._id }, (error, result) => {
+        if (result.role === "admin") {
+            db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
+                if (result.totalAdmin === 1) {
+                    res.redirect('/admin');
+                } else {
+                    db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
+                        db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
+                            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } });
+                        });
+                    });
+                }
+            });
+        } else if (result.role === "regular") {
+            db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
+                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } });
+            });
+        } else {
+            res.redirect('/admin');
+        }
+    });
 });
 
 /* ------------------------------ Export Module ------------------------------ */
