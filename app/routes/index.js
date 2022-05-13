@@ -32,7 +32,8 @@ const directory = {
     login: path.join(__dirname, "../public/html", "login.html"),
     profile: path.join(__dirname, "../public/html", "profile.html"),
     admin: path.join(__dirname, "../public/html", "admin.html"),
-    friend: path.join(__dirname, "../public/html", "friends.html")
+    friend: path.join(__dirname, "../public/html", "friends.html"),
+    edit: path.join(__dirname, "../public/html", "edit.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -117,43 +118,77 @@ router.post('/signup-process', (req, res) => {
     });
 });
 
+// show profile page
+router.get("/profile", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const profile = fs.readFileSync(directory.profile);
+        const profileHTML = new JSDOM(profile);
+        profileHTML.window.document.getElementById("username").setAttribute("value", `${req.user.username}`);
+        profileHTML.window.document.getElementById("userEmail").setAttribute("value", `${req.user.email}`);
+        profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
+        profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
+        res.send(profileHTML.serialize());
+    }
+});
+
+// delete a user
 router.delete('/delete', (req, res) => {
     req.body._id = parseInt(req.body._id);
     db.collection('BBY_20_User').findOne({ _id: req.body._id }, (error, result) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
                 if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
-                    res.redirect('/admin');
+                    // res.redirect("/main");
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
                         // decrement the total number of users
                         db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
                             // decrement the total number of admin users
-                            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } });
+                            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } }, (error, result) => {
+                                // res.redirect("/main");
+                            });
                         });
                     });
                 }
             });
         } else if (result.role === "regular") {
             db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } });
+                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
+                    // res.redirect("/main");
+                });
             });
-        } else {
-            res.redirect('/admin');
         }
     });
 });
 
-// show friends/messages page
-router.get("/friends", (req, res) => {
-    if (!req.user) {
-        res.redirect("/login");
-    } else {
-        const friends = fs.readFileSync(directory.friend);
-        const friendsHTML = new JSDOM(friends);
+// create a user
+router.post('/create', (req, res) => {
+    db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
+        // add a user
+        let totalUsers = result.totalUser;
+        db.collection('BBY_20_User').insertOne({
+            _id: totalUsers + 1,
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            school: "",
+            role: "regular"
+        }, (error, result) => {
+            // increment the total number of users
+            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
+                if (result.acknowledged) {
+                    res.redirect("/main");
+                }
+            });
+        });
+    });
+});
 
-        res.send(friendsHTML.serialize());
-    }
+// edit page
+router.get("/edit", (req, res) => {
+    res.sendFile(directory.edit);
 });
 
 /* ------------------------------ Export Module ------------------------------ */

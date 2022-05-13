@@ -83,7 +83,7 @@
 }
 
 .content .user .user-more {
-    display: flex;
+    /* display: flex; */
     align-items: center;
 }
 
