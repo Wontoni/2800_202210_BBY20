@@ -59,12 +59,16 @@
     flex-grow: 5;
 }
 
-.content .user h4 {
+.content .user #name {
+    font-family: obviously-wide, sans-serif;
     margin-top: -0.15rem;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .content .user .rest {
-    display: flex;
+    /* display: flex; */
+    color: var(--paragraph);
     align-items: center;
     padding-top: 0.25rem;
 }
