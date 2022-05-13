@@ -39,10 +39,17 @@
         <div class="account-body">
             <!-- Pull accounts full name from database here -->
             <h2 class="h2" id="userAccTitle"></h2>
+            
+
 
             <!-- Add values to the form for current user information -->
             <div id="signUpForm">
-                <form action="profile-process" method="POST">   
+                <form action="/upload-process" method="POST" enctype="multipart/form-data">
+                    <input type="file" id="avatar" name="avatar">
+                    <input type="submit" value="upload">
+                </form>
+
+                <form action="/profile-edit?_method=PUT" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="tel" class="input" id="username" name="username" placeholder="Change your username">
@@ -60,10 +67,10 @@
     
                     <div class="form-group">
                         <label for="userSchool">School</label>
-                        <input type="email" class="input" id="userSchool" name="school" placeholder="What school do you go to?">
+                        <input type="text" class="input" id="userSchool" name="school" placeholder="What school do you go to?">
                     </div>
     
-                    <button type="submit" class="primary-button" onclick="updateAccount()">Save</button>
+                    <button type="submit" class="primary-button">Save</button>
                 </form>
             </div>
 
