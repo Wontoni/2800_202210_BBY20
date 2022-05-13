@@ -101,7 +101,7 @@ router.post('/signup-process', (req, res) => {
             email: req.body.email,
             password: req.body.password,
             school: "",
-            avatar: "",
+            avatar: "public/assets/upload/default-avatar.png",
             role: "regular"
         }, (error, result) => {
             // increment the total number of users
