@@ -2,7 +2,7 @@
     min-height: 120vh;
 }
 
-.profileNav {
+/* .profileNav {
     display: inline-block;
     height: 5vh;
     width: 99vw;
@@ -31,7 +31,7 @@
 
 .navButton button:hover {
     cursor: pointer;
-}
+} */
 
 .account-head {
     height: 30vh;

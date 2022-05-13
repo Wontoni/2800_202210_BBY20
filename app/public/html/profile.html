@@ -25,10 +25,29 @@
 <body>
 
     <div class="wrapper">
-        <nav class="profileNav">
-            <div class="navHamburger"><span class="material-icons">menu</span></div>
-            <div class="navButton"><button class="navSignout" id="sign-out">Sign Out</button></div>
-        </nav>
+        <div class="navbar nav">
+            <div class="account">
+                <div class="user-icon">
+                    <span class="material-icons">account_circle</span>
+                </div>
+                <div id="username"></div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="/">Home</a></li>
+                    <li><a class="link-animation" href="#">Friends</a></li>
+                    <li><a class="link-animation" href="#">Planner</a></li>
+                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="#">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out" id="sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="../../public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White" width="125px">
+            </div>
+        </div>
 
         <div class="account-head">
             <div class="profile">
