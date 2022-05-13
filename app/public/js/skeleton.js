@@ -1,5 +1,5 @@
 function loadSkeleton(){
-    $('#navTemplate').load('/nav.html');
+    $('#navTemplate').load('../../public/html/nav.html');
 }
 
 loadSkeleton();
