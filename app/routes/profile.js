@@ -18,7 +18,8 @@ const storage = multer.diskStorage({
         cb(null, "public/assets/upload/");
     },
     filename : (req, file, cb) => {
-        cb(null, req.user._id + "-" + req.user.username + "-" + new Date());
+        let ext = path.extname(file.originalname);
+        cb(null, req.user._id + "_" + req.user.username + ext);
     }
     // filefilter
 });
@@ -56,6 +57,7 @@ router.get("/profile", (req, res) => {
     } else {
         const profile = fs.readFileSync(directory.profile);
         const profileHTML = new JSDOM(profile);
+        profileHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         profileHTML.window.document.getElementById("username").setAttribute("value", `${req.user.username}`);
         profileHTML.window.document.getElementById("userEmail").setAttribute("value", `${req.user.email}`);
         profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
@@ -66,25 +68,23 @@ router.get("/profile", (req, res) => {
 
 // post avatar
 router.post("/upload-process", upload.single("avatar"), (req, res) => {
-    // db에서 _id == req.user인 데이타 찾아
-    // 속성에 이미지 이름 넣어
     if (req.user) {
+        console.log(req.user);
         db.collection("BBY_20_User").updateOne({
             _id : req.user._id
         }, {
-            
+            $set : {
+                avatar : req.file.destination + req.file.filename
+            }
         }, (error, result) => {
+            res.redirect("/profile");
         })
     }
-    res.send("success");
 });
 
 // update user profile
 router.put("/profile-edit", (req, res) => {
     if (req.user) {
-        console.log(req.user, req.body);
-        const profile = fs.readFileSync(directory.profile);
-        const profileHTML = new JSDOM(profile);
         db.collection("BBY_20_User").updateOne({
             username : req.user.username
         }, {

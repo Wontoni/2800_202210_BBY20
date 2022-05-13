@@ -97,6 +97,7 @@ app.use("/", authRoute);
 
 const profileRoute = require("./routes/profile");
 app.use("/", profileRoute);
+app.use("/profile", profileRoute);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);
