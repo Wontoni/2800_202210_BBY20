@@ -133,11 +133,13 @@ router.delete('/delete', (req, res) => {
     db.collection('BBY_20_User').findOne({ _id: req.body._id }, (error, result) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
-                if (result.totalAdmin === 1) {
+                if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
                     res.redirect('/admin');
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
+                        // decrement the total number of users
                         db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
+                            // decrement the total number of admin users
                             db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } });
                         });
                     });
