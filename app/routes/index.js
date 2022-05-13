@@ -31,7 +31,8 @@ const directory = {
     signup: path.join(__dirname, "../public/html", "sign-up.html"),
     login: path.join(__dirname, "../public/html", "login.html"),
     profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html")
+    admin: path.join(__dirname, "../public/html", "admin.html"),
+    edit: path.join(__dirname, "../public/html", "edit.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -179,6 +180,11 @@ router.post('/create', (req, res) => {
             });
         });
     });
+});
+
+// edit page
+router.get("/edit", (req, res) => {
+    res.sendFile(directory.edit);
 });
 
 /* ------------------------------ Export Module ------------------------------ */
