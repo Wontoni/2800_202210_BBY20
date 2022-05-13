@@ -79,6 +79,8 @@ router.get("/main", (req, res) => {
             const main = fs.readFileSync(directory.main);
             const mainHTML = new JSDOM(main);
             mainHTML.window.document.getElementById("username").innerHTML = req.user.username;
+            mainHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
+
             res.send(mainHTML.serialize());
         }
     } else {

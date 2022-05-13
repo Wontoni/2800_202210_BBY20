@@ -2,37 +2,6 @@
     min-height: 120vh;
 }
 
-/* .profileNav {
-    display: inline-block;
-    height: 5vh;
-    width: 99vw;
-    padding: 1rem;
-    position: absolute;
-}
-
-.navHamburger {
-    text-align: left;
-}
-
-.navHamburger span:hover {
-    cursor: pointer;
-}
-
-.navButton {
-    text-align: right;
-}
-
-.navButton button{
-    color: #F85C3A;
-    padding: 0.7rem 1.2rem;
-    border-radius: 0.5rem;
-    transition: all .25s ease;
-}
-
-.navButton button:hover {
-    cursor: pointer;
-} */
-
 .account-head {
     height: 30vh;
     background-color: #F85C3A;
@@ -100,10 +69,27 @@
     margin-top: 2rem;
 }
 
+.homeBtn {
+    display: none;
+}
+
+#backBtn a{
+    text-decoration: none;
+    color: black;
+}
+
 /* Responsive */
 @media screen and (max-width: 991px) {
     .account-body #signUpForm {
         width: 60%;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .homeBtn {
+        display: inherit;
     }
 }
 

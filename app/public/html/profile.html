@@ -16,6 +16,9 @@
     <!-- Fonts (Obviously Wide + Nunito Sans) -->
     <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
 
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/profile.css">
@@ -23,9 +26,8 @@
 </head>
 
 <body>
-
     <div class="wrapper">
-        <div class="navbar nav">
+        <div class="navbar nav close">
             <div class="account">
                 <div class="user-icon">
                     <span class="material-icons">account_circle</span>
@@ -45,20 +47,21 @@
             </div>
 
             <div class="foot">
-                <img src="../../public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White" width="125px">
+                <img src="../../public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                    width="125px">
             </div>
         </div>
 
         <div class="account-head">
             <div class="profile">
-                <img src="../public/assets/upload/Default-Profile-Picture-Download-PNG-Image.png" alt="avatar-image" id="userAvatar">
+                <img src="" alt="avatar-image" id="userAvatar">
             </div>
         </div>
 
         <div class="account-body">
             <!-- Pull accounts full name from database here -->
             <h2 class="h2" id="userAccTitle"></h2>
-            
+
 
 
             <!-- Add values to the form for current user information -->
@@ -71,9 +74,10 @@
                 <form action="/profile-edit?_method=PUT" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="tel" class="input" id="username" name="username" placeholder="Change your username">
+                        <input type="tel" class="input" id="username" name="username"
+                            placeholder="Change your username">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="userEmail">Email</label>
                         <input type="email" class="input" id="userEmail" name="email" placeholder="Change your email">
@@ -81,15 +85,18 @@
 
                     <div class="form-group">
                         <label for="userPassword">Password</label>
-                        <input type="text" class="input" id="userPassword" name="password" placeholder="Change your password">
+                        <input type="text" class="input" id="userPassword" name="password"
+                            placeholder="Change your password">
                     </div>
-    
+
                     <div class="form-group">
                         <label for="userSchool">School</label>
-                        <input type="text" class="input" id="userSchool" name="school" placeholder="What school do you go to?">
+                        <input type="text" class="input" id="userSchool" name="school"
+                            placeholder="What school do you go to?">
                     </div>
-    
+
                     <button type="submit" class="primary-button">Save</button>
+                    <button id="backBtn"><a href="/">Back</a></button>
                 </form>
             </div>
 
@@ -100,7 +107,8 @@
     <!-- Custom JS -->
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
-    <script src="../../public/js/profile.js"></script>
+    <script src="/public/js/profile.js"></script>
+    <script src="/public/js/profileMenu.js"></script>
 </body>
 
 </html>
