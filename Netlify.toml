@@ -15,7 +15,7 @@
   publish = "2800_202210_BBY20/app/"
 
   # Default build command.
-  command = "echo 'build'"
+  command = “CI= npm run build”
 
 [[plugins]]
   # Installs the Lighthouse Build Plugin for all deploy contexts
