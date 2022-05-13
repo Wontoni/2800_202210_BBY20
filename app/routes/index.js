@@ -31,7 +31,8 @@ const directory = {
     signup: path.join(__dirname, "../public/html", "sign-up.html"),
     login: path.join(__dirname, "../public/html", "login.html"),
     profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html")
+    admin: path.join(__dirname, "../public/html", "admin.html"),
+    friend: path.join(__dirname, "../public/html", "friends.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -139,6 +140,18 @@ router.delete('/delete', (req, res) => {
             res.redirect('/admin');
         }
     });
+});
+
+// show friends/messages page
+router.get("/friends", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const friends = fs.readFileSync(directory.friend);
+        const friendsHTML = new JSDOM(friends);
+
+        res.send(friendsHTML.serialize());
+    }
 });
 
 /* ------------------------------ Export Module ------------------------------ */
