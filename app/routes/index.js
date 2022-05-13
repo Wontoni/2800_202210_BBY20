@@ -10,7 +10,7 @@ const path = require("path");
 // fs
 const fs = require("fs");
 // JSDOM
-const {JSDOM} = require("jsdom");
+const { JSDOM } = require("jsdom");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -55,20 +55,25 @@ router.get("/main", (req, res) => {
             var listTemplate = adminHTML.window.document.getElementById("listTemplate");
             db.collection("BBY_20_User").find().toArray((error, result) => {
                 for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
                     var username = result[i].username;
                     var email = result[i].email;
-                    // var role = result[i].role;
+                    var password = result[i].password;
+                    var role = result[i].role;
                     var userInfo = userTemplate.cloneNode(true);
                     userTemplate.remove();
+                    userInfo.querySelector("#number").setAttribute("data-number", `${number}`);
                     userInfo.querySelector("#name").innerHTML = username;
                     userInfo.querySelector("#email").innerHTML = email;
+                    userInfo.querySelector("#password").innerHTML = password;
+                    userInfo.querySelector("#role").innerHTML = role;
                     listTemplate.appendChild(userInfo);
                 }
                 adminHTML.window.document.getElementById("username").innerHTML = req.user.username;
                 adminHTML.window.document.getElementById("total-users").innerHTML = result.length + " users";
                 res.send(adminHTML.serialize());
             });
-        // regular => main.html
+            // regular => main.html
         } else if (req.user.role === "regular") {
             const main = fs.readFileSync(directory.main);
             const mainHTML = new JSDOM(main);
@@ -121,6 +126,33 @@ router.get("/profile", (req, res) => {
         profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
         res.send(profileHTML.serialize());
     }
+});
+
+router.delete('/delete', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_User').findOne({ _id: req.body._id }, (error, result) => {
+        if (result.role === "admin") {
+            db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
+                if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
+                    res.redirect('/admin');
+                } else {
+                    db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
+                        // decrement the total number of users
+                        db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
+                            // decrement the total number of admin users
+                            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } });
+                        });
+                    });
+                }
+            });
+        } else if (result.role === "regular") {
+            db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
+                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } });
+            });
+        } else {
+            res.redirect('/admin');
+        }
+    });
 });
 
 /* ------------------------------ Export Module ------------------------------ */
