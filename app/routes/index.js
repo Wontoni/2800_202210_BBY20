@@ -141,6 +141,7 @@ router.delete('/delete', (req, res) => {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
                 if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
                     // res.redirect("/main");
+                    // Popup saying can't delete last admin user
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
                         // decrement the total number of users
