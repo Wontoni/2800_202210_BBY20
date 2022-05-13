@@ -31,7 +31,8 @@ const directory = {
     admin: path.join(__dirname, "../public/html", "admin.html"),
     login: path.join(__dirname, "../public/html", "login.html"),
     index: path.join(__dirname, "../public/html", "index.html"),
-    profile: path.join(__dirname, "../public/html", "profile.html")
+    profile: path.join(__dirname, "../public/html", "profile.html"),
+    
 };
 
 /* ------------------------------ Middleware Function ------------------------------ */

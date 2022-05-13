@@ -10,6 +10,9 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// method-override
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 // security middleware
 app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -91,6 +94,9 @@ app.use("/", indexRoute);
 
 const authRoute = require("./routes/auth");
 app.use("/", authRoute);
+
+const profileRoute = require("./routes/profile");
+app.use("/", profileRoute);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);
