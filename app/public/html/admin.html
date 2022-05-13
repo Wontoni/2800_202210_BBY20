@@ -45,7 +45,8 @@
             </div>
 
             <div class="foot">
-                <img src="public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White" width="125px">
+                <img src="public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                    width="125px">
             </div>
         </div>
 
@@ -89,35 +90,39 @@
                     <h1>Create User</h1>
 
                     <div class="form">
-                        <div class="form-group">
-                            <label for="userName">Username</label>
-                            <input type="text" class="input" id="userName" placeholder="Enter your username" required>
-                            <small id="userNameError" class="form-error">*This field must be filled.</small>
-                        </div>
+                        <form action="/create" method="POST">
+                            <div class="form-group">
+                                <label for="userName">Username</label>
+                                <input type="text" class="input" id="userName" name="username" placeholder="Enter your username"
+                                    required>
+                                <small id="userNameError" class="form-error">*This field must be filled.</small>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="userEmail">Email</label>
-                            <input type="email" class="input" id="userEmail" placeholder="Enter your email">
-                            <small id="userEmailError" class="form-error">*Please check your email.</small>
-                        </div>
+                            <div class="form-group">
+                                <label for="userEmail">Email</label>
+                                <input type="email" class="input" id="userEmail" name="email" placeholder="Enter your email">
+                                <small id="userEmailError" class="form-error">*Please check your email.</small>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="userPassword">Password</label>
-                            <input type="password" class="input" id="userPassword" placeholder="Enter your password"
-                                required>
-                            <small id="userPasswordError" class="form-error">*Please check your password.</small>
-                        </div>
+                            <div class="form-group">
+                                <label for="userPassword">Password</label>
+                                <input type="password" class="input" id="userPassword" name="password" placeholder="Enter your password"
+                                    required>
+                                <small id="userPasswordError" class="form-error">*Please check your password.</small>
+                            </div>
 
-                        <button type="button" class="primary-button">Create New User</button>
+                            <button type="submit" class="primary-button">Create New User</button>
+                        </form>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
 
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
+
     <script src="/public/js/admin.js"></script>
 </body>
 
