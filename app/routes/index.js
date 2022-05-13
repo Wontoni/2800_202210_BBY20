@@ -11,6 +11,10 @@ const path = require("path");
 const fs = require("fs");
 // JSDOM
 const { JSDOM } = require("jsdom");
+//
+const bodyParser = require("body-parser");
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -31,7 +35,8 @@ const directory = {
     signup: path.join(__dirname, "../public/html", "sign-up.html"),
     login: path.join(__dirname, "../public/html", "login.html"),
     profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html")
+    admin: path.join(__dirname, "../public/html", "admin.html"),
+    edit: path.join(__dirname, "../public/html", "edit.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -63,6 +68,7 @@ router.get("/main", (req, res) => {
                     var userInfo = userTemplate.cloneNode(true);
                     userTemplate.remove();
                     userInfo.querySelector("#number").setAttribute("data-number", `${number}`);
+                    userInfo.querySelector("#edit_id").setAttribute("data-number", `${number}`);
                     userInfo.querySelector("#name").innerHTML = username;
                     userInfo.querySelector("#email").innerHTML = email;
                     userInfo.querySelector("#password").innerHTML = password;
@@ -128,9 +134,17 @@ router.get("/profile", (req, res) => {
     }
 });
 
+// show edit page
+router.get("/edit", (req, res) => {
+    const edit = fs.readFileSync(directory.edit);
+    const editHTML = new JSDOM(edit);
+    res.send(editHTML.serialize());
+})
+
 // delete a user
 router.delete('/delete', (req, res) => {
     req.body._id = parseInt(req.body._id);
+    console.log(req.body._id);
     db.collection('BBY_20_User').findOne({ _id: req.body._id }, (error, result) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
