@@ -151,21 +151,16 @@ router.delete('/delete', (req, res) => {
                     // res.redirect("/main");
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                        // decrement the total number of users
-                        db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
-                            // decrement the total number of admin users
-                            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } }, (error, result) => {
-                                // res.redirect("/main");
-                            });
+                        // decrement the total number of admin users
+                        db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } }, (error, result) => {
+                            // res.redirect("/main");
                         });
                     });
                 }
             });
         } else if (result.role === "regular") {
             db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
-                    // res.redirect("/main");
-                });
+                // res.redirect("/main");
             });
         }
     });
