@@ -80,8 +80,8 @@
                         </div>
 
                         <div class="user-more">
-                            <button class="delete" id="number">Delete</button>
-                            <button id="number" href="/edit">Edit</button>
+                            <span class="material-icons delete" id="delete-number">delete</span>
+                            <span class="material-icons edit-button" id="edit-number"><a href="/edit">edit</a></span>
                             <span class="material-icons">more_vert</span>
                         </div>
                     </div>
@@ -94,21 +94,22 @@
                         <form action="/create" method="POST">
                             <div class="form-group">
                                 <label for="userName">Username</label>
-                                <input type="text" class="input" id="userName" name="username" placeholder="Enter your username"
-                                    required>
+                                <input type="text" class="input" id="userName" name="username"
+                                    placeholder="Enter your username" required>
                                 <small id="userNameError" class="form-error">*This field must be filled.</small>
                             </div>
 
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
-                                <input type="email" class="input" id="userEmail" name="email" placeholder="Enter your email">
+                                <input type="email" class="input" id="userEmail" name="email"
+                                    placeholder="Enter your email">
                                 <small id="userEmailError" class="form-error">*Please check your email.</small>
                             </div>
 
                             <div class="form-group">
                                 <label for="userPassword">Password</label>
-                                <input type="password" class="input" id="userPassword" name="password" placeholder="Enter your password"
-                                    required>
+                                <input type="password" class="input" id="userPassword" name="password"
+                                    placeholder="Enter your password" required>
                                 <small id="userPasswordError" class="form-error">*Please check your password.</small>
                             </div>
 
