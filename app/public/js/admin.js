@@ -10,4 +10,4 @@ $('.delete').click((e) => {
     }).done((result) => {
         
     });
-})
+});

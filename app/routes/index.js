@@ -133,9 +133,17 @@ router.get("/profile", (req, res) => {
     }
 });
 
+// show edit page
+router.get("/edit", (req, res) => {
+    const edit = fs.readFileSync(directory.edit);
+    const editHTML = new JSDOM(edit);
+    res.send(editHTML.serialize());
+})
+
 // delete a user
 router.delete('/delete', (req, res) => {
     req.body._id = parseInt(req.body._id);
+    console.log(req.body._id);
     db.collection('BBY_20_User').findOne({ _id: req.body._id }, (error, result) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
