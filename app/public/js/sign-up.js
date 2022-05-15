@@ -12,12 +12,11 @@ document.getElementById("signup-button").addEventListener("click", () => {
     }).then((res) => {
         return res.json();
     }).then((data) => {
-        console.log(data);
         document.getElementById("username").value = null;
         document.getElementById("userEmail").value = null;
         document.getElementById("userPassword").value = null;
         document.getElementById("signup-message").innerHTML = data.message;
-    }).catch((error) => {
+    }).catch(() => {
         window.location.href = "/login";
-    })
+    });
 });
