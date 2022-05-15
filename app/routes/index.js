@@ -75,7 +75,7 @@ router.get("/main", (req, res) => {
                     userInfo.querySelector("#role").innerHTML = role;
                     listTemplate.appendChild(userInfo);
                 }
-                adminHTML.window.document.getElementById("username").innerHTML = req.user.username;
+                adminHTML.window.document.getElementById("userName").innerHTML = req.user.username;
                 adminHTML.window.document.getElementById("total-users").innerHTML = result.length + " users";
                 res.send(adminHTML.serialize());
             });
