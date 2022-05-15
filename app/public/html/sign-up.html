@@ -14,6 +14,9 @@
     <!-- Fonts (Obviously Wide + Nunito Sans) -->
     <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
 
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/global.css">
     <link rel="stylesheet" href="/public/css/sign-up.css">
@@ -27,7 +30,7 @@
                 <div class="container">
                     <div class="signup-form">
                         <h2>Create Your Account</h2>
-                        <form action="/signup-process" method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="input" id="username" name="username"
@@ -49,8 +52,10 @@
                                 <small id="userPasswordError" class="form-error">*Please check your password.</small>
                             </div>
 
-                            <button type="submit" class="primary-button">Sign Up</button>
+                            <div id="signup-message"></div>
+
                         </form>
+                        <button id="signup-button" class="primary-button">Sign Up</button>
                         <p>Already have an account? <a href="/login" class="text-button">Login Now</a></p>
                     </div>
                 </div>
@@ -66,6 +71,7 @@
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
     <script src="/public/js/login.js"></script>
+    <script src="/public/js/sign-up.js"></script>
 </body>
 
 </html>
