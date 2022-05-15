@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Dashboard | Unified</title>
 
     <!-- Favicon -->
@@ -15,37 +16,66 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/global.css">
     <link rel="stylesheet" href="/public/css/admin.css">
 </head>
+
 <body>
 
     <div class="wrapper">
-        
-        <nav id="navTemplate"></nav>
+        <div class="navbar">
+            <div class="head">
+                <div class="account">
+                    <div class="user-icon">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <div id="username"></div>
+                </div>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="#">Home</a></li>
+                    <li><a class="link-animation" href="#">Friends</a></li>
+                    <li><a class="link-animation" href="#">Planner</a></li>
+                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="#">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out" id="sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="/public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                    width="125px">
+            </div>
+        </div>
 
         <div class="content">
             <h1>Dashboard</h1>
-    
+
             <div class="search">
                 <div class="icon">
                     <span class="material-icons">search</span>
                 </div>
                 <input type="search" name="search" placeholder="Search users">
             </div>
-            
+
             <div class="container">
                 <div class="users" id="listTemplate">
                     <div class="total-users" id="total-users">
                     </div>
-    
+
                     <div class="user" id="userTemplate">
                         <div class="user-icon">
                             <span class="material-icons">account_circle</span>
                         </div>
-    
+
                         <div class="user-info">
                             <div id="name"></div>
                             <div class="rest">
@@ -54,14 +84,14 @@
                                 <div id="role"></div>
                             </div>
                         </div>
-    
+
                         <div class="user-more">
                             <span class="material-icons delete" id="delete-number">delete</span>
                             <span class="material-icons edit" id="edit-number">edit</span>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="create-user">
                     <h1>Create User</h1>
                     <div class="form">
@@ -72,21 +102,21 @@
                                     placeholder="Enter your username" required>
                                 <small id="userNameError" class="form-error">*This field must be filled.</small>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
                                 <input type="email" class="input" id="userEmail" name="email"
                                     placeholder="Enter your email">
                                 <small id="userEmailError" class="form-error">*Please check your email.</small>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="userPassword">Password</label>
                                 <input type="password" class="input" id="userPassword" name="password"
                                     placeholder="Enter your password" required>
                                 <small id="userPasswordError" class="form-error">*Please check your password.</small>
                             </div>
-    
+
                             <button type="submit" class="primary-button">Create New User</button>
                         </form>
                     </div>
@@ -97,10 +127,10 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script src="/public/js/skeleton.js"></script>
+    <!-- <script src="/public/js/skeleton.js"></script> -->
     <script src="/public/js/global.js"></script>
     <script src="/public/js/admin.js"></script>
-    
+
 </body>
+
 </html>

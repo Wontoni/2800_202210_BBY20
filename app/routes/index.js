@@ -56,6 +56,7 @@ router.get("/main", (req, res) => {
         if (req.user.role === "admin") {
             const admin = fs.readFileSync(directory.admin);
             const adminHTML = new JSDOM(admin);
+            adminHTML.window.document.getElementById("username").innerHTML = req.user.username;
             var userTemplate = adminHTML.window.document.getElementById("userTemplate");
             var listTemplate = adminHTML.window.document.getElementById("listTemplate");
             db.collection("BBY_20_User").find().toArray((error, result) => {
