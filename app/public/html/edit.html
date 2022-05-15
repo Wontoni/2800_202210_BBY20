@@ -45,7 +45,7 @@
             </div>
 
             <div class="foot">
-                <img src="public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                <img src="/public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
                     width="125px">
             </div>
         </div>
@@ -54,40 +54,13 @@
             <h1>Dashboard</h1>
 
             <div class="container">
-                <!-- <div class="users" id="listTemplate">
-                    <div class="total-users" id="total-users">
-                    </div>
-
-                    <div class="user" id="userTemplate">
-                        <div class="user-icon">
-                            <span class="material-icons">account_circle</span>
-                        </div>
-                        <div class="user-info">
-                            <div id="name"></div>
-                            <div class="rest">
-                                <div id="email"></div>
-                                <div id="password"></div>
-                                <div id="role"></div>
-                                <span class="admin">Admin</span>
-                            </div>
-                        </div>
-
-                        <div class="user-more">
-                            <button class="delete" id="number">Delete</button>
-                            <button id="number" href="/edit">Edit</button>
-                            <span class="material-icons">more_vert</span>
-                        </div>
-                    </div>
-                </div> -->
-
                 <div class="create-user">
                     <h1>Edit User</h1>
-
                     <div class="form">
-                        <form action="//profile-edit?_method=PUT" method="POST">
+                        <form action="/profile-edit?_method=PUT" method="POST">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="tel" class="input" id="username" name="username"
+                                <label for="userName">Username</label>
+                                <input type="text" class="input" id="userName" name="username"
                                     placeholder="Change username">
                             </div>
 
@@ -101,6 +74,11 @@
                                 <label for="userPassword">Password</label>
                                 <input type="text" class="input" id="userPassword" name="password"
                                     placeholder="Change password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userRole">Role</label>
+                                <input type="text" class="input" id="userRole" name="role" placeholder="Change role">
                             </div>
 
                             <div class="form-group">
@@ -122,6 +100,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="/public/js/admin.js"></script>
+    <script src="/public/js/edit.js"></script>
+
 </body>
 
 </html>

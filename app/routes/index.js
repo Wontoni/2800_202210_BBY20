@@ -11,6 +11,9 @@ const path = require("path");
 const fs = require("fs");
 // JSDOM
 const { JSDOM } = require("jsdom");
+// method-override
+const methodOverride = require('method-override');
+router.use(methodOverride('_method'));
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -64,7 +67,8 @@ router.get("/main", (req, res) => {
                     var role = result[i].role;
                     var userInfo = userTemplate.cloneNode(true);
                     userTemplate.remove();
-                    userInfo.querySelector("#number").setAttribute("data-number", `${number}`);
+                    userInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    userInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                     userInfo.querySelector("#name").innerHTML = username;
                     userInfo.querySelector("#email").innerHTML = email;
                     userInfo.querySelector("#password").innerHTML = password;
@@ -140,25 +144,19 @@ router.delete('/delete', (req, res) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
                 if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
-                    // res.redirect("/main");
                     // Popup saying can't delete last admin user
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                        // decrement the total number of users
-                        db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
-                            // decrement the total number of admin users
-                            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } }, (error, result) => {
-                                // res.redirect("/main");
-                            });
+                        // decrement the total number of admin users
+                        db.collection('BBY_20_Count').updateOne({ name: 'NumberOfAdmins' }, { $inc: { totalAdmin: -1 } }, (error, result) => {
+                            res.sendFile(directory.main);
                         });
                     });
                 }
             });
         } else if (result.role === "regular") {
             db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: -1 } }, (error, result) => {
-                    // res.redirect("/main");
-                });
+                res.sendFile(directory.main);
             });
         }
     });
@@ -187,10 +185,43 @@ router.post('/create', (req, res) => {
     });
 });
 
-// edit page
-router.get("/edit", (req, res) => {
-    res.sendFile(directory.edit);
+// show edit page
+router.get("/edit/:id", (req, res) => {
+    const edit = fs.readFileSync(directory.edit);
+    const editHTML = new JSDOM(edit);
+    db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+        editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
+        editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
+        editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
+        editHTML.window.document.getElementById("userRole").setAttribute("value", `${result.role}`);
+        editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
+        res.send(editHTML.serialize());
+    });
 });
+
+// edit user information
+// router.put("/profile-edit", (req, res) => {
+//     console.log(req.user);
+//     db.collection('BBY_20_User').updateOne({ _id: req._id }, {
+//         $set: {
+//             username: req.body.username,
+//             email: req.body.email,
+//             password: req.body.password,
+//             school: req.body.school
+//         }
+//     }, (error, results) => {
+//         const edit = fs.readFileSync(directory.edit);
+//         const editHTML = new JSDOM(edit);
+//         b.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+//             editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
+//             editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
+//             editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
+//             editHTML.window.document.getElementById("userRole").setAttribute("value", `${result.role}`);
+//             editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
+//             res.send(editHTML.serialize());
+//         });
+//     })
+// })
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;
