@@ -63,6 +63,8 @@ router.get("/profile", (req, res) => {
         profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
         profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
 
+        profileHTML.window.document.getElementById("usernameMenu").innerHTML = req.user.username;
+
         res.send(profileHTML.serialize());
     }
 });
