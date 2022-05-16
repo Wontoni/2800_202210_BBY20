@@ -14,6 +14,8 @@ const { JSDOM } = require("jsdom");
 // method-override
 const methodOverride = require('method-override');
 router.use(methodOverride('_method'));
+// url
+const url = require("url");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -65,6 +67,7 @@ router.get("/main", (req, res) => {
                     var username = result[i].username;
                     var email = result[i].email;
                     var password = result[i].password;
+                    var school = result[i].school;
                     var role = result[i].role;
                     var userInfo = userTemplate.cloneNode(true);
                     userTemplate.remove();
@@ -73,6 +76,7 @@ router.get("/main", (req, res) => {
                     userInfo.querySelector("#name").innerHTML = username;
                     userInfo.querySelector("#email").innerHTML = email;
                     userInfo.querySelector("#password").innerHTML = password;
+                    userInfo.querySelector("#school").innerHTML = school;
                     userInfo.querySelector("#role").innerHTML = role;
                     listTemplate.appendChild(userInfo);
                 }
@@ -102,7 +106,7 @@ router.get("/sign-up", (req, res) => {
 // signup process
 router.post('/sign-up', (req, res) => {
     db.collection("BBY_20_User").findOne({
-        username : req.body.username
+        username: req.body.username
     }, (error, result) => {
         let exist = false;
         if (result) {
@@ -111,7 +115,7 @@ router.post('/sign-up', (req, res) => {
 
         if (exist) {
             res.json({
-                message : "This username already exists"
+                message: "This username already exists"
             });
         } else {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
@@ -191,6 +195,7 @@ router.get("/edit/:id", (req, res) => {
     const edit = fs.readFileSync(directory.edit);
     const editHTML = new JSDOM(edit);
     db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+        editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
         editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
         editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
         editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
@@ -201,28 +206,20 @@ router.get("/edit/:id", (req, res) => {
 });
 
 // edit user information
-// router.put("/profile-edit", (req, res) => {
-//     console.log(req.user);
-//     db.collection('BBY_20_User').updateOne({ _id: req._id }, {
-//         $set: {
-//             username: req.body.username,
-//             email: req.body.email,
-//             password: req.body.password,
-//             school: req.body.school
-//         }
-//     }, (error, results) => {
-//         const edit = fs.readFileSync(directory.edit);
-//         const editHTML = new JSDOM(edit);
-//         b.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-//             editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
-//             editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
-//             editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
-//             editHTML.window.document.getElementById("userRole").setAttribute("value", `${result.role}`);
-//             editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
-//             res.send(editHTML.serialize());
-//         });
-//     })
-// })
+router.put("/user-edit", (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_User').updateOne({ _id: req.body._id }, {
+        $set: {
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            role: req.body.role,
+            school: req.body.school
+        }
+    }, (error, result) => {
+        res.redirect("/main");
+    });
+});
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;
