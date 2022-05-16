@@ -199,7 +199,6 @@ router.get("/edit/:id", (req, res) => {
         editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
         editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
         editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
-        editHTML.window.document.getElementById("userRole").setAttribute("value", `${result.role}`);
         editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
         res.send(editHTML.serialize());
     });
@@ -213,7 +212,6 @@ router.put("/user-edit", (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            role: req.body.role,
             school: req.body.school
         }
     }, (error, result) => {
