@@ -15,6 +15,7 @@
 
 .account-head .profile {
     margin-bottom: -4rem;
+    margin-left: 20vw;
 }
 
 .account-head .profile span {
@@ -44,6 +45,7 @@
 
 .account-body {
     margin-top: 4rem;
+    margin-left: 20vw;
 }
 
 .account-body .h2 {
@@ -78,23 +80,36 @@
     color: black;
 }
 
+.navbar #usernameMenu {
+    font-family: obviously-wide, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    margin-left: 0.5rem;
+}
+
 /* Responsive */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 800px) {
     .account-body #signUpForm {
         width: 60%;
-    }
-
-    .nav {
-        display: none;
     }
 
     .homeBtn {
         display: inherit;
     }
+
+    .account-body {
+        margin-left: 0;
+    }
 }
 
-@media screen and (max-width: 434px) {
+@media screen and (max-width: 500px) {
     .account-body #signUpForm {
         width: 80%;
+    }
+
+    .account-body {
+        margin-left: 0;
     }
 }

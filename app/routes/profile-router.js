@@ -57,12 +57,12 @@ router.get("/profile", (req, res) => {
     } else {
         const profile = fs.readFileSync(directory.profile);
         const profileHTML = new JSDOM(profile);
-
         profileHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         profileHTML.window.document.getElementById("username").setAttribute("value", `${req.user.username}`);
         profileHTML.window.document.getElementById("userEmail").setAttribute("value", `${req.user.email}`);
         profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
         profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
+
         res.send(profileHTML.serialize());
     }
 });
