@@ -10,21 +10,21 @@ const path = require("path");
 // fs
 const fs = require("fs");
 // JSDOM
-const {JSDOM} = require("jsdom");
+const { JSDOM } = require("jsdom");
 // multer
 const multer = require("multer");
 const storage = multer.diskStorage({
-    destination : (req, file, cb) => {
+    destination: (req, file, cb) => {
         cb(null, "public/assets/upload/");
     },
-    filename : (req, file, cb) => {
+    filename: (req, file, cb) => {
         let ext = path.extname(file.originalname);
         cb(null, req.user._id + "_" + req.user.username + ext);
     }
     // filefilter
 });
 const upload = multer({
-    storage : storage
+    storage: storage
 });
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -70,12 +70,11 @@ router.get("/profile", (req, res) => {
 // post avatar
 router.post("/upload-process", upload.single("avatar"), (req, res) => {
     if (req.user) {
-        console.log(req.user);
         db.collection("BBY_20_User").updateOne({
-            _id : req.user._id
+            _id: req.user._id
         }, {
-            $set : {
-                avatar : req.file.destination + req.file.filename
+            $set: {
+                avatar: req.file.destination + req.file.filename
             }
         }, (error, result) => {
             res.redirect("/profile");
@@ -87,13 +86,13 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
 router.put("/profile-edit", (req, res) => {
     if (req.user) {
         db.collection("BBY_20_User").updateOne({
-            username : req.user.username
+            _id : req.user._id
         }, {
-            $set : {
-                username : req.body.username,
-                email : req.body.email,
-                password : req.body.password,
-                school : req.body.school
+            $set: {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password,
+                school: req.body.school
             }
         }, (error, result) => {
             res.redirect("/profile");

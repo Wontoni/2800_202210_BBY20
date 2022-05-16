@@ -6,10 +6,6 @@ const express = require("express");
 const router = express.Router();
 // path
 const path = require("path");
-// fs
-const fs = require("fs");
-//JSDOM
-const {JSDOM} = require("jsdom");
 // passport
 const passport = require("passport");
 
@@ -35,42 +31,36 @@ const directory = {
     admin: path.join(__dirname, "../public/html", "admin.html")
 };
 
-/* ------------------------------ Middleware Function ------------------------------ */
-function isSignedIn(req, res, next) {
-    if (req.user) {
-        next()
-    } else {
-        res.redirect("/login");
-    }
-};
-
 /* ------------------------------ Routers ------------------------------ */
 // show login page
 router.get("/login", (req, res) => {
     if (!req.user) {
-        let msg = req.flash();
-        let feedback = "";
-        if (msg.error) {
-            feedback = msg.error[0];
-        }
-        const login = fs.readFileSync(directory.login);
-        const loginHTML = new JSDOM(login);
-        loginHTML.window.document.getElementById("errorMsg").innerHTML = feedback;
-        res.send(loginHTML.serialize());
+        res.sendFile(directory.login);
     } else {
         res.redirect("/main");
     }
 });
 
 // login process
-router.post("/login-process", passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true
-}), (req, res) => {
-    res.redirect("/main");
+router.post('/login', (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            res.json(err);
+        }
+        if (!user) {
+            return res.json(info.message);
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            } else {
+                res.redirect("/main");
+            }
+        });
+    })(req, res, next);
 });
 
-// sign-out => redirect to landing page
+// sign-out process
 router.get("/sign-out", (req, res) => {
     req.logout();
     res.redirect("/");

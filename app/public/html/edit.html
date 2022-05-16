@@ -25,12 +25,18 @@
 <body>
 
     <div class="wrapper">
-        <div class="navbar nav">
-            <div class="account">
-                <div class="user-icon">
-                    <span class="material-icons">account_circle</span>
+        <div class="navbar">
+            <div class="head">
+                <div class="account">
+                    <div class="user-icon">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <div id="username"></div>
                 </div>
-                <div id="username"></div>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
 
             <div class="links">
@@ -45,7 +51,7 @@
             </div>
 
             <div class="foot">
-                <img src="public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                <img src="/public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
                     width="125px">
             </div>
         </div>
@@ -54,15 +60,17 @@
             <h1>Dashboard</h1>
 
             <div class="container">
-
                 <div class="create-user">
                     <h1>Edit User</h1>
-
                     <div class="form">
-                        <form action="//profile-edit?_method=PUT" method="POST">
+                        <form action="/user-edit?_method=PUT" method="POST">
+                            <div class="form-group" hidden>
+                                <input type="text" class="input" id="userNumber" name="_id">
+                            </div>
+
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="tel" class="input" id="username" name="username"
+                                <label for="userName">Username</label>
+                                <input type="text" class="input" id="userName" name="username"
                                     placeholder="Change username">
                             </div>
 
@@ -97,6 +105,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="/public/js/admin.js"></script>
+    <script src="/public/js/edit.js"></script>
+
 </body>
 
 </html>
