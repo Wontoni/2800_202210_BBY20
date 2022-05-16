@@ -87,7 +87,7 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
 router.put("/profile-edit", (req, res) => {
     if (req.user) {
         db.collection("BBY_20_User").updateOne({
-            username: req.user.username
+            _id : req.user._id
         }, {
             $set: {
                 username: req.body.username,
@@ -100,6 +100,30 @@ router.put("/profile-edit", (req, res) => {
         });
     }
 });
+
+// edit user information
+// router.put("/profile-edit", (req, res) => {
+//     console.log(req.user);
+//     db.collection('BBY_20_User').updateOne({ _id: req._id }, {
+//         $set: {
+//             username: req.body.username,
+//             email: req.body.email,
+//             password: req.body.password,
+//             school: req.body.school
+//         }
+//     }, (error, results) => {
+//         const edit = fs.readFileSync(directory.edit);
+//         const editHTML = new JSDOM(edit);
+//         b.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+//             editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
+//             editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
+//             editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
+//             editHTML.window.document.getElementById("userRole").setAttribute("value", `${result.role}`);
+//             editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
+//             res.send(editHTML.serialize());
+//         });
+//     })
+// })
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;
