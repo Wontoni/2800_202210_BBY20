@@ -111,15 +111,17 @@ router.post('/sign-up', (req, res) => {
         } else {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
                 // add a user
-                let totalUsers = result.totalUser;
+                const defaultSchool = "";
+                const defaultAvatarURL = "public/assets/upload/default-avatar.png";
+                const defaultRole = "regular";
                 db.collection('BBY_20_User').insertOne({
-                    _id: totalUsers + 1,
+                    _id: result.totalUser + 1,
                     username: req.body.username,
                     email: req.body.email,
                     password: req.body.password,
-                    school: "",
-                    avatar: "public/assets/upload/default-avatar.png",
-                    role: "regular"
+                    school: defaultSchool,
+                    avatar: defaultAvatarURL,
+                    role: defaultRole
                 }, (error, result) => {
                     // increment the total number of users
                     db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
