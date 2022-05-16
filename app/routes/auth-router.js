@@ -6,10 +6,6 @@ const express = require("express");
 const router = express.Router();
 // path
 const path = require("path");
-// fs
-const fs = require("fs");
-//JSDOM
-const {JSDOM} = require("jsdom");
 // passport
 const passport = require("passport");
 
@@ -39,15 +35,7 @@ const directory = {
 // show login page
 router.get("/login", (req, res) => {
     if (!req.user) {
-        let msg = req.flash();
-        let feedback = "";
-        if (msg.error) {
-            feedback = msg.error[0];
-        }
-        const login = fs.readFileSync(directory.login);
-        const loginHTML = new JSDOM(login);
-        loginHTML.window.document.getElementById("errorMsg").innerHTML = feedback;
-        res.send(loginHTML.serialize());
+        res.sendFile(directory.login);
     } else {
         res.redirect("/main");
     }

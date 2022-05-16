@@ -27,8 +27,7 @@
                 <div class="container">
                     <div class="login-form">
                         <h2>Welcome back</h2>
-                        <form action="/login-process" method="POST">
-                            <div class="errorMsg" id="errorMsg"></div>
+                        <form>
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="input" id="username" name="username"
@@ -44,8 +43,10 @@
                             </div>
 
                             <div id="login-message"></div>
+
+                            <button type="button" class="primary-button" id="login-button">Login</button>
                         </form>
-                        <button type="button" class="primary-button" id="login-button">Login</button>
+                        
                         <p>Don't have an account yet? <a href="/sign-up" class="text-button">Sign Up Now</a></p>
                     </div>
                 </div>
