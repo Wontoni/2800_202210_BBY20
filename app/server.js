@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 // security middleware
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.header('Expires', '-1');
     res.header('Pragma', 'no-cache');
@@ -31,12 +31,14 @@ app.use(session({
 const passport = require("passport");
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser((user, done) => {
-    done(null, user.username);
+    done(null, user._id);
 });
-passport.deserializeUser((username, done) => {
+
+passport.deserializeUser((_id, done) => {
     db.collection("BBY_20_User").findOne({
-        username: username
+        _id: _id
     }, (error, result) => {
         done(null, result);
     });
@@ -69,9 +71,6 @@ passport.use(new LocalStrategy({
         }
     })
 }));
-// flash
-const flash = require("connect-flash");
-app.use(flash());
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -89,15 +88,20 @@ MongoClient.connect(URL, (error, client) => {
 app.use("/public", express.static("public"));
 
 /* ------------------------------ Routing ------------------------------ */
-const indexRoute = require("./routes/index");
-app.use("/", indexRoute);
+const indexRouter = require("./routes/index-router");
+app.use("/", indexRouter);
 
-const authRoute = require("./routes/auth");
-app.use("/", authRoute);
+const authRouter = require("./routes/auth-router");
+app.use("/", authRouter);
 
-const profileRoute = require("./routes/profile");
-app.use("/", profileRoute);
-app.use("/profile", profileRoute);
+const profileRouter = require("./routes/profile-router");
+app.use("/", profileRouter);
+
+const signupRouter = require("./routes/signup-router");
+app.use("/", signupRouter);
+
+const adminRouter = require("./routes/admin-router");
+app.use("/", adminRouter);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);
