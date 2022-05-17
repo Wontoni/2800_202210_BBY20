@@ -194,6 +194,16 @@ h1 {
     border-radius: 1rem;
 }
 
+#userAvatar {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+
+    border-radius: 50rem;
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.1);
+
+}
+
 /* Laptop */
 @media only screen and (max-width: 800px) {
     .content .container {
