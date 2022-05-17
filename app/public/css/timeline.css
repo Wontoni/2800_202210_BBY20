@@ -164,6 +164,20 @@ h1 {
     color: var(--primary-color);
 }
 
+.timeline .user .edit {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.timeline .user .edit span {
+    color: #757575;
+}
+
+.timeline .user .edit .saved {
+    color: var(--primary-color);
+}
+
 .timeline .post-tags {
     margin-top: 1rem;
 }
