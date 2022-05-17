@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Create Post | Unified</title>
 
     <!-- Favicon -->
@@ -15,75 +16,74 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/global.css">
     <link rel="stylesheet" href="/public/css/create-post.css">
 </head>
+
 <body>
 
     <div class="wrapper">
-        
+
         <nav id="navTemplate"></nav>
 
         <div class="content">
             <h1>Create Thread</h1>
 
             <div class="form">
-                <div class="form-group">
-                    <label for="userName">Title</label>
-                    <input type="text" class="input" id="userName" placeholder="Insert your title" required>
-                    <small id="userNameError" class="form-error">*This field must be filled.</small>
-                </div>
+                <form action="/create" method="POST">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="input" id="title" name="title" placeholder="Insert your title"
+                            required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="userEmail">Description</label>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="input" id="description" name="description"
+                            placeholder="Insert your description" required>
+                    </div>
 
-                    <input type="email" class="input" id="userEmail" placeholder="Insert your description">
+                    <div class="form-group">
+                        <label for="userPassword">Tags</label>
 
-                    <small id="userEmailError" class="form-error">*Please check your email.</small>
-                </div>
+                        <div class="container">
+                            <div class="post-tags">
+                                <span class="post-tag active">BCIT</span>
+                                <span class="post-tag">UBC</span>
+                                <span class="post-tag">SFU</span>
+                                <span class="post-tag">Langara</span>
+                                <span class="post-tag">Memes</span>
+                                <span class="post-tag">Ask</span>
+                                <span class="post-tag">Other</span>
+                            </div>
 
-                <div class="form-group">
-                    <label for="userPassword">Tags</label>
-                    
-                    <div class="container">
-                        <div class="post-tags">
-                            <span class="post-tag active">BCIT</span>
-                            <span class="post-tag">UBC</span>
-                            <span class="post-tag">SFU</span>
-                            <span class="post-tag">Langara</span>
-                            <span class="post-tag">Memes</span>
-                            <span class="post-tag">Ask</span>
-                            <span class="post-tag">Other</span>
+                            <div class="add-image">
+                                <span class="material-icons">attach_file</span>
+                                <span class="btn-text">Insert Image</span>
+                            </div>
                         </div>
-                         
-                        <div class="add-image">
-                            <span class="material-icons">attach_file</span>
-                            <span class="btn-text">Insert Image</span>
+
+                        <div class="image-thumb">
+                            <img src="/public/assets/post1.jpg" alt="Thread image thumbnail">
+                            <div class="icon">
+                                <span class="material-icons">close</span>
+                            </div>
                         </div>
                     </div>
 
-                    <small id="userPasswordError" class="form-error"></small>
-                    
-                    <div class="image-thumb">
-                        <img src="/public/assets/post1.jpg" alt="Thread image thumbnail">
-                        <div class="icon">
-                            <span class="material-icons">close</span>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" class="primary-button">Create New Thread</button>
-            </div>    
+                    <button type="submit" class="primary-button">Create New Thread</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
-    
+
 </body>
+
 </html>
