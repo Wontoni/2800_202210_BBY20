@@ -136,7 +136,7 @@ router.get("/timeline", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-        res.sendFile(directory.post);
+        res.sendFile(directory.timeline);
     }
 });
 
