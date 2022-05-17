@@ -6,7 +6,7 @@
 }
 
 .tipsPop {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     right: 2rem;
     border: 2px solid #F85C3A;
