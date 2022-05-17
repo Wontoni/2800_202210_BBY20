@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Create Post | Unified</title>
 
     <!-- Favicon -->
@@ -15,15 +16,17 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
+    <!-- Uses the same CSS as create-post-->
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/create-post.css">
 </head>
+
 <body>
 
     <div class="wrapper">
-        
+
         <nav id="navTemplate"></nav>
 
         <div class="content">
@@ -49,7 +52,7 @@
 
                 <div class="form-group">
                     <label for="userPassword">Tags</label>
-                    
+
                     <div class="container">
                         <!-- Add active class to any tags that are attached to the thread -->
                         <div class="post-tags">
@@ -61,7 +64,7 @@
                             <span class="post-tag">Ask</span>
                             <span class="post-tag">Other</span>
                         </div>
-                         
+
                         <div class="add-image">
                             <span class="material-icons">attach_file</span>
                             <span class="btn-text">Insert Image</span>
@@ -69,7 +72,7 @@
                     </div>
 
                     <small id="userPasswordError" class="form-error"></small>
-                    
+
                     <div class="image-thumb">
                         <!-- Add thumbnail image here -->
                         <img src="../../public/assets/post1.jpg" alt="Thread image thumbnail">
@@ -81,7 +84,7 @@
 
                 <!-- Save changes to database here -->
                 <button type="button" class="primary-button">Save Changes</button>
-            </div>    
+            </div>
         </div>
     </div>
 
@@ -90,6 +93,7 @@
 
     <script src="../../public/js/skeleton.js"></script>
     <script src="../../public/js/global.js"></script>
-    
+
 </body>
+
 </html>
