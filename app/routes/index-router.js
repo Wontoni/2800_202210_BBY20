@@ -33,7 +33,9 @@ const directory = {
     profile: path.join(__dirname, "../public/html", "profile.html"),
     admin: path.join(__dirname, "../public/html", "admin.html"),
     friend: path.join(__dirname, "../public/html", "friends.html"),
-    edit: path.join(__dirname, "../public/html", "edit.html")
+    edit: path.join(__dirname, "../public/html", "edit.html"),
+    post: path.join(__dirname, "../public/html", "create-post.html"),
+    timeline: path.join(__dirname, "../public/html", "timeline.html"),
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -75,7 +77,6 @@ router.get("/main", (req, res) => {
                     userInfo.querySelector("#role").innerHTML = role;
                     listTemplate.appendChild(userInfo);
                 }
-                adminHTML.window.document.getElementById("userName").innerHTML = req.user.username;
                 adminHTML.window.document.getElementById("total-users").innerHTML = result.length + " users";
                 res.send(adminHTML.serialize());
             });
@@ -90,6 +91,52 @@ router.get("/main", (req, res) => {
         }
     } else {
         res.redirect("/login");
+    }
+});
+
+// show create-post page
+router.get("/create-post", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        res.sendFile(directory.post);
+    }
+});
+
+// create a post
+router.post('/create', (req, res) => {
+    db.collection('BBY_20_Count').findOne({ name: 'NumberOfPosts' }, (error, result) => {
+        if (!error) {
+            var totalPost = result.totalPost;
+            db.collection('BBY_20_Post').insertOne({
+                _id: totalPost + 1,
+                title: req.body.title,
+                description: req.body.description,
+                lastModified: new Date()
+            }, (error, result) => {
+                if (!error) {
+                    db.collection('BBY_20_Count').updateOne({
+                        name: 'NumberOfPosts'
+                    }, {
+                        $inc: { totalPost: 1 }
+                    }, (error, result) => {
+                        if (result.acknowledged) {
+                            res.redirect("/main");
+                        }
+                    });
+                }
+            })
+        }
+
+    });
+});
+
+// show timeline page
+router.get("/timeline", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        res.sendFile(directory.post);
     }
 });
 
