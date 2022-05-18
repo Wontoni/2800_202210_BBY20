@@ -104,7 +104,7 @@ router.get("/create-post", (req, res) => {
 });
 
 // create a post
-router.post('/create', (req, res) => {
+router.post('/create-post', (req, res) => {
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfPosts' }, (error, result) => {
         if (!error) {
             var totalPost = result.totalPost;
