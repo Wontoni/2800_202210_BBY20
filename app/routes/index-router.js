@@ -35,7 +35,8 @@ const directory = {
     friend: path.join(__dirname, "../public/html", "friends.html"),
     edit: path.join(__dirname, "../public/html", "edit.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
-    timeline: path.join(__dirname, "../public/html", "timeline.html"),
+    editPost: path.join(__dirname, "../public/html", "edit-post.html"),
+    timeline: path.join(__dirname, "../public/html", "timeline.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -88,19 +89,23 @@ router.get("/main", (req, res) => {
             mainHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
             var listTemplate = mainHTML.window.document.getElementById("listTemplate");
             var postTemplate = mainHTML.window.document.getElementById("postTemplate");
-            db.collection("BBY_20_Post").find().toArray((error, result) => {
-                for (var i = 0; i < result.length; i++) {
-                    var username = result[i].username;
-                    var time = result[i].lastModified;
-                    var title = result[i].title;
-                    var description = result[i].description;
-                    var postInfo = postTemplate.cloneNode(true);
+            db.collection("BBY_20_Post").find().sort({ lastModified: -1 }).toArray((error, result) => {
+                if (result.length === 0) {
                     postTemplate.remove();
-                    postInfo.querySelector("#name").innerHTML = username;
-                    postInfo.querySelector("#time").innerHTML = time;
-                    postInfo.querySelector("#title").innerHTML = title;
-                    postInfo.querySelector("#description").innerHTML = description;
-                    listTemplate.appendChild(postInfo);
+                } else {
+                    for (var i = 0; i < result.length; i++) {
+                        var username = result[i].username;
+                        var time = result[i].lastModified;
+                        var title = result[i].title;
+                        var description = result[i].description;
+                        var postInfo = postTemplate.cloneNode(true);
+                        postTemplate.remove();
+                        postInfo.querySelector("#name").innerHTML = username;
+                        postInfo.querySelector("#time").innerHTML = time;
+                        postInfo.querySelector("#title").innerHTML = title;
+                        postInfo.querySelector("#description").innerHTML = description;
+                        listTemplate.appendChild(postInfo);
+                    }
                 }
                 res.send(mainHTML.serialize());
             });
@@ -163,7 +168,7 @@ router.get("/timeline", (req, res) => {
         timelineHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         var listTemplate = timelineHTML.window.document.getElementById("listTemplate");
         var postTemplate = timelineHTML.window.document.getElementById("postTemplate");
-        db.collection("BBY_20_Post").find({ userID: req.user._id }).toArray((error, result) => {
+        db.collection("BBY_20_Post").find({ userID: req.user._id }).sort({ lastModified: -1 }).toArray((error, result) => {
             if (result.length === 0) {
                 postTemplate.remove();
             } else {
@@ -198,6 +203,23 @@ router.delete('/delete-post', (req, res) => {
 });
 
 // edit a post
+// router.get("/edit-post/:id", (req, res) => {
+//     if (!req.user) {
+//         res.sendFile(directory.login);
+//     } else {
+//         const editPost = fs.readFileSync(directory.editPost);
+//         const editPostHTML = new JSDOM(editPost);
+//         db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+//             editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
+//             editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
+//             editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
+//             editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
+//             editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
+//             res.send(editPostHTML.serialize());
+//         });
+//         res.sendFile(directory.editPost);
+//     }
+// });
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;
