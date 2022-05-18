@@ -131,7 +131,7 @@ router.post('/create-post', (req, res) => {
             db.collection('BBY_20_Post').insertOne({
                 _id: totalPost + 1,
                 userID: req.user._id,
-                username:req.user.username,
+                username: req.user.username,
                 title: req.body.title,
                 description: req.body.description,
                 lastModified: new Date()
@@ -161,7 +161,24 @@ router.get("/timeline", (req, res) => {
         const timelineHTML = new JSDOM(timeline);
         timelineHTML.window.document.getElementById("username").innerHTML = req.user.username + "'s Timeline";
         timelineHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
-        res.send(timelineHTML.serialize());
+        var listTemplate = timelineHTML.window.document.getElementById("listTemplate");
+        var postTemplate = timelineHTML.window.document.getElementById("postTemplate");
+        db.collection("BBY_20_Post").find({ userID: req.user._id }).toArray((error, result) => {
+            for (var i = 0; i < result.length; i++) {
+                var username = result[i].username;
+                var time = result[i].lastModified;
+                var title = result[i].title;
+                var description = result[i].description;
+                var postInfo = postTemplate.cloneNode(true);
+                postTemplate.remove();
+                postInfo.querySelector("#name").innerHTML = username;
+                postInfo.querySelector("#time").innerHTML = time;
+                postInfo.querySelector("#title").innerHTML = title;
+                postInfo.querySelector("#description").innerHTML = description;
+                listTemplate.appendChild(postInfo);
+            }
+            res.send(timelineHTML.serialize());
+        });
     }
 });
 

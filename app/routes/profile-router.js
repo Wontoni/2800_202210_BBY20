@@ -85,7 +85,7 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
 router.put("/profile-edit", (req, res) => {
     if (req.user) {
         db.collection("BBY_20_User").updateOne({
-            _id : req.user._id
+            _id: req.user._id
         }, {
             $set: {
                 username: req.body.username,
@@ -94,7 +94,13 @@ router.put("/profile-edit", (req, res) => {
                 school: req.body.school
             }
         }, (error, result) => {
-            res.redirect("/profile");
+            db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
+                $set: {
+                    username: req.body.username
+                }
+            }, (error, result) => {
+                res.redirect("/profile");
+            });
         });
     }
 });
