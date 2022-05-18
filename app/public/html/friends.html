@@ -38,10 +38,9 @@
         </div>
 
         <div class="leftFriends">
-
             <div class="myFriends">
                 <!-- Populate user's friends here -->
-                <div class="friendItem">
+                <div class="friendItem friendItem_template">
                     <span class="material-icons" id="profilePic">
                         <!-- Friend's profile picture-->
                         account_circle
@@ -50,14 +49,13 @@
                         <!-- Friend's username/name-->
                         John Doe
                     </span>
-
-                    <!-- Maybe add most recent message below the name to fill content? -->
                 </div>
 
-                <div class="friendItem">
+                <div class="friendItem active">
                     <span class="material-icons" id="profilePic">account_circle</span>
                     <span id="friendName">John Doe</span>
                 </div>
+
                 <div class="friendItem">
                     <span class="material-icons" id="profilePic">account_circle</span>
                     <span id="friendName">John Doe</span>
@@ -106,12 +104,12 @@
         </div>
 
         <div class="rightMsg">Add messages here</div>
+        
         <div class="sendMsg">
             <form class="sForm">
                 <input type="text" name="message" placeholder="Message...">
                 <span class="material-icons" id="sendBtn">send</span>
             </form>
-
         </div>
     </div>
 

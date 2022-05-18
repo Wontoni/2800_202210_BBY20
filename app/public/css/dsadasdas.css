@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.contain {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+}
+
+.textRight {
+    background-color: red;
+    justify-self: end;
+    max-width: 20vw;
+    height: fit-content;
+}
+
+.textLeft {
+    background-color: lightblue;
+    justify-self: left;
+    max-width: 20vw;
+    height: fit-content;
+    padding: 1rem;
+}

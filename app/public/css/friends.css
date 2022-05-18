@@ -1,0 +1,104 @@
+.container {
+    display: flex;
+}
+
+.friendsList {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    margin-left: 21rem;
+    justify-content: center;
+    overflow-y: scroll;
+}
+
+h1 {
+    margin-top: 2rem;
+}
+
+.input {
+    margin: 1rem auto;
+}
+
+.friendItem {
+    display: flex;
+    padding: 0.5rem 0rem;
+    border-radius: 1rem;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+#profilePic {
+    font-size: 3rem;
+    align-items: center;
+}
+
+#friendName {
+    padding-left: 0.5rem;
+}
+
+.active {
+    background-color: #999999;
+}
+
+.messageContainer{
+    margin-left: 40rem;
+    width: 100%;
+    height: 95vh;
+}
+
+.messageContainer h1 {
+    padding-bottom: 1rem;
+}
+
+.messages {
+    display: grid;
+
+    overflow-y: scroll;
+
+}
+
+.message {
+    padding: 0.75rem 0.75rem;
+    border-radius: 1rem;
+}
+
+#receive {
+    background-color: grey;
+    justify-self: start;
+    max-width: 25vw;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+}
+
+#sent {
+    background-color: orange;
+    justify-self: end;
+    max-width: 25vw;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+}
+
+.timestamp {
+    justify-self: center;
+    font-size: 13px;
+    color: #999999;
+    padding: 0.5rem 1rem;
+}
+
+.sendMessage {
+    position: fixed;
+    bottom: 1rem;
+    left: 600px;
+    white-space: nowrap;
+}
+
+.sendMessage .input {
+    width: 50vw;
+}
+
+#sendBtn {
+    position: fixed;
+    bottom: 2.5rem;
+    left: 6vw;
+}
