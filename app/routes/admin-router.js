@@ -114,7 +114,13 @@ router.put("/user-edit", (req, res) => {
             school: req.body.school
         }
     }, (error, result) => {
-        res.redirect("/main");
+        db.collection('BBY_20_Post').updateMany({ userID: req.body._id }, {
+            $set: {
+                username: req.body.username
+            }
+        }, (error, result) => {
+            res.redirect("/main");
+        });
     });
 });
 
