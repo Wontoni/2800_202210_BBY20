@@ -110,48 +110,6 @@ router.get("/main", (req, res) => {
     }
 });
 
-// show create-post page
-router.get("/create-post", (req, res) => {
-    if (!req.user) {
-        res.sendFile(directory.login);
-    } else {
-        const post = fs.readFileSync(directory.post);
-        const postHTML = new JSDOM(post);
-        postHTML.window.document.getElementById("username").innerHTML = req.user.username;
-        postHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
-        res.send(postHTML.serialize());
-    }
-});
-
-// create a post
-router.post('/create-post', (req, res) => {
-    db.collection('BBY_20_Count').findOne({ name: 'NumberOfPosts' }, (error, result) => {
-        if (!error) {
-            var totalPost = result.totalPost;
-            db.collection('BBY_20_Post').insertOne({
-                _id: totalPost + 1,
-                userID: req.user._id,
-                username:req.user.username,
-                title: req.body.title,
-                description: req.body.description,
-                lastModified: new Date()
-            }, (error, result) => {
-                if (!error) {
-                    db.collection('BBY_20_Count').updateOne({
-                        name: 'NumberOfPosts'
-                    }, {
-                        $inc: { totalPost: 1 }
-                    }, (error, result) => {
-                        if (result.acknowledged) {
-                            res.redirect("/main");
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
-
 // show timeline page
 router.get("/timeline", (req, res) => {
     if (!req.user) {

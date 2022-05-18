@@ -103,5 +103,8 @@ app.use("/", signupRouter);
 const adminRouter = require("./routes/admin-router");
 app.use("/", adminRouter);
 
+const mainRouter = require("./routes/main-router");
+app.use("/", mainRouter);
+
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);

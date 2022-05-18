@@ -17,6 +17,9 @@
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- Tiny Editor -->
+    <script src="https://cdn.tiny.cloud/1/60r1xmf2k6s1nxae2h6jsi0gh6bykdac6r651bqsuwuhnbt1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/timeline.css">
@@ -67,11 +70,12 @@
                 <form action="/create-post" method="POST">
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="input" id="title" name="title" placeholder="Insert your title"
-                            required>
+                        <input type="text" class="input" id="title" name="title" placeholder="Insert your title" required>
                     </div>
 
-                    <div class="form-group">
+                    <textarea id="post-editor" name="description"></textarea>
+
+                     <!-- <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="input" id="description" name="description"
                             placeholder="Insert your description" required>
@@ -103,7 +107,7 @@
                                 <span class="material-icons">close</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="primary-button">Create New Thread</button>
                 </form>
@@ -115,6 +119,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
+    <script src="/public/js/create-post.js"></script>
 
 </body>
 
