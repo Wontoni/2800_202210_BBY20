@@ -56,7 +56,9 @@ router.delete('/delete', (req, res) => {
             });
         } else if (result.role === "regular") {
             db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                res.sendFile(directory.main);
+                db.collection('BBY_20_Post').deleteMany({ userID: parseInt(req.body._id) }, (error, result) => {
+                    res.sendFile(directory.main);
+                });
             });
         }
     });

@@ -164,23 +164,40 @@ router.get("/timeline", (req, res) => {
         var listTemplate = timelineHTML.window.document.getElementById("listTemplate");
         var postTemplate = timelineHTML.window.document.getElementById("postTemplate");
         db.collection("BBY_20_Post").find({ userID: req.user._id }).toArray((error, result) => {
-            for (var i = 0; i < result.length; i++) {
-                var username = result[i].username;
-                var time = result[i].lastModified;
-                var title = result[i].title;
-                var description = result[i].description;
-                var postInfo = postTemplate.cloneNode(true);
+            if (result.length === 0) {
                 postTemplate.remove();
-                postInfo.querySelector("#name").innerHTML = username;
-                postInfo.querySelector("#time").innerHTML = time;
-                postInfo.querySelector("#title").innerHTML = title;
-                postInfo.querySelector("#description").innerHTML = description;
-                listTemplate.appendChild(postInfo);
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var username = result[i].username;
+                    var time = result[i].lastModified;
+                    var title = result[i].title;
+                    var description = result[i].description;
+                    var postInfo = postTemplate.cloneNode(true);
+                    postTemplate.remove();
+                    postInfo.querySelector("#name").innerHTML = username;
+                    postInfo.querySelector("#time").innerHTML = time;
+                    postInfo.querySelector("#title").innerHTML = title;
+                    postInfo.querySelector("#description").innerHTML = description;
+                    postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
+                    listTemplate.appendChild(postInfo);
+                }
             }
             res.send(timelineHTML.serialize());
         });
     }
 });
+
+// delete a post
+router.delete('/delete-post', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Post').deleteOne({ _id: req.body._id }, (error, result) => {
+        res.sendFile(directory.timeline);
+    });
+});
+
+// edit a post
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;
