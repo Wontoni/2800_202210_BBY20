@@ -172,7 +172,7 @@ router.get("/edit-post/:id", (req, res) => {
         db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
             editPostHTML.window.document.getElementById("postNumber").setAttribute("value", `${req.params.id}`);
             editPostHTML.window.document.getElementById("title").setAttribute("value", `${result.title}`);
-            editPostHTML.window.document.getElementById("post-editor").textContent = `${result.description}`;
+            editPostHTML.window.document.getElementById("tiny-editor").textContent = `${result.description}`;
             res.send(editPostHTML.serialize());
         });
     }
