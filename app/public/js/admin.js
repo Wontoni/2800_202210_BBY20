@@ -1,7 +1,9 @@
 "use strict";
 
+
 $('.delete').click((e) => {
     var userNumber = e.target.dataset.number;
+    console.log(userNumber);
     $.ajax({
         method: 'DELETE',
         url: '/delete',
