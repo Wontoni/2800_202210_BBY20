@@ -12,7 +12,7 @@ $('.deleteBtn').click(function (e) {
 })
 
 // Close confirm popup
-$('.close').click(function () {
+$('.closeBtn').click(function () {
     pop.style.display = "none";
 })
 $('.delete').click(function () {
