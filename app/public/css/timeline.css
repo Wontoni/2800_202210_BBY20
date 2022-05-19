@@ -173,17 +173,17 @@ h1 {
     color: var(--primary-color);
 }
 
-.timeline .user .edit {
+.timeline .user .buttons {
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
-.timeline .user .edit span {
+.timeline .user .buttons span {
     color: #757575;
 }
 
-.timeline .user .edit .saved {
+.timeline .user .buttons .saved {
     color: var(--primary-color);
 }
 
