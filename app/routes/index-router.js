@@ -170,10 +170,9 @@ router.get("/edit-post/:id", (req, res) => {
         editPostHTML.window.document.getElementById("username").innerHTML = req.user.username;
         editPostHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
         db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-            console.log(result);
             editPostHTML.window.document.getElementById("postNumber").setAttribute("value", `${req.params.id}`);
             editPostHTML.window.document.getElementById("title").setAttribute("value", `${result.title}`);
-            editPostHTML.window.document.getElementById("post-editor").setAttribute("value", `${result.description}`);
+            editPostHTML.window.document.getElementById("post-editor").textContent = `${result.description}`;
             res.send(editPostHTML.serialize());
         });
     }
