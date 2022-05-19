@@ -13,7 +13,7 @@ $('.delete').click((e) => {
     });
 });
 
-$('.edit-button').click((e) => {
+$('.edit').click((e) => {
     var postNumber = e.target.dataset.number;
     $.ajax({
         method: 'GET',
