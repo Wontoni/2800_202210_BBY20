@@ -181,7 +181,6 @@ router.get("/edit-post/:id", (req, res) => {
 // edit a post
 router.put("/post-edit", (req, res) => {
     req.body._id = parseInt(req.body._id);
-    console.log(req.body._id);
     db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
         $set: {
             title: req.body.title,
