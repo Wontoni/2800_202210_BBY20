@@ -13,15 +13,15 @@ $('.delete').click((e) => {
     });
 });
 
-// $('.edit').click((e) => {
-//     var userNumber = e.target.dataset.number;
-//     $.ajax({
-//         method: 'GET',
-//         url: `/edit-post/${userNumber}`,
-//         data: { _id: userNumber }
-//     }).done((result) => {
-//         window.location.href = `/edit/${userNumber}`;
-//     }).fail((error) => {
-//         console.log("error");
-//     });
-// });
+$('.edit').click((e) => {
+    var postNumber = e.target.dataset.number;
+    $.ajax({
+        method: 'GET',
+        url: `/edit-post/${postNumber}`,
+        data: { _id: postNumber }
+    }).done((result) => {
+        window.location.href = `/edit-post/${postNumber}`;
+    }).fail((error) => {
+        console.log("error");
+    });
+});

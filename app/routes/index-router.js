@@ -160,24 +160,38 @@ router.delete('/delete-post', (req, res) => {
     });
 });
 
+// show edit post page
+router.get("/edit-post/:id", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const editPost = fs.readFileSync(directory.editPost);
+        const editPostHTML = new JSDOM(editPost);
+        editPostHTML.window.document.getElementById("username").innerHTML = req.user.username;
+        editPostHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
+        db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            editPostHTML.window.document.getElementById("postNumber").setAttribute("value", `${req.params.id}`);
+            editPostHTML.window.document.getElementById("title").setAttribute("value", `${result.title}`);
+            editPostHTML.window.document.getElementById("post-editor").textContent = `${result.description}`;
+            res.send(editPostHTML.serialize());
+        });
+    }
+});
+
 // edit a post
-// router.get("/edit-post/:id", (req, res) => {
-//     if (!req.user) {
-//         res.sendFile(directory.login);
-//     } else {
-//         const editPost = fs.readFileSync(directory.editPost);
-//         const editPostHTML = new JSDOM(editPost);
-//         db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-//             editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
-//             editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
-//             editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
-//             editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
-//             editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
-//             res.send(editPostHTML.serialize());
-//         });
-//         res.sendFile(directory.editPost);
-//     }
-// });
+router.put("/post-edit", (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    console.log(req.body._id);
+    db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
+        $set: {
+            title: req.body.title,
+            description: req.body.description,
+            lastModified: new Date()
+        }
+    }, (error, result) => {
+        res.redirect("/timeline");
+    });
+});
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;
