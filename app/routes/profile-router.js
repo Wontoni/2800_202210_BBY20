@@ -91,23 +91,38 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
 // update user profile
 router.put("/profile-edit", (req, res) => {
     if (req.user) {
-        db.collection("BBY_20_User").updateOne({
-            _id: req.user._id
-        }, {
-            $set: {
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password,
-                school: req.body.school
-            }
+        db.collection("BBY_20_User").findOne({
+            username : req.body.username
         }, (error, result) => {
-            db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
-                $set: {
-                    username: req.body.username
-                }
-            }, (error, result) => {
-                res.redirect("/profile");
-            });
+            let exist = false;
+            if (result) {
+                exist = true;
+            }
+
+            if (exist) {
+                res.json({
+                    message : "This username already exists"
+                });
+            } else {
+                db.collection("BBY_20_User").updateOne({
+                    _id: req.user._id
+                }, {
+                    $set: {
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: req.body.password,
+                        school: req.body.school
+                    }
+                }, (error, result) => {
+                    db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
+                        $set: {
+                            username: req.body.username
+                        }
+                    }, (error, result) => {
+                        res.redirect("/profile");
+                    });
+                });
+            }
         });
     }
 });
