@@ -86,7 +86,6 @@ router.get("/main", (req, res) => {
             const mainHTML = new JSDOM(main);
             mainHTML.window.document.getElementById("username").innerHTML = req.user.username;
             mainHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
-<<<<<<< HEAD
             var listTemplate = mainHTML.window.document.getElementById("listTemplate");
             var postTemplate = mainHTML.window.document.getElementById("postTemplate");
 
@@ -125,10 +124,6 @@ router.get("/main", (req, res) => {
                     res.send(mainHTML.serialize());
                 });
             });
-=======
-
-            res.send(mainHTML.serialize());
->>>>>>> Winston_friends_message
         }
     } else {
         res.redirect("/login");
