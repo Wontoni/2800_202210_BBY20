@@ -1,0 +1,51 @@
+#wrong-word {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.wrong-text {
+    padding: 2rem 2rem 1rem 2rem;
+    border: 2px solid #ff481f;
+    border-radius: 0.5rem;
+    text-align: center;
+    width: 300px;
+    height: 140px;
+    background-color: white;
+    margin: 35vh auto;
+}
+
+
+.hide {
+    display: none;
+}
+
+.okayBtn {
+    margin-top: 0.5rem;
+}
+
+h4 {
+    margin-top: 1rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.content .form {
+    padding-top: 2rem;
+}
+
+.content .input, select {
+    width: 100%;
+}
+
+.content button {
+    margin-top: 1rem;
+    width: 100%;
+}
