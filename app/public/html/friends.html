@@ -18,39 +18,61 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../public/css/global.css">
-    <link rel="stylesheet" href="../../public/css/messages.css">
+    <link rel="stylesheet" href="../../public/css/friends.css">
+
 </head>
 
 <body>
-    <div class="container">
-        <div class="msgNav">
-            <div class="navHamburger"><span class="material-icons">menu</span></div>
-        </div>
 
-        <div class="friendTitle">
-            My Friends
-            <div class="sForm">
-                <form>
-                    <input class="searchIcon" type="text" name="search" placeholder="Search">
-                    <span class="material-icons" id="addFriends">add_box</span>
-                </form>
+    <div class="container">
+
+        <div class="navbar">
+            <div class="head">
+                <div class="account">
+                    <div class="user-icon">
+                        <img alt="avatar-image" id="userAvatar">
+                    </div>
+                </div>
+
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="/main">Home</a></li>
+                    <li><a class="link-animation" href="/profile">Profile</a></li>
+                    <li><a class="link-animation" href="/timeline">Timeline</a></li>
+                    <li><a class="link-animation" href="#">Friends</a></li>
+                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="#">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="../../public/assets/logo/un-logo-mini_white.svg" alt="UNIFIED Secondary Logo in White"
+                    width="30px">
             </div>
         </div>
 
-        <div class="leftFriends">
-            <div class="myFriends">
-                <!-- Populate user's friends here -->
-                <div class="friendItem friendItem_template">
-                    <span class="material-icons" id="profilePic">
-                        <!-- Friend's profile picture-->
-                        account_circle
-                    </span>
-                    <span id="friendName">
-                        <!-- Friend's username/name-->
-                        John Doe
-                    </span>
-                </div>
 
+        <div class="friendsList close-friends">
+            <div class="friendHeader">
+                <h2>FRIENDS</h2>
+            </div>
+
+            <!-- Search friends-->
+            <div class="searchFriends">
+                <form class="searchForm">
+                    <input class="input" type="text" placeholder="Search">
+                </form>
+            </div>
+
+            <div class="friends">
+                <!-- Friend items -->
                 <div class="friendItem active">
                     <span class="material-icons" id="profilePic">account_circle</span>
                     <span id="friendName">John Doe</span>
@@ -60,62 +82,38 @@
                     <span class="material-icons" id="profilePic">account_circle</span>
                     <span id="friendName">John Doe</span>
                 </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
-                <div class="friendItem">
-                    <span class="material-icons" id="profilePic">account_circle</span>
-                    <span id="friendName">John Doe</span>
-                </div>
             </div>
         </div>
 
-        <div class="rightMsg">Add messages here</div>
-        
-        <div class="sendMsg">
-            <form class="sForm">
-                <input type="text" name="message" placeholder="Message...">
-                <span class="material-icons" id="sendBtn">send</span>
-            </form>
+        <div class="messageContainer">
+            <h1>MESSAGES</h1>
+
+            <div class="messages">
+
+                <div class="timestamp">Tues 6:30PM</div>
+                <div class="message" id="receive">Hey, do you have notes for tomorrow's class?</div>
+                <div class="timestamp">Tues 7:32PM</div>
+                <div class="message" id="sent">I don't, but I think Noufil has them if you want to try asking him!</div>
+                <div class="message" id="receive">Oh okay! Thanks!</div>
+                <div class="message" id="sent">No problem</div>
+            </div>
         </div>
+
+        <form class="sendMessage">
+            <input class="input" type="text" placeholder="Send message...">
+        </form>
+        <span class="material-icons" id="sendBtn">send</span>
+
+        <span class="material-icons friendsIcon">group</span>
     </div>
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Custom JS -->
-    <script src="/public/js/skeleton.js"></script>
-    <script src="/public/js/global.js"></script>
+    <script src="../../public/js/skeleton.js"></script>
+    <script src="../../public/js/global.js"></script>
+    <script src="../../public/js/friends.js"></script>
 
 </body>
 
