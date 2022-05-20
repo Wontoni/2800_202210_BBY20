@@ -76,24 +76,29 @@
                         <div class="post" id="postTemplate">
                             <div class="user">
                                 <div class="user-icon">
-                                    <span class="material-icons">account_circle</span>
+                                    <img alt="avatar-image" id="avatar">
                                 </div>
 
                                 <div class="user-info">
-                                    <h4><div id="name"></div></h4>
+                                    <h4>
+                                        <div id="name"></div>
+                                    </h4>
 
                                     <div class="rest">
-                                        <p><div id="time"></div></p>
+                                        <p>
+                                        <div id="time"></div>
+                                        </p>
                                     </div>
                                 </div>
-                                
+
                                 <!-- <div class="bookmark">
                                     <a href="#">
                                         <span class="material-icons">bookmark_outline</span>
                                     </a>
                                 </div> -->
 
-                                <div>
+
+                                <div class="buttons">
                                     <span class="material-icons button" id="delete-number">delete</span>
 
                                     <div id="confirmPopup" class="confirmDelete">
@@ -109,11 +114,10 @@
                                                 <button class="delete" id="confirmBtn">Confirm</button>
                                             </div>
                                         </div>
-                                
                                     </div>
 
 
-                                    <span class="material-icons edit-button edit" id="edit-number">edit</span>
+                                    <span class="material-icons edit" id="edit-number">edit</span>
                                 </div>
                             </div>
 
@@ -123,8 +127,12 @@
                             </div>
 
                             <div class="post-content">
-                                <h4><div id="title"></div></h4>
-                                <p><div id="description"></div></p>
+                                <h4>
+                                    <div id="title"></div>
+                                </h4>
+                                <p>
+                                <div id="description"></div>
+                                </p>
                                 <input type="text" name="comment" placeholder="Add a comment">
                             </div>
                         </div>
