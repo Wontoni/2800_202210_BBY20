@@ -63,7 +63,18 @@
     flex-grow: 5;
 }
 
+.content .user .tips-info {
+    flex-grow: 5;
+}
+
 .content .user #name {
+    font-family: obviously-wide, sans-serif;
+    margin-top: -0.15rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.content .user #title {
     font-family: obviously-wide, sans-serif;
     margin-top: -0.15rem;
     font-size: 1rem;
