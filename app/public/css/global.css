@@ -353,6 +353,21 @@ button {
         -o-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
+
+/* Easter Egg */
+.secret {
+    opacity: 0.1;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
 /* *** */
 
 /* Responsive */
