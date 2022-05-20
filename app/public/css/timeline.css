@@ -7,6 +7,13 @@ h1 {
     font-style: normal;
 }
 
+#avatar {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50rem;
+}
+
 .content .container {
     display: flex;
 }
