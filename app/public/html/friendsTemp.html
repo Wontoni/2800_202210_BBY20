@@ -59,8 +59,10 @@
         </div>
 
 
-        <div class="friendsList">
-            <h1>FRIENDS</h1>
+        <div class="friendsList close-friends">
+            <div class="friendHeader">
+                <h2>FRIENDS</h2>
+            </div>
 
             <!-- Search friends-->
             <div class="searchFriends">
@@ -69,18 +71,20 @@
                 </form>
             </div>
 
-            <!-- Friend items -->
-            <div class="friendItem active">
-                <span class="material-icons" id="profilePic">account_circle</span>
-                <span id="friendName">John Doe</span>
-            </div>
+            <div class="friends">
+                <!-- Friend items -->
+                <div class="friendItem active">
+                    <span class="material-icons" id="profilePic">account_circle</span>
+                    <span id="friendName">John Doe</span>
+                </div>
 
-            <div class="friendItem">
-                <span class="material-icons" id="profilePic">account_circle</span>
-                <span id="friendName">John Doe</span>
+                <div class="friendItem">
+                    <span class="material-icons" id="profilePic">account_circle</span>
+                    <span id="friendName">John Doe</span>
+                </div>
             </div>
-
         </div>
+
         <div class="messageContainer">
             <h1>MESSAGES</h1>
 
@@ -95,15 +99,21 @@
             </div>
         </div>
 
-        <div class="sendMessage">
+        <form class="sendMessage">
             <input class="input" type="text" placeholder="Send message...">
-        </div>
+        </form>
         <span class="material-icons" id="sendBtn">send</span>
+
+        <span class="material-icons friendsIcon">group</span>
     </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Custom JS -->
     <script src="../../public/js/skeleton.js"></script>
     <script src="../../public/js/global.js"></script>
+    <script src="../../public/js/friends.js"></script>
 
 </body>
 

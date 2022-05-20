@@ -13,10 +13,32 @@
 
 h1 {
     margin-top: 2rem;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 2rem;
+    text-align: center;
 }
 
 .input {
     margin: 1rem auto;
+}
+
+.close {
+    display: none;
+}
+
+.open {
+    display: flex;
+}
+
+.friendsIcon {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 2.5rem;
 }
 
 .friendItem {
@@ -38,7 +60,7 @@ h1 {
 }
 
 .active {
-    background-color: #999999;
+    background-color: #cecece;
 }
 
 .messageContainer{
@@ -64,7 +86,7 @@ h1 {
 }
 
 #receive {
-    background-color: grey;
+    background-color: #dad8d8;
     justify-self: start;
     max-width: 25vw;
     height: fit-content;
@@ -72,11 +94,12 @@ h1 {
 }
 
 #sent {
-    background-color: orange;
+    background-color: var(--primary-color);
     justify-self: end;
     max-width: 25vw;
     height: fit-content;
     padding: 0.5rem 1rem;
+    color: white;
 }
 
 .timestamp {
@@ -87,18 +110,145 @@ h1 {
 }
 
 .sendMessage {
-    position: fixed;
-    bottom: 1rem;
-    left: 600px;
-    white-space: nowrap;
+    position: absolute;
+    bottom: 0;
+    left: 41rem;
 }
 
 .sendMessage .input {
-    width: 50vw;
+    width: 40vw;
+    height: 40px;
 }
 
 #sendBtn {
-    position: fixed;
-    bottom: 2.5rem;
-    left: 6vw;
+    position: absolute;
+    bottom: 1rem;
+    left: 50vw;
+    font-size: 2rem;
 }
+
+
+/* Responsive */
+
+@media only screen and (max-width: 1200px) {
+    .sendMessage .input {
+        width: 30vw;
+    }
+
+    .friendsList {
+        width: 200px;
+    }
+
+    .input {
+        width: 15vw;
+    }
+
+    .messageContainer{
+        margin-left: 35rem;
+        width: 100%;
+        height: 95vh;
+    }
+
+}
+/* Laptop */
+@media only screen and (max-width: 800px) {
+    .friendsList {
+        width: 200px;
+        margin-left: 2rem;
+        margin-top: 2rem;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    
+    .messageContainer{
+        margin-left: 15rem;
+        width: 100%;
+        height: 95vh;
+    }
+
+    .sendMessage {
+        position: fixed;
+    }
+    
+    .sendMessage .input {
+        width: 55vw;
+    }
+    
+    #sendBtn {
+        position: fixed;
+        bottom: 1.4rem;
+        left: 90vw;
+        font-size: 2rem;
+    }
+
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .messageContainer{
+        margin-left: 2rem;
+        width: 100%;
+        height: 95vh;
+    }
+    
+    .close-friends {
+        display: none;
+    }
+
+    .friendsList {
+        width: 90vw;
+    }
+
+    .input {
+        width: 70vw;
+    }
+
+    .friendsIcon {
+        display: block;
+        cursor: pointer;
+
+        width: 30px;
+        height: 25px;
+        position: fixed;
+        bottom: 2rem;
+        left: 1rem;
+    }
+
+    .open {
+        display: flex;
+    }
+
+    .friends-open {
+        width: 100vw;
+        height: 100vw;
+    }
+
+    #receive {
+        max-width: 45vw;
+    }
+    
+    #sent {
+        max-width: 45vw;
+    }
+
+    .sendMessage {
+        position: fixed;
+        bottom: 0rem;
+        left: 5rem;
+    }
+    
+    .sendMessage .input {
+        width: 60vw;
+    }
+    
+    #sendBtn {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 85vw;
+        font-size: 2rem;
+    }
+}
+/* *** */
