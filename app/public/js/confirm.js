@@ -3,7 +3,7 @@
 var pop = document.getElementById("confirmPopup");
 
 // Open confirm popup
-$('.deleteBtn').click(function (e) {
+$('.button').click(function (e) {
     pop.style.display = "flex";
 
     var dataNum = e.target.dataset.number;
