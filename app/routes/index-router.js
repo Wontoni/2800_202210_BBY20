@@ -36,7 +36,9 @@ const directory = {
     edit: path.join(__dirname, "../public/html", "edit.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
     editPost: path.join(__dirname, "../public/html", "edit-post.html"),
-    timeline: path.join(__dirname, "../public/html", "timeline.html")
+    timeline: path.join(__dirname, "../public/html", "timeline.html"),
+    friend: path.join(__dirname, "../public/html", "friends.html"),
+    easter: path.join(__dirname, "../public/html", "easter.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -193,6 +195,14 @@ router.put("/post-edit", (req, res) => {
     }, (error, result) => {
         res.redirect("/timeline");
     });
+});
+
+// show easter egg
+router.get("/easter", (req, res) => {
+
+    const easter = fs.readFileSync(directory.easter);
+    const easterHTML = new JSDOM(easter);
+    res.send(easterHTML.serialize());
 });
 
 /* ------------------------------ Export Module ------------------------------ */
