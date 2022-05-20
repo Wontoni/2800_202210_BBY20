@@ -1,0 +1,73 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    font-family: "nunito-sans";
+    transition: width 2s, height 4s;
+}
+
+.tipsPop {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    border: 2px solid #F85C3A;
+    border-radius: 20px;
+    padding: 1rem;
+
+    max-width: 15vw;
+}
+
+.tipTitle {
+    font-family:"obviously-wide";
+}
+
+#readMore {
+    font-size: 0.7rem;
+    color: blue;
+}
+
+#readMore:hover {
+    cursor: pointer;
+}
+
+#readLess {
+    font-size: 0.7rem;
+    color: blue;
+}
+
+#readLess:hover {
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+
+#createPopup {
+    margin: 2rem 2rem;
+}
+
+.closePop {
+    font-size: 1rem;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+
+.closePop:hover {
+    cursor: pointer;
+    color: red;
+}
+
+/* Responsive */
+@media screen and (min-width: 401px) and (max-width: 1000px) {
+    .tipsPop {
+        max-width: 45vw;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .tipsPop {
+        max-width: 85vw;
+    }
+}

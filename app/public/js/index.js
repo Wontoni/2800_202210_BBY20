@@ -7,10 +7,10 @@ let serviceLocation = window.innerHeight * 2.35 - 400;
 var x = window.matchMedia("(max-width: 500px)")
 
 // Show/Hide Homepage elements
-$(document).scroll(function() {
+$(document).scroll(function () {
     var y = $(this).scrollTop();
 
-    if (y > 0){ 
+    if (y > 0) {
         $(".homeNav").css("box-shadow", "0px 10px 10px grey");
     } else {
         $(".homeNav").css("box-shadow", "none");
@@ -37,7 +37,7 @@ $(document).scroll(function() {
 });
 
 //Scroll to elements on click
-$(".about").click(function(){
+$(".about").click(function () {
     window.scroll({
         top: aboutLocation + 150,
         left: 0,
@@ -45,7 +45,7 @@ $(".about").click(function(){
     });
 })
 
-$(".contact").click(function(){
+$(".contact").click(function () {
     window.scroll({
         top: contactLocation + 150,
         left: 0,
@@ -53,7 +53,7 @@ $(".contact").click(function(){
     });
 })
 
-$(".serve").click(function(){
+$(".serve").click(function () {
     window.scroll({
         top: serviceLocation + 150,
         left: 0,
@@ -61,7 +61,7 @@ $(".serve").click(function(){
     });
 })
 
-$(".logo").click(function(){
+$(".logo").click(function () {
     window.scroll({
         top: 0,
         left: 0,

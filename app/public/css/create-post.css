@@ -1,0 +1,107 @@
+.navbar #username {
+    font-family: obviously-wide, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+.navbar .user-icon img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50rem;
+    box-shadow: 0px 7px 20px rgb(0 0 0 / 10%);
+}
+
+.content .form {
+    padding-top: 2rem;
+}
+
+.content .input, select, textarea {
+    width: 100%;
+}
+
+.content button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.content .post-tags {
+    /* margin-top: 1rem; */
+    margin-right: 2rem;
+}
+
+.content .post-tag {
+    display: inline-block;
+    margin: 0.25rem;
+    padding: 0.4rem 0.5rem 0.25rem;
+    font-size: 0.75rem;
+    color: var(--black);
+    background-color: #ccc;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.content .post-tags .active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.content .add-image {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 3rem;
+    cursor: pointer;
+}
+
+.content .add-image .btn-text {
+    margin-left: 0.5rem;
+}
+
+.content .image-thumb {
+    position: relative;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+.content .image-thumb img {
+    width: 20rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.07);
+}
+
+.content .image-thumb .icon {
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem;
+    background-color: red;
+    color: white;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.content .image-thumb .icon span {
+    font-size: 1rem;
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .content .add-image .btn-text {
+        display: none;
+    }
+    .content .image-thumb img {
+        width: 100%;
+    }
+}

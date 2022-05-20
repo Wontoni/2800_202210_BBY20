@@ -1,0 +1,260 @@
+h1 {
+    text-align: left;
+}
+
+.content #username {
+    font-family: obviously-wide, sans-serif;
+    font-style: normal;
+}
+
+#avatar {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50rem;
+}
+
+.content .container {
+    display: flex;
+}
+
+.content .timeline {
+    width: 60%;
+}
+
+.content .create-post {
+    position: relative;
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+.content .create-post input {
+    width: 100%;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 3.5rem;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+}
+
+.content .create-post .icon {
+    position: absolute;
+    right: 0;
+    margin: 0.3rem 0.4rem 0.5rem;
+    padding: 0.4rem 0.85rem 0.2rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 3rem;
+}
+
+.timeline .tags {
+    width: 100%;
+    /* overflow: hidden; */
+    margin-top: 2rem;
+    display: flex;
+}
+
+.timeline .tag-outer {
+    border-radius: 1rem;
+}
+
+.timeline .tags .active {
+    border: 1px solid var(--primary-color);
+}
+
+.timeline .tag {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 4rem;
+    height: 4rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+}
+
+.timeline .tag p {
+    color: white;
+}
+
+.timeline .bcit {
+    background-color: #43890b;
+}
+
+.timeline .ubc {
+    background-color: #002145;
+}
+
+.timeline .sfu {
+    background-color: #c12a36;
+}
+
+.timeline .langara {
+    background-color: #555;
+}
+
+.timeline .other {
+    background-color: #999999;
+}
+
+.timeline .memes {
+    background-color: #fd8f0d;
+}
+
+.timeline .ask {
+    background-color: #7d00fa;
+}
+
+.timeline .posts {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.timeline .post {
+    width: 100%;
+    margin: 1rem auto 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.timeline .post-image {
+    margin: calc(1rem * -1);
+    margin-bottom: 1rem;
+}
+
+.timeline .post-image img {
+    width: 100%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.timeline .user {
+    display: flex;
+}
+
+.timeline .user .user-icon {
+    display: flex;
+    align-items: center;
+    padding-right: 0.75rem;
+}
+
+.timeline .user .user-icon span {
+    height: fit-content;
+    font-size: 2.25rem;
+}
+
+.timeline .user .user-info {
+    flex-grow: 5;
+}
+
+.timeline .user #name {
+    margin-top: -0.5rem;
+    margin-bottom: 0.25rem;
+    font-family: obviously-wide, sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.timeline .user .rest #time {
+   font-size: 0.75rem;
+}
+
+.timeline .user .bookmark {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.timeline .user .bookmark span {
+    color: #757575;
+}
+
+.timeline .user .bookmark .saved {
+    color: var(--primary-color);
+}
+
+.timeline .user .buttons {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.timeline .user .buttons span {
+    color: #757575;
+}
+
+.timeline .user .buttons .saved {
+    color: var(--primary-color);
+}
+
+.timeline .post-tags {
+    margin-top: 1rem;
+}
+
+.timeline .post-tag {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.5rem 0.25rem;
+    font-size: 0.75rem;
+    color: white;
+    border-radius: 2rem;
+}
+
+.timeline .post-content {
+    margin-top: 1rem;
+}
+
+.timeline .post-content #title {
+    font-family: obviously-wide, sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.timeline .post-content #description {
+    margin-top: 0.5rem;
+    line-height: 1.25rem;
+    color: var(--paragraph);
+}
+
+.timeline input[name="comment"] {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #f9f9f9;
+    border: none;
+    border-radius: 1rem;
+}
+
+#userAvatar {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+
+    border-radius: 50rem;
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Laptop */
+@media only screen and (max-width: 800px) {
+    .content .container {
+        flex-direction: column;
+    }
+    .content .timeline {
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .timeline .post {
+        width: 20rem;
+    }
+}

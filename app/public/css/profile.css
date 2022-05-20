@@ -1,0 +1,115 @@
+.wrapper {
+    min-height: 120vh;
+}
+
+.account-head {
+    height: 30vh;
+    background-color: #F85C3A;
+    background-image: url(../assets/logo/un-logo-mini_lightOrange.svg);
+    background-size: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+}
+
+.account-head .profile {
+    margin-bottom: -4rem;
+    margin-left: 20vw;
+}
+
+.account-head .profile span {
+    background-color: white;
+    border-radius: 50rem;
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.1);
+    font-size: 8rem;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.account-head .profile img {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 50rem;
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.1);
+    font-size: 8rem;
+}
+
+.account-head .profile span:hover {
+    cursor: pointer;
+}
+
+.account-body {
+    margin-top: 4rem;
+    margin-left: 20vw;
+}
+
+.account-body .h2 {
+    text-align: center;
+}
+
+.account-body #signUpForm {
+    margin: 2rem auto;
+    padding-bottom: 3rem;
+    width: 40%;
+}
+
+.account-body .input {
+    display: block;
+    width: 100%;
+}
+
+.account-body .form-group {
+    margin-bottom: 0.5rem;
+}
+
+.account-body button {
+    margin-top: 2rem;
+}
+
+.homeBtn {
+    display: none;
+}
+
+#backBtn a{
+    text-decoration: none;
+    color: black;
+}
+
+.navbar #usernameMenu {
+    font-family: obviously-wide, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 800px) {
+    .account-body #signUpForm {
+        width: 60%;
+    }
+
+    .homeBtn {
+        display: inherit;
+    }
+
+    .account-body {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .account-body #signUpForm {
+        width: 80%;
+    }
+
+    .account-body {
+        margin-left: 0;
+    }
+}

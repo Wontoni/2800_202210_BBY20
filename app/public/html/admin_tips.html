@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="stylesheet" href="/public/css/confirm.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="navbar">
+            <div class="head">
+                <div class="account">
+                    <div class="user-icon">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <div id="username"></div>
+                </div>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="/main">Home</a></li>
+                    <li><a class="link-animation" href="/tips">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out" id="sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="/public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
+                    width="125px">
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>Dashboard</h1>
+
+            <div class="search">
+                <div class="icon">
+                    <span class="material-icons">search</span>
+                </div>
+                <input type="search" name="search" placeholder="Search tips">
+            </div>
+
+            <div class="container">
+                <div class="users" id="listTemplate">
+                    <div class="total-users" id="total-tips">
+                    </div>
+
+                    <div class="user" id="tipsTemplate">
+                        <div class="tips-info">
+                            <div id="title"></div>
+
+                            <div class="rest">
+                                <div id="description"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="user-more">
+                            <span class="material-icons button" id="delete-number">delete</span>
+
+                            <div id="confirmPopup" class="confirmDelete">
+
+                                <!-- Modal content -->
+                                <div class="popup-container">
+                                    <span class="material-icons warning">warning</span>
+                                    <div class="popupText">
+                                        Are you sure you want to delete this tip?
+                                    </div>
+                                    <div class="popupBtns">
+                                        <button class="closeBtn">Cancel</button>
+                                        <button class="delete" id="confirmBtn">Confirm</button>
+                                    </div>
+                                </div>
+                        
+                            </div>
+
+                            <span class="material-icons edit" id="edit-number">edit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="create-user">
+                    <h1>Create Tip</h1>
+                    <div id="create-message"></div>
+                    <div class="form">
+                        <form>
+                            <div class="form-group">
+                                <label for="tipTitle">Title</label>
+                                <input type="text" class="input" id="tipTitle" name="title"
+                                    placeholder="Enter your title" required>
+                                <small id="userNameError" class="form-error">*This field must be filled.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipDescription">Description</label>
+                                <input type="desc" class="input" id="tipDescription" name="desc"
+                                    placeholder="Enter your description">
+                                <small id="userEmailError" class="form-error">*This field must be filled.</small>
+                            </div>
+
+                        </form>
+                        <button type="submit" id="create-button" class="primary-button">Create New Tip</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/public/js/global.js"></script>
+    <script src="/public/js/admin_tips.js"></script>
+    <script src="/public/js/confirm.js"></script>
+
+</body>
+
+</html>

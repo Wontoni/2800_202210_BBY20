@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Edit User | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/edit-user.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <nav id="navTemplate"></nav>
+
+        <div class="content">
+            <h1>Edit User</h1>
+
+            <div class="form">
+                <div class="form-group">
+                    <label for="userName">Username</label>
+                    <input type="text" class="input" id="userName" placeholder="Enter your username" required>
+                    <small id="userNameError" class="form-error">*This field must be filled.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" class="input" id="userEmail" placeholder="Enter your email">
+                    <small id="userEmailError" class="form-error">*Please check your email.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" class="input" id="userPassword" placeholder="Enter your password">
+                    <small id="userPasswordError" class="form-error">*Please check your password.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPassword">School</label>
+                    <select name="school" id="userSchool"  required>
+                        <option value="" disabled selected>What school do you go to?</option>
+                        <option value="ubc">UBC</option>
+                        <option value="bcit">BCIT</option>
+                        <option value="sfu">SFU</option>
+                        <option value="langara">Langara</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <small id="userPasswordError" class="form-error">*Please check your password.</small>
+                </div>
+
+                <button type="button" class="primary-button">Save Changes</button>
+            </div>    
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="../../public/js/skeleton.js"></script>
+    <script src="../../public/js/global.js"></script>
+    <script src="../../public/js/edit-user.js"></script>
+    
+</body>
+</html>

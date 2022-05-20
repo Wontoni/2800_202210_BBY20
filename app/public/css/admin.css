@@ -1,0 +1,158 @@
+.wrapper {
+    height: 150vh;
+}
+
+.navbar #username {
+    font-family: obviously-wide, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+.content .search {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.content .search input {
+    width: 100%;
+    padding: 1rem;
+    padding-left: 3.5rem;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.07);
+}
+
+.content .search .icon {
+    position: absolute;
+    padding: 0.7rem 1.25rem;
+    color: #757575;
+}
+
+.content .container {
+    display: flex;
+    margin-top: 3rem;
+}
+
+.content .users {
+    width: 60%;
+    min-width: 20rem;
+}
+
+.content .user {
+    display: flex;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.content .user:last-of-type {
+    border: none;
+}
+
+.content .user .user-icon {
+    padding-right: 0.75rem;
+}
+
+.content .user .user-icon span {
+    font-size: 3rem;
+}
+
+.content .user .user-info {
+    flex-grow: 5;
+}
+
+.content .user .tips-info {
+    flex-grow: 5;
+}
+
+.content .user #name {
+    font-family: obviously-wide, sans-serif;
+    margin-top: -0.15rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.content .user #title {
+    font-family: obviously-wide, sans-serif;
+    margin-top: -0.15rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.content .user .rest {
+    /* display: flex; */
+    color: var(--paragraph);
+    align-items: center;
+    padding-top: 0.25rem;
+}
+
+.content .user .admin {
+    margin-left: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 2rem;
+}
+
+.content .user .user-more {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+.content .create-user {
+    width: 40%;
+    min-width: 22rem;
+    margin-left: 3rem;
+    padding: 1rem 1rem 2rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 2rem;
+}
+
+.content .create-user h1 {
+    margin-bottom: 1rem;
+}
+
+.content .form {
+    padding-inline: 2rem;
+}
+
+.content .input {
+    display: block;
+    width: 100%;
+}
+
+.content .create-user button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Laptop */
+@media only screen and (max-width: 1250px) {
+    .content .container {
+        flex-direction: column;
+        margin-top: 2rem;
+    }
+    .content .users {
+        width: 100%;
+    }
+    .content .create-user {
+        width: 60%;
+        margin: auto;
+        margin-top: 4rem;
+    }
+    .content .form {
+        padding-inline: 1rem;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .content .create-user {
+        margin-top: 2rem;
+    }
+}

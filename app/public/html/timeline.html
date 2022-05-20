@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Timeline | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../public/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/timeline.css">
+    <link rel="stylesheet" href="../../public/css/tipsPop.css">
+    <link rel="stylesheet" href="../../public/css/confirm.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="navbar">
+            <div class="head">
+                <div class="account">
+                    <div class="user-icon">
+                        <img alt="avatar-image" id="userAvatar">
+                    </div>
+                </div>
+
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="/main">Home</a></li>
+                    <li><a class="link-animation" href="/profile">Profile</a></li>
+                    <li><a class="link-animation" href="/timeline">Timeline</a></li>
+                    <li><a class="link-animation" href="#">Friends</a></li>
+                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="#">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="/public/assets/logo/un-logo-mini_white.svg" alt="UNIFIED Secondary Logo in White"
+                    width="30px">
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>
+                <div id="username"></div>
+            </h1>
+
+            <div class="container">
+                <div class="timeline">
+                    <div class="create-post" onclick="location.href='/create-post';">
+                        <div class="icon">
+                            <span class="material-icons">add</span>
+                        </div>
+                        <input type="text" name="post" placeholder="Create a new thread">
+                    </div>
+
+                    <div class="posts" id="listTemplate">
+                        <div class="post" id="postTemplate">
+                            <div class="user">
+                                <div class="user-icon">
+                                    <img alt="avatar-image" id="avatar">
+                                </div>
+
+                                <div class="user-info">
+                                    <h4><div id="name"></div></h4>
+
+                                    <div class="rest">
+                                        <p><div id="time"></div></p>
+                                    </div>
+                                </div>
+
+                                <div class="buttons">
+                                    <span class="material-icons button" id="delete-number">delete</span>
+
+                                    <div id="confirmPopup" class="confirmDelete">
+        
+                                        <!-- Modal content -->
+                                        <div class="popup-container">
+                                            <span class="material-icons warning">warning</span>
+                                            <div class="popupText">
+                                                Are you sure you want to delete this post?
+                                            </div>
+                                            <div class="popupBtns">
+                                                <button class="closeBtn">Cancel</button>
+                                                <button class="delete" id="confirmBtn">Confirm</button>
+                                            </div>
+                                        </div>
+                                
+                                    </div>
+                                    <span class="material-icons edit" id="edit-number">edit</span>
+                                </div>
+                            </div>
+
+                            <div class="post-tags">
+                                <span class="post-tag ask">Ask</span>
+                                <span class="post-tag bcit">BCIT</span>
+                            </div>
+
+                            <div class="post-content">
+                                <h4><div id="title"></div></h4>
+                                <p><div id="description"></div></p>
+                                <input type="text" name="comment" placeholder="Add a comment">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../public/js/skeleton.js"></script>
+    <script src="../../public/js/global.js"></script>
+    <script src="../../public/js/timeline.js"></script>
+    <script src="../../public/js/confirm.js"></script>
+
+</body>
+
+</html>
