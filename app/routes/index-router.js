@@ -89,6 +89,7 @@ router.get("/main", (req, res) => {
             mainHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
             var listTemplate = mainHTML.window.document.getElementById("listTemplate");
             var postTemplate = mainHTML.window.document.getElementById("postTemplate");
+
             db.collection("BBY_20_Post").find().sort({ lastModified: -1 }).toArray((error, result) => {
                 if (result.length === 0) {
                     postTemplate.remove();
@@ -109,7 +110,20 @@ router.get("/main", (req, res) => {
                         listTemplate.appendChild(postInfo);
                     }
                 }
-                res.send(mainHTML.serialize());
+
+                // Quick tips
+                db.collection("BBY_20_Tips").find().sort({ lastModified: -1 }).toArray((error, result) => {
+                    var tipLoadNumber = Math.floor(Math.random() * result.length);
+    
+                    var tipTitle = result[tipLoadNumber].title;
+                    console.log("TITLE " + tipTitle);
+                    var tipDesc = result[tipLoadNumber].description;
+                    var tipDiv = mainHTML.window.document.getElementById("tipsPop");
+                    tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
+                    tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
+    
+                    res.send(mainHTML.serialize());
+                });
             });
         }
     } else {
