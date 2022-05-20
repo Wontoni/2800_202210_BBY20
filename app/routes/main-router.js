@@ -60,7 +60,8 @@ router.post('/create-post', (req, res) => {
             db.collection('BBY_20_Post').insertOne({
                 _id: totalPost + 1,
                 userID: req.user._id,
-                username:req.user.username,
+                username: req.user.username,
+                userAvatar: req.user.avatar,
                 title: req.body.title,
                 description: req.body.description,
                 lastModified: new Date()

@@ -94,12 +94,14 @@ router.get("/main", (req, res) => {
                     postTemplate.remove();
                 } else {
                     for (var i = 0; i < result.length; i++) {
+                        var avatar = result[i].userAvatar;
                         var username = result[i].username;
                         var time = result[i].lastModified;
                         var title = result[i].title;
                         var description = result[i].description;
                         var postInfo = postTemplate.cloneNode(true);
                         postTemplate.remove();
+                        postInfo.querySelector("#avatar").setAttribute("src", `/${avatar}`);
                         postInfo.querySelector("#name").innerHTML = username;
                         postInfo.querySelector("#time").innerHTML = time;
                         postInfo.querySelector("#title").innerHTML = title;
@@ -124,6 +126,7 @@ router.get("/timeline", (req, res) => {
         const timelineHTML = new JSDOM(timeline);
         timelineHTML.window.document.getElementById("username").innerHTML = req.user.username + "'s Timeline";
         timelineHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
+        timelineHTML.window.document.getElementById("avatar").setAttribute("src", `${req.user.avatar}`);
         var listTemplate = timelineHTML.window.document.getElementById("listTemplate");
         var postTemplate = timelineHTML.window.document.getElementById("postTemplate");
         db.collection("BBY_20_Post").find({ userID: req.user._id }).sort({ lastModified: -1 }).toArray((error, result) => {
