@@ -14,6 +14,7 @@ function checkWord() {
         location.href = "https://www.youtube.com/watch?v=DLzxrzFCyOs";
     } else {
         wrongWord.classList.toggle('hide');
+        document.querySelector('#secret-word').value = "";
     }
 
 }

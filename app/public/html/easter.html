@@ -35,13 +35,14 @@
                     <input type="text" class="input" id="secret-word" placeholder="Enter the secret code">
                     <small id="userNameError" class="form-error">*This field must be filled.</small>
                 </div>
-
-                <button type="button" class="primary-button" id="submitEasterEgg" onclick="checkWord()">I WON</button>
             </div> 
+            <button type="button" class="primary-button" id="submitEasterEgg" onclick="checkWord()">I WON</button>
 
             <div id="wrong-word" class="hide">
-                Incorrect, please try again!
-                <button class="primary-button okayBtn" onclick="closePopup()">Okay</button>
+                <div class="wrong-text">
+                    <div>Incorrect, please try again!</div>
+                    <button class="primary-button okayBtn" onclick="closePopup()">Okay</button>
+                </div>
             </div>
         </div>
     </div>
