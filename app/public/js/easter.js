@@ -1,7 +1,7 @@
 "use strict";
 
-var moveSpeed = 20000; // Milliseconds -- Animation speed
-var delayAnimation = 1000; // Milliseconds -- Initial delay time
+var moveSpeed = 8000; // Milliseconds -- Animation speed
+var delayAnimation = 30000; // Milliseconds -- Initial delay time
 
 //Randomize animation delay in milliseconds
 const lowerBound = 20000
