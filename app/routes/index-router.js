@@ -35,6 +35,7 @@ const directory = {
     friend: path.join(__dirname, "../public/html", "friends.html"),
     edit: path.join(__dirname, "../public/html", "edit.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
+    editPost: path.join(__dirname, "../public/html", "edit-post.html"),
     timeline: path.join(__dirname, "../public/html", "timeline.html"),
     easter: path.join(__dirname, "../public/html", "easter.html"),
 };
@@ -89,7 +90,6 @@ router.get("/main", (req, res) => {
             mainHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
             var listTemplate = mainHTML.window.document.getElementById("listTemplate");
             var postTemplate = mainHTML.window.document.getElementById("postTemplate");
-
             db.collection("BBY_20_Post").find().sort({ lastModified: -1 }).toArray((error, result) => {
                 if (result.length === 0) {
                     postTemplate.remove();
@@ -114,13 +114,11 @@ router.get("/main", (req, res) => {
                 // Quick tips
                 db.collection("BBY_20_Tips").find().sort({ lastModified: -1 }).toArray((error, result) => {
                     var tipLoadNumber = Math.floor(Math.random() * result.length);
-    
                     var tipTitle = result[tipLoadNumber].title;
                     var tipDesc = result[tipLoadNumber].description;
                     var tipDiv = mainHTML.window.document.getElementById("tipsPop");
                     tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
                     tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
-    
                     res.send(mainHTML.serialize());
                 });
             });
@@ -130,50 +128,82 @@ router.get("/main", (req, res) => {
     }
 });
 
-// show create-post page
-router.get("/create-post", (req, res) => {
-    if (!req.user) {
-        res.sendFile(directory.login);
-    } else {
-        res.sendFile(directory.post);
-    }
-});
-
-// create a post
-router.post('/create', (req, res) => {
-    db.collection('BBY_20_Count').findOne({ name: 'NumberOfPosts' }, (error, result) => {
-        if (!error) {
-            var totalPost = result.totalPost;
-            db.collection('BBY_20_Post').insertOne({
-                _id: totalPost + 1,
-                title: req.body.title,
-                description: req.body.description,
-                lastModified: new Date()
-            }, (error, result) => {
-                if (!error) {
-                    db.collection('BBY_20_Count').updateOne({
-                        name: 'NumberOfPosts'
-                    }, {
-                        $inc: { totalPost: 1 }
-                    }, (error, result) => {
-                        if (result.acknowledged) {
-                            res.redirect("/main");
-                        }
-                    });
-                }
-            })
-        }
-
-    });
-});
-
 // show timeline page
 router.get("/timeline", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-        res.sendFile(directory.timeline);
+        const timeline = fs.readFileSync(directory.timeline);
+        const timelineHTML = new JSDOM(timeline);
+        timelineHTML.window.document.getElementById("username").innerHTML = req.user.username + "'s Timeline";
+        timelineHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
+        timelineHTML.window.document.getElementById("avatar").setAttribute("src", `${req.user.avatar}`);
+        var listTemplate = timelineHTML.window.document.getElementById("listTemplate");
+        var postTemplate = timelineHTML.window.document.getElementById("postTemplate");
+        db.collection("BBY_20_Post").find({ userID: req.user._id }).sort({ lastModified: -1 }).toArray((error, result) => {
+            if (result.length === 0) {
+                postTemplate.remove();
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var username = result[i].username;
+                    var time = result[i].lastModified;
+                    var title = result[i].title;
+                    var description = result[i].description;
+                    var postInfo = postTemplate.cloneNode(true);
+                    postTemplate.remove();
+                    postInfo.querySelector("#name").innerHTML = username;
+                    postInfo.querySelector("#time").innerHTML = time;
+                    postInfo.querySelector("#title").innerHTML = title;
+                    postInfo.querySelector("#description").innerHTML = description;
+                    postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
+                    listTemplate.appendChild(postInfo);
+                }
+            }
+            res.send(timelineHTML.serialize());
+        });
     }
+});
+
+// delete a post
+router.delete('/delete-post', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Post').deleteOne({ _id: req.body._id }, (error, result) => {
+        res.sendFile(directory.timeline);
+    });
+});
+
+// show edit post page
+router.get("/edit-post/:id", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const editPost = fs.readFileSync(directory.editPost);
+        const editPostHTML = new JSDOM(editPost);
+        editPostHTML.window.document.getElementById("username").innerHTML = req.user.username;
+        editPostHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
+        db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            editPostHTML.window.document.getElementById("postNumber").setAttribute("value", `${req.params.id}`);
+            editPostHTML.window.document.getElementById("title").setAttribute("value", `${result.title}`);
+            editPostHTML.window.document.getElementById("tiny-editor").textContent = `${result.description}`;
+            res.send(editPostHTML.serialize());
+        });
+    }
+});
+
+// edit a post
+router.put("/post-edit", (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
+        $set: {
+            title: req.body.title,
+            description: req.body.description,
+            lastModified: new Date()
+        }
+    }, (error, result) => {
+        res.redirect("/timeline");
+    });
 });
 
 // show easter egg page
