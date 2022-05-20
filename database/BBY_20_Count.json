@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "62781b66607f9920fee50113"
+  },
+  "name": "NumberOfUsers",
+  "totalUser": 106
+},{
+  "_id": {
+    "$oid": "62781c4f607f9920fee50115"
+  },
+  "totalAdmin": 1,
+  "name": "NumberOfAdmins"
+},{
+  "_id": {
+    "$oid": "62781ca9607f9920fee50116"
+  },
+  "totalPost": 93,
+  "name": "NumberOfPosts"
+},{
+  "_id": {
+    "$oid": "6287540eb13697922dc501f7"
+  },
+  "name": "NumberOfTips",
+  "totalTips": 5
+}]
