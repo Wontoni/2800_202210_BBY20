@@ -58,9 +58,7 @@ router.delete('/delete', (req, res) => {
             });
         } else if (result.role === "regular") {
             db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                db.collection('BBY_20_Post').deleteMany({ userID: parseInt(req.body._id) }, (error, result) => {
-                    res.sendFile(directory.main);
-                });
+                res.sendFile(directory.main);
             });
         }
     });
@@ -110,20 +108,16 @@ router.post('/create', (req, res) => {
 
 // show edit page
 router.get("/edit/:id", (req, res) => {
-    if (!req.user) {
-        res.sendFile(directory.login);
-    } else {
-        const edit = fs.readFileSync(directory.edit);
-        const editHTML = new JSDOM(edit);
-        db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-            editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
-            editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
-            editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
-            editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
-            editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
-            res.send(editHTML.serialize());
-        });
-    }
+    const edit = fs.readFileSync(directory.edit);
+    const editHTML = new JSDOM(edit);
+    db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+        editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
+        editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
+        editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
+        editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
+        editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
+        res.send(editHTML.serialize());
+    });
 });
 
 // edit user information
@@ -137,13 +131,7 @@ router.put("/user-edit", (req, res) => {
             school: req.body.school
         }
     }, (error, result) => {
-        db.collection('BBY_20_Post').updateMany({ userID: req.body._id }, {
-            $set: {
-                username: req.body.username
-            }
-        }, (error, result) => {
-            res.redirect("/main");
-        });
+        res.redirect("/main");
     });
 });
 

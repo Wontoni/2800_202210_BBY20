@@ -59,27 +59,26 @@
         </div>
 
         <div class="content">
-            <h1>
-                <div id="username"></div>
-            </h1>
+            <h1>Timeline</h1>
 
             <div class="container">
                 <div class="timeline">
-                    <div class="create-post" onclick="location.href='/create-post';">
+                    <div class="create-post" onclick="location.href='/create-post/';">
                         <div class="icon">
                             <span class="material-icons">add</span>
                         </div>
                         <input type="text" name="post" placeholder="Create a new thread">
                     </div>
 
-                    <div class="posts" id="listTemplate">
-                        <div class="post" id="postTemplate">
+                    <div class="posts">
+                        <div class="post" onclick="location.href='/single-post/';">
                             <div class="user">
                                 <div class="user-icon">
-                                    <img alt="avatar-image" id="avatar">
+                                    <span class="material-icons">account_circle</span>
                                 </div>
 
                                 <div class="user-info">
+<<<<<<< HEAD
                                     <h4>
                                         <div id="name"></div>
                                     </h4>
@@ -111,21 +110,84 @@
 
 
                                     <span class="material-icons edit" id="edit-number">edit</span>
-                                </div>
-                            </div>
+=======
+                                    <h4>wnguyenn</h4>
 
+                                    <div class="rest">
+                                        <p>10 min ago</p>
+                                    </div>
+                                </div>
+                                <div class="bookmark">
+                                    <a href="#">
+                                        <span class="material-icons">bookmark_outline</span>
+                                    </a>
+>>>>>>> Winston_friends_message
+                                </div>
+        
+                                <div class="edit">
+                                    <a href="#">
+                                        <span class="material-icons">edit</span>
+                                    </a>
+                                </div>
+                                
+                            </div>
                             <div class="post-tags">
                                 <span class="post-tag ask">Ask</span>
                                 <span class="post-tag bcit">BCIT</span>
                             </div>
 
                             <div class="post-content">
+<<<<<<< HEAD
                                 <h4>
                                     <div id="title"></div>
                                 </h4>
                                 <p>
                                 <div id="description"></div>
                                 </p>
+=======
+                                <h4>How to register for a course at BCIT?</h4>
+                                <p>Hello everyone, I am new to Canada and I am unable to figure out how to ...</p>
+                                <input type="text" name="comment" placeholder="Add a comment">
+                            </div>
+                        </div>
+
+                        <div class="post" onclick="location.href='/single-post/';">
+                            <div class="post-image">
+                                <img src="../../public/assets/post1.jpg" alt="Image for the post">
+                            </div>
+
+                            <div class="user">
+                                <div class="user-icon">
+                                    <span class="material-icons">account_circle</span>
+                                </div>
+
+                                <div class="user-info">
+                                    <h4>jpark123</h4>
+
+                                    <div class="rest">
+                                        <p>4 hrs ago</p>
+                                    </div>
+                                </div>
+
+                                <div class="bookmark">
+                                    <a href="#">
+                                        <span class="material-icons saved">bookmark</span>
+                                    </a>
+                                </div>
+
+                                <div class="edit">
+                                    <a href="#">
+                                        <span class="material-icons">edit</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="post-tags">
+                                <span class="post-tag memes">Memes</span>
+                            </div>
+
+                            <div class="post-content">
+                                <h4>LOOOOOL!!!!</h4>
+>>>>>>> Winston_friends_message
                                 <input type="text" name="comment" placeholder="Add a comment">
                             </div>
                         </div>
@@ -137,10 +199,14 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <script src="../../public/js/skeleton.js"></script>
     <script src="../../public/js/global.js"></script>
+<<<<<<< HEAD
     <script src="../../public/js/timeline.js"></script>
     <script src="../../public/js/confirm.js"></script>
+=======
+>>>>>>> Winston_friends_message
 
 </body>
 

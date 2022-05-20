@@ -9,10 +9,7 @@ const app = express();
 // body-parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended : true,
-    limit : "50mb"
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 // method-override
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
@@ -74,11 +71,6 @@ passport.use(new LocalStrategy({
         }
     })
 }));
-// path
-const path = require("path");
-// tinymce
-app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
-
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -110,9 +102,6 @@ app.use("/", signupRouter);
 
 const adminRouter = require("./routes/admin-router");
 app.use("/", adminRouter);
-
-const mainRouter = require("./routes/main-router");
-app.use("/", mainRouter);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);
