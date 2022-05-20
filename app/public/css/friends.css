@@ -50,6 +50,10 @@ h2 {
     cursor: pointer;
 }
 
+.friendItem:hover {
+    background-color: #cecece;
+}
+
 #profilePic {
     font-size: 3rem;
     align-items: center;
@@ -127,6 +131,34 @@ h2 {
     font-size: 2rem;
 }
 
+.user {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem 0rem;
+    border-radius: 1rem;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.user:hover {
+    background-color: #cecece;
+}
+
+.addIcon {
+    flex-grow: 5;
+    text-align: end;
+    font-size: 1.5rem;
+    padding-right: 0.5rem;
+}
+
+#username {
+    padding-left: 0.5rem;
+}
+
+.allUsers {
+    display: none;
+}
 
 /* Responsive */
 
