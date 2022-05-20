@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/timeline.css">
     <link rel="stylesheet" href="../../public/css/tipsPop.css">
+    <link rel="stylesheet" href="../../public/css/confirm.css">
 </head>
 
 <body>
@@ -92,9 +93,27 @@
                                     </a>
                                 </div> -->
 
-                                <div class="edit">
-                                    <span class="material-icons delete" id="delete-number">delete</span>
-                                    <span class="material-icons edit-button" id="edit-number">edit</span>
+                                <div>
+                                    <span class="material-icons button" id="delete-number">delete</span>
+
+                                    <div id="confirmPopup" class="confirmDelete">
+
+                                        <!-- Modal content -->
+                                        <div class="popup-container">
+                                            <span class="material-icons warning">warning</span>
+                                            <div class="popupText">
+                                                Are you sure you want to delete this post?
+                                            </div>
+                                            <div class="popupBtns">
+                                                <button class="closeBtn">Cancel</button>
+                                                <button class="delete" id="confirmBtn">Confirm</button>
+                                            </div>
+                                        </div>
+                                
+                                    </div>
+
+
+                                    <span class="material-icons edit-button edit" id="edit-number">edit</span>
                                 </div>
                             </div>
 
@@ -120,6 +139,7 @@
     <script src="../../public/js/skeleton.js"></script>
     <script src="../../public/js/global.js"></script>
     <script src="../../public/js/timeline.js"></script>
+    <script src="../../public/js/confirm.js"></script>
 
 </body>
 
