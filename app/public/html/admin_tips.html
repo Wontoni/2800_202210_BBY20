@@ -61,26 +61,19 @@
                 <div class="icon">
                     <span class="material-icons">search</span>
                 </div>
-                <input type="search" name="search" placeholder="Search users">
+                <input type="search" name="search" placeholder="Search tips">
             </div>
 
             <div class="container">
                 <div class="users" id="listTemplate">
-                    <div class="total-users" id="total-users">
+                    <div class="total-users" id="total-tips">
                     </div>
 
-                    <div class="user" id="userTemplate">
-                        <div class="user-icon">
-                            <span class="material-icons">account_circle</span>
-                        </div>
-
-                        <div class="user-info">
-                            <div id="name"></div>
+                    <div class="user" id="tipsTemplate">
+                        <div class="tips-info">
+                            <div id="title"></div>
                             <div class="rest">
-                                <div id="email"></div>
-                                <div id="password"></div>
-                                <div id="school"></div>
-                                <div id="role"></div>
+                                <div id="description"></div>
                             </div>
                         </div>
 
@@ -93,7 +86,7 @@
                                 <div class="popup-container">
                                     <span class="material-icons warning">warning</span>
                                     <div class="popupText">
-                                        Are you sure you want to delete this user?
+                                        Are you sure you want to delete this tip?
                                     </div>
                                     <div class="popupBtns">
                                         <button class="closeBtn">Cancel</button>
@@ -109,32 +102,26 @@
                 </div>
 
                 <div class="create-user">
-                    <h1>Create User</h1>
+                    <h1>Create Tip</h1>
                     <div id="create-message"></div>
                     <div class="form">
                         <form>
                             <div class="form-group">
-                                <label for="userName">Username</label>
+                                <label for="userName">Title</label>
                                 <input type="text" class="input" id="userName" name="username"
                                     placeholder="Enter your username" required>
                                 <small id="userNameError" class="form-error">*This field must be filled.</small>
                             </div>
 
                             <div class="form-group">
-                                <label for="userEmail">Email</label>
+                                <label for="userEmail">Description</label>
                                 <input type="email" class="input" id="userEmail" name="email"
                                     placeholder="Enter your email">
                                 <small id="userEmailError" class="form-error">*Please check your email.</small>
                             </div>
 
-                            <div class="form-group">
-                                <label for="userPassword">Password</label>
-                                <input type="password" class="input" id="userPassword" name="password"
-                                    placeholder="Enter your password" required>
-                                <small id="userPasswordError" class="form-error">*Please check your password.</small>
-                            </div>
                         </form>
-                        <button type="submit" id="create-button" class="primary-button">Create New User</button>
+                        <button type="submit" id="create-button" class="primary-button">Create New Tip</button>
                     </div>
                 </div>
             </div>
@@ -144,7 +131,7 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/public/js/global.js"></script>
-    <script src="/public/js/admin.js"></script>
+    <script src="/public/js/admin_tips.js"></script>
     <script src="/public/js/confirm.js"></script>
 
 </body>
