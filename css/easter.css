@@ -1,0 +1,18 @@
+h4 {
+    margin-top: 1rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.content .form {
+    padding-top: 2rem;
+}
+
+.content .input, select {
+    width: 100%;
+}
+
+.content button {
+    margin-top: 1rem;
+    width: 100%;
+}
