@@ -76,8 +76,14 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
                 avatar: req.file.destination + req.file.filename
             }
         }, (error, result) => {
-            res.redirect("/profile");
-        })
+            db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
+                $set: {
+                    userAvatar: req.file.destination + req.file.filename
+                }
+            }, (error, result) => {
+                res.redirect("/profile");
+            });
+        });
     }
 });
 
