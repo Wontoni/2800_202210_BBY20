@@ -34,7 +34,8 @@ const directory = {
     admin: path.join(__dirname, "../public/html", "admin.html"),
     upload: path.join(__dirname, "../public/assets/upload/"),
     edit: path.join(__dirname, "../public/html", "edit.html"),
-    tips: path.join(__dirname, "../public/html", "admin_tips.html")
+    tips: path.join(__dirname, "../public/html", "admin_tips.html"),
+    editTips: path.join(__dirname, "../public/html", "edit-tips.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -130,7 +131,6 @@ router.put("/user-edit", (req, res) => {
         });
     });
 });
-
 // Show tips page
 router.get("/tips", (req, res) => {
     if (!req.user) {
@@ -246,6 +246,7 @@ router.put("/tip-edit", (req, res) => {
         res.redirect("/tips");
     });
 });
+
 
 
 
