@@ -36,6 +36,8 @@ const directory = {
     edit: path.join(__dirname, "../public/html", "edit.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
     timeline: path.join(__dirname, "../public/html", "timeline.html"),
+    friend: path.join(__dirname, "../public/html", "friends.html"),
+    easter: path.join(__dirname, "../public/html", "easter.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -80,6 +82,18 @@ router.post('/create-post', (req, res) => {
             });
         }
     });
+});
+
+
+// show create-post page
+router.get("/easter", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const easter = fs.readFileSync(directory.easter);
+        const easterHTML = new JSDOM(easter);
+        res.send(easterHTML.serialize());
+    }
 });
 
 /* ------------------------------ Export Module ------------------------------ */

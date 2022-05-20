@@ -1,7 +1,5 @@
 "use strict";
 
-var moveSpeed = 1000 // Milliseconds
-
 window.addEventListener('load', function () {
     // To open readMoreContent
     $("#readMore").click(function () {
@@ -23,7 +21,7 @@ window.addEventListener('load', function () {
     $(".closePop").click(function () {
         $("#tipsPop").animate({
             right: "120%"
-        }, moveSpeed, function() {
+        }, 1000 , function() {
             $("#tipsPop").fadeOut();
         });
     })

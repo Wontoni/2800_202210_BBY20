@@ -115,7 +115,6 @@ router.get("/main", (req, res) => {
                     var tipLoadNumber = Math.floor(Math.random() * result.length);
     
                     var tipTitle = result[tipLoadNumber].title;
-                    console.log("TITLE " + tipTitle);
                     var tipDesc = result[tipLoadNumber].description;
                     var tipDiv = mainHTML.window.document.getElementById("tipsPop");
                     tipDiv.querySelector("#TOFD").innerHTML = tipTitle;

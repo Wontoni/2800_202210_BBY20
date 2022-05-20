@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Create Post | Unified</title>
+    <title>Edit Post | Unified</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
@@ -16,6 +16,9 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Tiny Editor -->
+    <script src="https://cdn.tiny.cloud/1/60r1xmf2k6s1nxae2h6jsi0gh6bykdac6r651bqsuwuhnbt1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <!-- Custom CSS -->
     <!-- Uses the same CSS as create-post-->
@@ -27,76 +30,65 @@
 
     <div class="wrapper">
 
-        <nav id="navTemplate"></nav>
+        <div class="navbar">
+            <div class="head">
+                <div class="account">
+                    <div class="user-icon">
+                        <img alt="avatar-image" id="userAvatar">
+                    </div>
+                    <div id="username"></div>
+                </div>
+
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li><a class="link-animation" href="/main">Home</a></li>
+                    <li><a class="link-animation" href="/profile">Profile</a></li>
+                    <li><a class="link-animation" href="/timeline">Timeline</a></li>
+                    <li><a class="link-animation" href="#">Friends</a></li>
+                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="#">Tips</a></li>
+                    <li><a class="link-animation" href="/sign-out">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="foot">
+                <img src="/public/assets/logo/un-logo-mini_white.svg" alt="UNIFIED Secondary Logo in White"
+                    width="30px">
+            </div>
+        </div>
 
         <div class="content">
             <h1>Edit Thread</h1>
 
             <div class="form">
-                <div class="form-group">
-                    <label for="userName">Title</label>
-
-                    <!-- Pull thread title here-->
-                    <input type="text" class="input" id="userName" placeholder="Insert your title" required>
-                    <small id="userNameError" class="form-error">*This field must be filled.</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="userEmail">Description</label>
-
-                    <!-- Pull thread description here -->
-                    <input type="email" class="input" id="userEmail" placeholder="Insert your description">
-
-                    <small id="userEmailError" class="form-error">*Please check your email.</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="userPassword">Tags</label>
-
-                    <div class="container">
-                        <!-- Add active class to any tags that are attached to the thread -->
-                        <div class="post-tags">
-                            <span class="post-tag active">BCIT</span>
-                            <span class="post-tag">UBC</span>
-                            <span class="post-tag">SFU</span>
-                            <span class="post-tag">Langara</span>
-                            <span class="post-tag">Memes</span>
-                            <span class="post-tag">Ask</span>
-                            <span class="post-tag">Other</span>
+                <form action="/post-edit?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <div class="form-group" hidden>
+                            <input type="text" class="input" id="postNumber" name="_id">
                         </div>
-
-                        <div class="add-image">
-                            <span class="material-icons">attach_file</span>
-                            <span class="btn-text">Insert Image</span>
-                        </div>
+                        <input type="text" class="input" id="title" name="title" placeholder="Title" required>
+                        <textarea id="tiny-editor" name="description" placeholder="Text (optional)"></textarea>
                     </div>
 
-                    <small id="userPasswordError" class="form-error"></small>
+                    <button type="submit" class="primary-button">Save</button>
+                </form>
 
-                    <div class="image-thumb">
-                        <!-- Add thumbnail image here -->
-                        <img src="../../public/assets/post1.jpg" alt="Thread image thumbnail">
-                        <div class="icon">
-                            <span class="material-icons">close</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Save changes to database here -->
-                <button type="button" class="primary-button">Save Changes</button>
             </div>
-        </div>
-
-        <div class="secret">
-            <h1>O</h1>
         </div>
     </div>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script src="../../public/js/skeleton.js"></script>
-    <script src="../../public/js/global.js"></script>
+    <script src="/public/js/timeline.js"></script>
+    <script src="/public/js/skeleton.js"></script>
+    <script src="/public/js/global.js"></script>
+    <script src="/public/js/tiny-mce-config.js"></script>
 
 </body>
 

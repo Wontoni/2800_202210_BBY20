@@ -20,14 +20,10 @@
     <link rel="stylesheet" href="../../public/css/global.css">
     <link rel="stylesheet" href="../../public/css/timeline.css">
     <link rel="stylesheet" href="../../public/css/tipsPop.css">
-<<<<<<< HEAD
     <link rel="stylesheet" href="../../public/css/slidingSecret.css">
-=======
-    <link rel="stylesheet" href="../../public/css/easter.css">
->>>>>>> Winston_friends_message
 
 </head>
-<body>
+<body>               
 
     <div class="wrapper">
         <div class="navbar">
@@ -37,27 +33,28 @@
                         <img alt="avatar-image" id="userAvatar">
                     </div>
                 </div>
-                
+
                 <div class="menu-icon">
-                    <span></span> 
+                    <span></span>
                     <span></span>
                 </div>
             </div>
-        
+
             <div class="links">
                 <ul>
                     <li><a class="link-animation" href="/main">Home</a></li>
                     <li><a class="link-animation" href="/profile">Profile</a></li>
                     <li><a class="link-animation" href="/timeline">Timeline</a></li>
-                    <li><a class="link-animation" href="#">Friends</a></li>
-                    <li><a class="link-animation" href="#">Reviews</a></li>
+                    <li><a class="link-animation" href="/friends">Friends</a></li>
+                    <li><a class="link-animation" id="yes" href="#">Reviews</a></li>
                     <li><a class="link-animation" href="#">Tips</a></li>
                     <li><a class="link-animation" href="/sign-out">Logout</a></li>
                 </ul>
             </div>
-            
+
             <div class="foot">
-                <img src="/public/assets/logo/un-logo-mini_white.svg" alt="UNIFIED Secondary Logo in White" width="30px">
+                <img src="/public/assets/logo/un-logo-mini_white.svg" alt="UNIFIED Secondary Logo in White"
+                    width="30px">
             </div>
         </div>
 
@@ -66,7 +63,7 @@
 
             <div class="container">
                 <div class="timeline">
-                    <div class="create-post" onclick="location.href='/create-post/';">
+                    <div class="create-post" onclick="location.href='/create-post';">
                         <div class="icon">
                             <span class="material-icons">add</span>
                         </div>
@@ -111,71 +108,36 @@
                         </div>
                     </div>
 
-                    <div class="posts">
-                        <div class="post" onclick="location.href='/single-post/';">
+                    <div class="posts" id="listTemplate">
+                        <div class="post" id="postTemplate">
                             <div class="user">
                                 <div class="user-icon">
-                                    <span class="material-icons">account_circle</span>
+                                    <img alt="avatar-image" id="avatar">
                                 </div>
-                                
+
                                 <div class="user-info">
-                                    <h4>wnguyenn</h4>
-                                    
+                                    <div id="name"></div>
+
                                     <div class="rest">
-                                        <p>10 min ago</p>
+                                        <div id="time"></div>
                                     </div>
                                 </div>
-    
+
                                 <div class="bookmark">
                                     <a href="#">
                                         <span class="material-icons">bookmark_outline</span>
                                     </a>
                                 </div>
                             </div>
-                            
+
                             <div class="post-tags">
                                 <span class="post-tag ask">Ask</span>
                                 <span class="post-tag bcit">BCIT</span>
                             </div>
 
                             <div class="post-content">
-                                <h4>How to register for a course at BCIT?</h4>
-                                <p>Hello everyone, I am new to Canada and I am unable to figure out how to ...</p>
-                                <input type="text" name="comment" placeholder="Add a comment">
-                            </div>
-                        </div>
-                        
-                        <div class="post" onclick="location.href='/single-post/';">
-                            <div class="post-image">
-                                <img src="/public/assets/post1.jpg" alt="Image for the post">
-                            </div>
-
-                            <div class="user">
-                                <div class="user-icon">
-                                    <span class="material-icons">account_circle</span>
-                                </div>
-                                
-                                <div class="user-info">
-                                    <h4>jpark123</h4>
-                                    
-                                    <div class="rest">
-                                        <p>4 hrs ago</p>
-                                    </div>
-                                </div>
-    
-                                <div class="bookmark">
-                                    <a href="#">
-                                        <span class="material-icons saved">bookmark</span>
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <div class="post-tags">
-                                <span class="post-tag memes">Memes</span>
-                            </div>
-
-                            <div class="post-content">
-                                <h4>LOOOOOL!!!!</h4>
+                                <div id="title"></div>
+                                <div id="description"></div>
                                 <input type="text" name="comment" placeholder="Add a comment">
                             </div>
                         </div>
@@ -183,7 +145,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div id="tipsPop">
             <span class="material-icons closePop">close</span>
             <div class="tipTitle">Quick Tip</div>
@@ -196,8 +158,6 @@
         <!-- Easter Egg Letter: E-->
         <div id="easterEgg"><a href="#">Click Me!</a></div>
     </div>
-
-    
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

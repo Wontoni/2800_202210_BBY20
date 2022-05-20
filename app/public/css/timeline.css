@@ -2,6 +2,18 @@ h1 {
     text-align: left;
 }
 
+.content #username {
+    font-family: obviously-wide, sans-serif;
+    font-style: normal;
+}
+
+#avatar {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50rem;
+}
+
 .content .container {
     display: flex;
 }
@@ -141,12 +153,16 @@ h1 {
     flex-grow: 5;
 }
 
-.timeline .user h4 {
+.timeline .user #name {
     margin-top: -0.5rem;
     margin-bottom: 0.25rem;
+    font-family: obviously-wide, sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-.timeline .user .rest p {
+.timeline .user .rest #time {
    font-size: 0.75rem;
 }
 
@@ -164,17 +180,17 @@ h1 {
     color: var(--primary-color);
 }
 
-.timeline .user .edit {
+.timeline .user .buttons {
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
-.timeline .user .edit span {
+.timeline .user .buttons span {
     color: #757575;
 }
 
-.timeline .user .edit .saved {
+.timeline .user .buttons .saved {
     color: var(--primary-color);
 }
 
@@ -194,9 +210,17 @@ h1 {
     margin-top: 1rem;
 }
 
-.timeline .post-content p {
+.timeline .post-content #title {
+    font-family: obviously-wide, sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.timeline .post-content #description {
     margin-top: 0.5rem;
     line-height: 1.25rem;
+    color: var(--paragraph);
 }
 
 .timeline .post-content img {

@@ -64,8 +64,6 @@ router.get("/profile", (req, res) => {
         profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
         profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
 
-        profileHTML.window.document.getElementById("usernameMenu").innerHTML = req.user.username;
-
         res.send(profileHTML.serialize());
     }
 });
@@ -80,7 +78,6 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
                 avatar: req.file.destination + req.file.filename
             }
         }, (error, result) => {
-<<<<<<< HEAD
             db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
                 $set: {
                     userAvatar: req.file.destination + req.file.filename
@@ -88,27 +85,6 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
             }, (error, result) => {
                 res.redirect("/profile");
             });
-=======
-            res.redirect("/profile");
-        })
-    }
-});
-
-// update user profile
-router.put("/profile-edit", (req, res) => {
-    if (req.user) {
-        db.collection("BBY_20_User").updateOne({
-            _id : req.user._id
-        }, {
-            $set: {
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password,
-                school: req.body.school
-            }
-        }, (error, result) => {
-            res.redirect("/profile");
->>>>>>> Winston_friends_message
         });
     }
 });
