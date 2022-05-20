@@ -109,8 +109,9 @@
 
                 <div class="create-user">
                     <h1>Create User</h1>
+                    <div id="create-message"></div>
                     <div class="form">
-                        <form action="/create" method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="userName">Username</label>
                                 <input type="text" class="input" id="userName" name="username"
@@ -131,9 +132,8 @@
                                     placeholder="Enter your password" required>
                                 <small id="userPasswordError" class="form-error">*Please check your password.</small>
                             </div>
-
-                            <button type="submit" class="primary-button">Create New User</button>
                         </form>
+                        <button type="submit" id="create-button" class="primary-button">Create New User</button>
                     </div>
                 </div>
             </div>
