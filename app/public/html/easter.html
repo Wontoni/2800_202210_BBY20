@@ -17,8 +17,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/easter.css">
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/easter.css">
 </head>
 <body>
 
@@ -32,21 +32,27 @@
 
             <div class="form">
                 <div class="form-group">
-                    <input type="text" class="input" id="userName" placeholder="Enter the secret code">
+                    <input type="text" class="input" id="secret-word" placeholder="Enter the secret code">
                     <small id="userNameError" class="form-error">*This field must be filled.</small>
                 </div>
 
-                <button type="button" class="primary-button">I WON</button>
+                <button type="button" class="primary-button" id="submitEasterEgg" onclick="checkWord()">I WON</button>
             </div> 
+
+            <div id="wrong-word" class="hide">
+                Incorrect, please try again!
+                <button class="primary-button okayBtn" onclick="closePopup()">Okay</button>
+            </div>
         </div>
     </div>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script src="/js/skeleton.js"></script>
-    <script src="/js/global.js"></script>
-    <script src="/js/easter.js"></script>
+    <script src="../../public/js/skeleton.js"></script>
+    <script src="../../public/js/global.js"></script>
+    <script src="../../public/js/easter.js"></script>
+    <script src="../../public/js/secretPage.js"></script>
     
 </body>
 </html>
