@@ -219,17 +219,16 @@ router.post('/tip-create', (req, res) => {
                 // add a tip
                 let totalTips = result.totalTips;
 
-                db.collection('BBY_20_Tip').insertOne({
+                db.collection('BBY_20_Tips').insertOne({
                     _id: totalTips + 1,
                     title: req.body.title,
-                    description: req.body.description,
-
+                    description: req.body.description
                 }, (error, result) => {
-                    // increment the total number of users
+                    // increment the total number of tips
                     db.collection('BBY_20_Count').updateOne({ name: 'NumberOfTips' }, { $inc: { totalTips: 1 } }, (error, result) => {
-                        if (result.acknowledged) {
+
                             res.redirect("/tips");
-                        }
+                        
                     });
                 });
             });
