@@ -1,6 +1,6 @@
 "use strict";
 
-var moveSpeed = 9000; // Milliseconds -- Animation speed
+var moveSpeed = 20000; // Milliseconds -- Animation speed
 var delayAnimation = 1000; // Milliseconds -- Initial delay time
 
 //Randomize animation delay in milliseconds
@@ -11,7 +11,7 @@ const difference = upperBound - lowerBound;
 // Start easter egg sliding
 const delayStart = setTimeout(start, delayAnimation);
 
-// Move divv off the right of the screen
+// Move div off the right of the screen
 function moveRight() {
     setTimeout(() => {
         $("#easterEgg").animate({
@@ -41,12 +41,4 @@ function moveLeft() {
 function start() {
     $("#easterEgg").css("display", "block");
     moveRight();
-
-    $("#easterEgg").click(function () {
-        window.location.href = '/easter';
-    })
-    console.log("YES")
-    $("#yes").click(function () {
-        window.location.href = '/easter';
-    })
 }

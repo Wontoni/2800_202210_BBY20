@@ -84,8 +84,7 @@ router.post('/create-post', (req, res) => {
     });
 });
 
-
-// show create-post page
+// show easter egg
 router.get("/easter", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);

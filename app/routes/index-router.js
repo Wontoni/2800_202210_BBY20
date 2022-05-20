@@ -36,6 +36,7 @@ const directory = {
     edit: path.join(__dirname, "../public/html", "edit.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
     timeline: path.join(__dirname, "../public/html", "timeline.html"),
+    easter: path.join(__dirname, "../public/html", "easter.html"),
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -172,6 +173,17 @@ router.get("/timeline", (req, res) => {
         res.sendFile(directory.login);
     } else {
         res.sendFile(directory.timeline);
+    }
+});
+
+// show easter egg page
+router.get("/easter", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const easter = fs.readFileSync(directory.easter);
+        const easterHTML = new JSDOM(easter);
+        res.send(easterHTML.serialize());
     }
 });
 
