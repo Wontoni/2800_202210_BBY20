@@ -70,15 +70,44 @@ router.post('/create-post', (req, res) => {
     });
 });
 
-// show easter egg
-router.get("/easter", (req, res) => {
+// show edit post page
+router.get("/edit-post/:id", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-        const easter = fs.readFileSync(directory.easter);
-        const easterHTML = new JSDOM(easter);
-        res.send(easterHTML.serialize());
+        const editPost = fs.readFileSync(directory.editPost);
+        const editPostHTML = new JSDOM(editPost);
+        editPostHTML.window.document.getElementById("username").innerHTML = req.user.username;
+        editPostHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
+        db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            editPostHTML.window.document.getElementById("postNumber").setAttribute("value", `${req.params.id}`);
+            editPostHTML.window.document.getElementById("title").setAttribute("value", `${result.title}`);
+            editPostHTML.window.document.getElementById("tiny-editor").textContent = `${result.description}`;
+            res.send(editPostHTML.serialize());
+        });
     }
+});
+
+// edit a post
+router.put("/post-edit", (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
+        $set: {
+            title: req.body.title,
+            description: req.body.description,
+            lastModified: new Date()
+        }
+    }, (error, result) => {
+        res.redirect("/timeline");
+    });
+});
+
+// delete a post
+router.delete('/delete-post', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Post').deleteOne({ _id: req.body._id }, (error, result) => {
+        res.sendFile(directory.timeline);
+    });
 });
 
 /* ------------------------------ Export Module ------------------------------ */
