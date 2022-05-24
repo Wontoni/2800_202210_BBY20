@@ -12,6 +12,7 @@
 
 .login-section h2 {
     font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .login-section .input {
@@ -22,7 +23,8 @@
 
 .login-section .primary-button {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .signup-section .section-left {
@@ -38,9 +40,9 @@
     width: 60%;
 }
 
-.errorMsg {
+#login-message {
     color: red;
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
 }
 
 @media screen and (max-width: 500px) {
