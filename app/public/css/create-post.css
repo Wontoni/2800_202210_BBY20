@@ -12,7 +12,6 @@
 }
 
 .content .post-tags {
-    /* margin-top: 1rem; */
     margin-right: 2rem;
 }
 
@@ -77,6 +76,15 @@
 
 .content .image-thumb .icon span {
     font-size: 1rem;
+}
+
+.secret h1 {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+    opacity: 0.1;
 }
 
 /* Mobile */

@@ -78,6 +78,11 @@ h4 {
     font-weight: 500;
 }
 
+h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 p {
     color: var(--paragraph);
 }
@@ -146,7 +151,7 @@ select:hover, select:focus, select:active {
 
 /* Buttons */
 button {
-    border: none !important;
+    border: none;
 }
 
 .primary-button {
@@ -154,6 +159,17 @@ button {
     color: white;
     padding: 1rem;
     font-size: 1rem;
+    border-radius: 0.5rem;
+    transition: all .25s ease;
+    cursor: pointer;
+}
+
+.secondary-button {
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--primary-color);
     border-radius: 0.5rem;
     transition: all .25s ease;
     cursor: pointer;
@@ -208,9 +224,11 @@ button {
     font-size: 2.5rem;
 }
 
+/* NEW */
 .nav .account #username {
     font-family: obviously-wide, sans-serif;
 }
+/* *** */
 
 .navbar .account h3 {
     padding-left: 0.5rem;
@@ -270,7 +288,7 @@ button {
 }
 
 .link-animation:hover {
-    color: #000000;
+    color: var(--black);
 }
 
 .link-animation:hover::before {

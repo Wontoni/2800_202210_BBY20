@@ -1,7 +1,4 @@
-.wrapper {
-    height: 150vh;
-}
-
+/* NEW */
 .navbar #username {
     font-family: obviously-wide, sans-serif;
     font-size: 1.25rem;
@@ -10,6 +7,7 @@
     margin-bottom: 0.75rem;
     margin-left: 0.5rem;
 }
+/* *** */
 
 .content .search {
     position: relative;
@@ -70,12 +68,14 @@
     font-weight: 500;
 }
 
+/* CHANGED */
 .content .user .rest {
     /* display: flex; */
     color: var(--paragraph);
     align-items: center;
     padding-top: 0.25rem;
 }
+/* *** */
 
 .content .user .admin {
     margin-left: 0.75rem;

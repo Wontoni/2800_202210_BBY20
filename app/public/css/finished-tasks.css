@@ -1,0 +1,47 @@
+.tasks {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.tasks .task {
+    width: 20rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.07);
+}
+
+.tasks .task-head p {
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.tasks h4 {
+    margin-bottom: 0.5rem;
+}
+
+.tasks .task > p {
+    line-height: 1.5rem;
+}
+
+/* Laptop */
+@media only screen and (max-width: 800px) {
+    .tasks {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .tasks {
+        width: 100vw;
+        margin-left: -0.5rem;
+    }
+    .tasks .task {
+        width: 100%;
+    }
+}

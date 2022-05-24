@@ -1,0 +1,169 @@
+.content .bcit {
+    background-color: #43890b;
+}
+
+.content .ubc {
+    background-color: #002145;
+}
+
+.content .sfu {
+    background-color: #c12a36;
+}
+
+.content .langara {
+    background-color: #555;
+}
+
+.content .other {
+    background-color: #999999;
+}
+
+.content .memes {
+    background-color: #fd8f0d;
+}
+
+.content .ask {
+    background-color: #7d00fa;
+}
+
+.content .post {
+    width: 70%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.content .post-image {
+    margin: 1.5rem 0 1rem;
+}
+
+.content .post-image img {
+    width: 100%;
+}
+
+.content .user {
+    display: flex;
+}
+
+.content .user .user-icon {
+    display: flex;
+    align-items: center;
+    padding-right: 0.75rem;
+}
+
+.content .user .user-icon span {
+    height: fit-content;
+    font-size: 2.25rem;
+}
+
+.content .user .user-info {
+    flex-grow: 5;
+}
+
+.content .user h4 {
+    margin-top: -0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.content .user .rest p {
+   font-size: 0.75rem;
+}
+
+.content .user .bookmark {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.content .user .bookmark span {
+    color: #757575;
+}
+
+.content .user .bookmark .saved {
+    color: var(--primary-color);
+}
+
+.content .post-tags {
+    margin-top: 1rem;
+}
+
+.content .post-tag {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.5rem 0.25rem;
+    font-size: 0.75rem;
+    color: white;
+    border-radius: 2rem;
+}
+
+.content .post-content {
+    margin-top: 1rem;
+}
+
+.content .post-content p {
+    margin-top: 0.5rem;
+    line-height: 1.25rem;
+}
+
+.content .post-content .comments-head {
+    margin-top: 2rem;
+}
+
+.content .post-content .comments-head span {
+    margin-left: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.content .comments {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+}
+
+.content .comment {
+    margin-bottom: 2rem;
+}
+
+.content .comment > p {
+    margin-top: 1rem;
+    line-height: 1.5rem;
+}
+
+.content input[name="comment"] {
+    position: relative;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: white;
+    border: none;
+    border-radius: 1rem;
+}
+
+.content .write-comment span {
+    margin-top: 0.6rem;
+    margin-left: -2rem;
+    position: absolute;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+/* Laptop */
+@media only screen and (max-width: 800px) {
+    .content .post {
+        width: 85%;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .content .post-image {
+        margin: 1.5rem 0 1rem;
+    }
+    .content .post {
+        width: 100%;
+    }
+    .content .comments {
+        width: 100vw;
+        margin-left: -1.5rem;
+    }
+}

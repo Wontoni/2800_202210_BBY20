@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Write Review | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link rel="stylesheet" href="/public/css/create-review.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <nav id="navTemplate"></nav>
+
+        <div class="content">
+            <h1>Write A Review</h1>
+
+            <div class="form">
+                <div class="form-group">
+                    <input type="text" class="input" id="className" placeholder="Insert your class name" required>
+                    <small id="userNameError" class="form-error">*This field must be filled.</small>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="input" id="review" placeholder="Insert your review" required>
+                    <small id="userNameError" class="form-error">*This field must be filled.</small>
+                </div>
+
+                <div class="rating">
+                    <span class="material-icons star">star_border</span>
+                    <span class="material-icons star">star_border</span>
+                    <span class="material-icons star">star_border</span>
+                    <span class="material-icons star">star_border</span>
+                    <span class="material-icons star">star_border</span>
+                    
+                    <div class="result">0</div>
+                </div>
+
+                <button type="button" class="primary-button">Create New Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="/public/js/skeleton.js"></script>
+    <script src="/public/js/global.js"></script>
+    <script src="/public/js/create-review.js"></script>
+    
+</body>
+</html>
