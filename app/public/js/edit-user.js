@@ -19,6 +19,6 @@ document.getElementById("edit-button").addEventListener("click", () => {
         document.getElementById("edit-message").innerHTML = data.message;
     }).catch(() => {
         const id = document.getElementById("userNumber").value
-        window.location.href = `/edit-user/${id}`;
+        window.location.href = "/main";
     });
 });
