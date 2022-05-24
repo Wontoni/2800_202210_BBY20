@@ -12,6 +12,7 @@
 
 .signup-section h2 {
     font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .signup-section .input {
@@ -22,7 +23,8 @@
 
 .signup-section .primary-button {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .signup-section .section-left {
@@ -36,6 +38,11 @@
 .signup-section img {
     min-width: 200px;
     width: 60%;
+}
+
+#signup-message {
+    color: red;
+    margin-bottom: 0.5rem;
 }
 
 @media screen and (max-width: 500px) {

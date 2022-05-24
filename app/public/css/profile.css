@@ -2,6 +2,13 @@
     min-height: 120vh;
 }
 
+#avatar {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50rem;
+}
+
 .account-head {
     height: 30vh;
     background-color: #F85C3A;
