@@ -11,6 +11,8 @@ const path = require("path");
 const fs = require("fs");
 // JSDOM
 const { JSDOM } = require("jsdom");
+// directory
+const directory = require("./directory");
 // multer
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -37,17 +39,6 @@ MongoClient.connect(URL, (error, client) => {
         db = client.db("Unified");
     }
 });
-
-/* ------------------------------ Directories ------------------------------ */
-const directory = {
-    index: path.join(__dirname, "../public/html", "index.html"),
-    main: path.join(__dirname, "../public/html", "main.html"),
-    signup: path.join(__dirname, "../public/html", "sign-up.html"),
-    login: path.join(__dirname, "../public/html", "login.html"),
-    profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html"),
-    upload: path.join(__dirname, "../public/assets/upload/")
-};
 
 /* ------------------------------ Routers ------------------------------ */
 // show profile page
