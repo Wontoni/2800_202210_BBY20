@@ -5,7 +5,7 @@
     transition: width 2s, height 4s;
 }
 
-.tipsPop {
+#tipsPop {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
