@@ -11,6 +11,8 @@ const path = require("path");
 const fs = require("fs");
 // JSDOM
 const { JSDOM } = require("jsdom");
+// directory
+const directory = require("./directory");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -23,18 +25,6 @@ MongoClient.connect(URL, (error, client) => {
         db = client.db("Unified");
     }
 });
-
-/* ------------------------------ File Directories ------------------------------ */
-const directory = {
-    index: path.join(__dirname, "../public/html", "index.html"),
-    main: path.join(__dirname, "../public/html", "main.html"),
-    signup: path.join(__dirname, "../public/html", "sign-up.html"),
-    login: path.join(__dirname, "../public/html", "login.html"),
-    profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html"),
-    friend: path.join(__dirname, "../public/html", "friends.html"),
-    edit: path.join(__dirname, "../public/html", "edit.html")
-};
 
 /* ------------------------------ Routers ------------------------------ */
 // show signup page

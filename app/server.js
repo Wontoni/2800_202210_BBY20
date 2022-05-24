@@ -114,5 +114,8 @@ app.use("/", adminRouter);
 const mainRouter = require("./routes/main-router");
 app.use("/", mainRouter);
 
+const tipRouter = require("./routes/tip-router");
+app.use("/", tipRouter);
+
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);
