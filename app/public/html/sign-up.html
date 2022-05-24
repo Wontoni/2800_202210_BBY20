@@ -31,31 +31,27 @@
                     <div class="signup-form">
                         <h2>Create Your Account</h2>
                         <form>
+                            <div id="signup-message"></div>
+
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="input" id="username" name="username"
                                     placeholder="Enter your username" required>
-                                <small id="usernameError" class="form-error">*This field must be filled.</small>
                             </div>
 
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
                                 <input type="email" class="input" id="userEmail" name="email"
-                                    placeholder="Enter your email">
-                                <small id="userEmailError" class="form-error">*Please check your email.</small>
+                                    placeholder="Enter your email" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="userPassword">Password</label>
                                 <input type="password" class="input" id="userPassword" name="password"
-                                    placeholder="Enter your password">
-                                <small id="userPasswordError" class="form-error">*Please check your password.</small>
+                                    placeholder="Enter your password" required>
                             </div>
-
-                            <div id="signup-message"></div>
-
+                            <button id="signup-button" class="primary-button">Sign Up</button>
                         </form>
-                        <button id="signup-button" class="primary-button">Sign Up</button>
                         <p>Already have an account? <a href="/login" class="text-button">Login Now</a></p>
                     </div>
                 </div>
@@ -69,8 +65,6 @@
 
     <!-- Custom JS -->
     <script src="/public/js/skeleton.js"></script>
-    <script src="/public/js/global.js"></script>
-    <script src="/public/js/login.js"></script>
     <script src="/public/js/sign-up.js"></script>
 </body>
 
