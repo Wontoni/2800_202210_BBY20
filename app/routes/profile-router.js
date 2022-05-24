@@ -57,13 +57,11 @@ router.get("/profile", (req, res) => {
     } else {
         const profile = fs.readFileSync(directory.profile);
         const profileHTML = new JSDOM(profile);
-        profileHTML.window.document.getElementById("menu-avatar").setAttribute("src", `${req.user.avatar}`);
         profileHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         profileHTML.window.document.getElementById("username").setAttribute("value", `${req.user.username}`);
         profileHTML.window.document.getElementById("userEmail").setAttribute("value", `${req.user.email}`);
         profileHTML.window.document.getElementById("userPassword").setAttribute("value", `${req.user.password}`);
         profileHTML.window.document.getElementById("userSchool").setAttribute("value", `${req.user.school}`);
-
         res.send(profileHTML.serialize());
     }
 });
@@ -78,52 +76,31 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
                 avatar: req.file.destination + req.file.filename
             }
         }, (error, result) => {
-            db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
-                $set: {
-                    userAvatar: req.file.destination + req.file.filename
-                }
-            }, (error, result) => {
-                res.redirect("/profile");
-            });
-        });
+            res.redirect("/profile");
+        })
     }
 });
 
 // update user profile
 router.put("/profile-edit", (req, res) => {
     if (req.user) {
-        db.collection("BBY_20_User").findOne({
-            username : req.body.username
+        db.collection("BBY_20_User").updateOne({
+            _id: req.user._id
+        }, {
+            $set: {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password,
+                school: req.body.school
+            }
         }, (error, result) => {
-            let exist = false;
-            if (result) {
-                exist = true;
-            }
-
-            if (exist) {
-                res.json({
-                    message : "This username already exists"
-                });
-            } else {
-                db.collection("BBY_20_User").updateOne({
-                    _id: req.user._id
-                }, {
-                    $set: {
-                        username: req.body.username,
-                        email: req.body.email,
-                        password: req.body.password,
-                        school: req.body.school
-                    }
-                }, (error, result) => {
-                    db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
-                        $set: {
-                            username: req.body.username
-                        }
-                    }, (error, result) => {
-                        res.redirect("/profile");
-                    });
-                });
-            }
+            db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
+                $set: {
+                    username: req.body.username
+                }
+            }, (error, result) => {
+                res.redirect("/profile");
+            });
         });
     }
 });

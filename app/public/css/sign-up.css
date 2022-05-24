@@ -10,26 +10,19 @@
     justify-content: center;
 }
 
-#signup-message {
-    color: red;
-    margin-bottom: 0.5rem;
-}
-
 .signup-section h2 {
     font-weight: 600;
-    margin-bottom: 0.5rem;
 }
 
 .signup-section .input {
     display: block;
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .signup-section .primary-button {
     width: 100%;
-    margin-top: 0.75rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 .signup-section .section-left {

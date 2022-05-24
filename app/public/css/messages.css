@@ -1,6 +1,6 @@
 .container {
-    display: flex;
-    grid-template-columns: 350px auto;
+    display: grid;
+    grid-template-columns: 20vw 80vw;
     grid-template-rows: 10vh 15vh 70vh 5vh;
 }
 
@@ -84,7 +84,6 @@
 .friendItem {
     display: flex;
     padding-left: 1rem;
-    border-radius: 1rem;
 }
 
 #profilePic {
@@ -97,8 +96,24 @@
     padding-left: 1rem;
 }
 
-.active {
-    background-color: #a8a8a8;
+/** Scrollbar Styling */
+
+.leftFriends::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leftFriends::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.leftFriends::-webkit-scrollbar-thumb {
+    background: #F85C3A;
+    border-radius: 10px;
+}
+
+.leftFriends::-webkit-scrollbar-thumb:hover {
+    background: #ff481f;
 }
 
 /** Messages Styling */

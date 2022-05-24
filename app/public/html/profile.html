@@ -31,15 +31,14 @@
             <div class="head">
                 <div class="account">
                     <div class="user-icon">
-                        <img alt="avatar-image" id="menu-avatar">
+                        <!-- <img alt="avatar-image" id="userAvatar"> -->
                     </div>
                 </div>
-                <div id="usernameMenu"></div>
-            </div>
 
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
 
             <div class="links">
@@ -55,11 +54,10 @@
             </div>
 
             <div class="foot">
-                <img src="../../public/assets/logo/un-logo-primary_white.svg" alt="UNIFIED Primary Logo in White"
-                    width="125px">
+                <img src="/public/assets/logo/un-logo-mini_white.svg" alt="UNIFIED Secondary Logo in White"
+                    width="30px">
             </div>
         </div>
-
         <div class="account-head">
             <div class="profile">
                 <img src="" alt="avatar-image" id="userAvatar">
@@ -74,15 +72,13 @@
             <div id="signUpForm">
                 <form action="/upload-process" method="POST" enctype="multipart/form-data">
                     <input type="file" id="avatar" name="avatar">
-                    <input type="submit" id="upload-button" value="Upload">
+                    <input type="submit" value="upload">
                 </form>
 
-                <div id="edit-message"></div>
-
-                <form>
+                <form action="/profile-edit?_method=PUT" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="input" id="username" name="username"
+                        <input type="tel" class="input" id="username" name="username"
                             placeholder="Change your username">
                     </div>
 
@@ -102,8 +98,9 @@
                         <input type="text" class="input" id="userSchool" name="school"
                             placeholder="What school do you go to?">
                     </div>
+
+                    <button type="submit" class="primary-button">Save</button>
                 </form>
-                <button id="edit-button" class="primary-button">Save</button>
             </div>
 
         </div>

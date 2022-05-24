@@ -37,7 +37,8 @@ const directory = {
     post: path.join(__dirname, "../public/html", "create-post.html"),
     editPost: path.join(__dirname, "../public/html", "edit-post.html"),
     timeline: path.join(__dirname, "../public/html", "timeline.html"),
-    easter: path.join(__dirname, "../public/html", "easter.html"),
+    friend: path.join(__dirname, "../public/html", "friends.html"),
+    easter: path.join(__dirname, "../public/html", "easter.html")
 };
 
 /* ------------------------------ Routers ------------------------------ */
@@ -112,15 +113,15 @@ router.get("/main", (req, res) => {
                 }
 
                 // Quick tips
-                db.collection("BBY_20_Tips").find().sort({ lastModified: -1 }).toArray((error, result) => {
-                    var tipLoadNumber = Math.floor(Math.random() * result.length);
-                    var tipTitle = result[tipLoadNumber].title;
-                    var tipDesc = result[tipLoadNumber].description;
-                    var tipDiv = mainHTML.window.document.getElementById("tipsPop");
-                    tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
-                    tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
+                // db.collection("BBY_20_Tips").find().sort({ lastModified: -1 }).toArray((error, result) => {
+                //     var tipLoadNumber = Math.floor(Math.random() * result.length);
+                //     var tipTitle = result[tipLoadNumber].title;
+                //     var tipDesc = result[tipLoadNumber].description;
+                //     var tipDiv = mainHTML.window.document.getElementById("tipsPop");
+                //     tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
+                //     tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
                     res.send(mainHTML.serialize());
-                });
+                // });
             });
         }
     } else {
@@ -208,13 +209,10 @@ router.put("/post-edit", (req, res) => {
 
 // show easter egg page
 router.get("/easter", (req, res) => {
-    if (!req.user) {
-        res.sendFile(directory.login);
-    } else {
-        const easter = fs.readFileSync(directory.easter);
-        const easterHTML = new JSDOM(easter);
-        res.send(easterHTML.serialize());
-    }
+
+    const easter = fs.readFileSync(directory.easter);
+    const easterHTML = new JSDOM(easter);
+    res.send(easterHTML.serialize());
 });
 
 /* ------------------------------ Export Module ------------------------------ */

@@ -58,7 +58,9 @@ router.delete('/delete', (req, res) => {
             });
         } else if (result.role === "regular") {
             db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
-                res.sendFile(directory.main);
+                db.collection('BBY_20_Post').deleteMany({ userID: parseInt(req.body._id) }, (error, result) => {
+                    res.sendFile(directory.main);
+                });
             });
         }
     });
@@ -66,58 +68,47 @@ router.delete('/delete', (req, res) => {
 
 // create a user
 router.post('/create', (req, res) => {
-    db.collection("BBY_20_User").findOne({
-        username: req.body.username
-    }, (error, result) => {
-        let exist = false;
-        if (result) {
-            exist = true;
-        }
-
-        if (exist) {
-            res.json({
-                message: "This username already exists"
+    db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
+        // add a user
+        let totalUsers = result.totalUser;
+        const defaultSchool = "";
+        const defaultAvatarURL = "public/assets/upload/default-avatar.png";
+        const defaultRole = "regular";
+        db.collection('BBY_20_User').insertOne({
+            _id: totalUsers + 1,
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            school: defaultSchool,
+            avatar: defaultAvatarURL,
+            role: defaultRole
+        }, (error, result) => {
+            // increment the total number of users
+            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
+                if (result.acknowledged) {
+                    res.redirect("/main");
+                }
             });
-        } else {
-            db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
-                // add a user
-                let totalUsers = result.totalUser;
-                const defaultSchool = "";
-                const defaultAvatarURL = "public/assets/upload/default-avatar.png";
-                const defaultRole = "regular";
-                db.collection('BBY_20_User').insertOne({
-                    _id: totalUsers + 1,
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: req.body.password,
-                    school: defaultSchool,
-                    avatar: defaultAvatarURL,
-                    role: defaultRole
-                }, (error, result) => {
-                    // increment the total number of users
-                    db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
-                        if (result.acknowledged) {
-                            res.redirect("/main");
-                        }
-                    });
-                });
-            });
-        }
+        });
     });
 });
 
 // show edit page
 router.get("/edit/:id", (req, res) => {
-    const edit = fs.readFileSync(directory.edit);
-    const editHTML = new JSDOM(edit);
-    db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-        editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
-        editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
-        editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
-        editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
-        editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
-        res.send(editHTML.serialize());
-    });
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const edit = fs.readFileSync(directory.edit);
+        const editHTML = new JSDOM(edit);
+        db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
+            editHTML.window.document.getElementById("userName").setAttribute("value", `${result.username}`);
+            editHTML.window.document.getElementById("userEmail").setAttribute("value", `${result.email}`);
+            editHTML.window.document.getElementById("userPassword").setAttribute("value", `${result.password}`);
+            editHTML.window.document.getElementById("userSchool").setAttribute("value", `${result.school}`);
+            res.send(editHTML.serialize());
+        });
+    }
 });
 
 // edit user information
@@ -131,12 +122,15 @@ router.put("/user-edit", (req, res) => {
             school: req.body.school
         }
     }, (error, result) => {
-        res.redirect("/main");
+        db.collection('BBY_20_Post').updateMany({ userID: req.body._id }, {
+            $set: {
+                username: req.body.username
+            }
+        }, (error, result) => {
+            res.redirect("/main");
+        });
     });
 });
-
-
-
 // Show tips page
 router.get("/tips", (req, res) => {
     if (!req.user) {

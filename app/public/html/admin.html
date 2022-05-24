@@ -84,24 +84,7 @@
                         </div>
 
                         <div class="user-more">
-                            <span class="material-icons button" id="delete-number">delete</span>
-
-                            <div id="confirmPopup" class="confirmDelete">
-
-                                <!-- Modal content -->
-                                <div class="popup-container">
-                                    <span class="material-icons warning">warning</span>
-                                    <div class="popupText">
-                                        Are you sure you want to delete this user?
-                                    </div>
-                                    <div class="popupBtns">
-                                        <button class="closeBtn">Cancel</button>
-                                        <button class="delete" id="confirmBtn">Confirm</button>
-                                    </div>
-                                </div>
-                        
-                            </div>
-
+                            <span class="material-icons delete" id="delete-number">delete</span>
                             <span class="material-icons edit" id="edit-number">edit</span>
                         </div>
                     </div>
@@ -109,9 +92,8 @@
 
                 <div class="create-user">
                     <h1>Create User</h1>
-                    <div id="create-message"></div>
                     <div class="form">
-                        <form>
+                        <form action="/create" method="POST">
                             <div class="form-group">
                                 <label for="userName">Username</label>
                                 <input type="text" class="input" id="userName" name="username"
@@ -132,8 +114,9 @@
                                     placeholder="Enter your password" required>
                                 <small id="userPasswordError" class="form-error">*Please check your password.</small>
                             </div>
+
+                            <button type="submit" class="primary-button">Create New User</button>
                         </form>
-                        <button type="submit" id="create-button" class="primary-button">Create New User</button>
                     </div>
                 </div>
             </div>
