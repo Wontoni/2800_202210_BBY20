@@ -33,7 +33,7 @@ const directory = {
     profile: path.join(__dirname, "../public/html", "profile.html"),
     admin: path.join(__dirname, "../public/html", "admin.html"),
     upload: path.join(__dirname, "../public/assets/upload/"),
-    edit: path.join(__dirname, "../public/html", "edit.html"),
+    editUser: path.join(__dirname, "../public/html", "edit-user.html"),
     tips: path.join(__dirname, "../public/html", "admin_tips.html"),
     editTips: path.join(__dirname, "../public/html", "edit-tips.html")
 };
@@ -94,11 +94,11 @@ router.post('/create', (req, res) => {
 });
 
 // show edit page
-router.get("/edit/:id", (req, res) => {
+router.get("/edit-user/:id", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-        const edit = fs.readFileSync(directory.edit);
+        const edit = fs.readFileSync(directory.editUser);
         const editHTML = new JSDOM(edit);
         db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
             editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
@@ -131,6 +131,7 @@ router.put("/user-edit", (req, res) => {
         });
     });
 });
+
 // Show tips page
 router.get("/tips", (req, res) => {
     if (!req.user) {
@@ -246,10 +247,6 @@ router.put("/tip-edit", (req, res) => {
         res.redirect("/tips");
     });
 });
-
-
-
-
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;

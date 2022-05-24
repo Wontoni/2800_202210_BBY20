@@ -17,10 +17,10 @@ $('.edit').click((e) => {
     var userNumber = e.target.dataset.number;
     $.ajax({
         method: 'GET',
-        url: `/edit/${userNumber}`,
+        url: `/edit-user/${userNumber}`,
         data: { _id: userNumber }
     }).done((result) => {
-        window.location.href = `/edit/${userNumber}`;
+        window.location.href = `/edit-user/${userNumber}`;
     }).fail((error) => {
         console.log("error");
     });
