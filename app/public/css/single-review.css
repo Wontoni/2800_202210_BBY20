@@ -1,0 +1,79 @@
+.prof-head {
+    margin-top: 1rem;
+}
+
+.prof-head .top {
+    display: flex;
+}
+
+.prof-head .score {
+    flex-grow: 1;
+}
+
+.prof-head .score {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.prof-head .score span {
+    color: var(--paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.prof-head .bottom h2 {
+    font-weight: 500;
+}
+
+.reviews-head {
+    margin-top: 2rem;
+}
+
+.reviews-head span {
+    margin-left: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.reviews {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+}
+
+.reviews .review {
+    margin-bottom: 2rem;
+}
+
+.reviews .review-head {
+    display: flex;
+}
+
+.reviews .rating {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0 0.75rem 0.5rem;
+    border-radius: 0.5rem;
+    margin-right: 0.75rem;
+}
+
+.reviews .rating h2 {
+    font-weight: 500;
+}
+
+.reviews .review-info h4 {
+    margin-bottom: 0.25rem;
+}
+
+.reviews .review > p {
+    margin-top: 1rem;
+    line-height: 1.5rem;
+}
+
+.reviews button {
+    margin-top: 1rem;
+    width: 100%;
+}
