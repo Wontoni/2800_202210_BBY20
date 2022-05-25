@@ -87,3 +87,7 @@
 .professors .bottom h3 {
     font-weight: 500;
 }
+
+.content button {
+    width: 100%;
+}

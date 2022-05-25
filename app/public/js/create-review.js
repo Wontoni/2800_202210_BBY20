@@ -1,5 +1,8 @@
+"use strict";
+
 const allStars = [...document.getElementsByClassName("star")];
 const allResult = document.querySelector(".result");
+var resultScore = 0;
 
 printRatingResult(allResult);
 
@@ -26,6 +29,8 @@ function executeRating(stars, result) {
 
 function printRatingResult(result, num = 0) {
     result.textContent = num;
+    resultScore = result.textContent;
+    document.getElementById("scoreNum").value = parseInt(resultScore);
 }
 
 executeRating(allStars, allResult);

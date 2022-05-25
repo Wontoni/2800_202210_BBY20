@@ -130,7 +130,8 @@
     padding: 15px 30px;
     color: #F85C3A;
     font-size: 25px;
-    border: 5px solid #F85C3A;
+    border: 5px solid #F85C3A !important;
+    background-color: white;
 }
 
 .joinBtn:hover {

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Teacher Name Review | Unified</title>
 
     <!-- Favicon -->
@@ -15,86 +16,48 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/global.css">
-    <link rel="stylesheet" href="/public/css/single-review.css">
+    <link rel="stylesheet" href="../../public/css/single-review.css">
 </head>
+
 <body>
 
     <div class="wrapper">
-        
+
         <nav id="navTemplate"></nav>
 
         <div class="content">
             <div class="prof-head">
                 <div class="top">
-                    <p class="score">3.5<span> / 5</span></p>
+                    <p class="score" id="profScore">3.5<span> / 5</span></p>
                 </div>
                 <div class="bottom">
-                    <h2>Heather Whitman</h2>
+                    <h2 id="profName">Heather Whitman</h2>
                 </div>
             </div>
 
-            <h4 class="reviews-head">Reviews<span>2</span></h4>
+            <h4 class="reviews-head">Reviews<span id="reviewNumber">2</span></h4>
 
-            <div class="reviews">
-                <div class="review">
+            <div class="reviews" id="reviewList">
+                <div class="review" id="reviewTemplate">
                     <div class="review-head">
                         <div class="rating">
-                            <h2>4</h2>
+                            <h2 id="singleScore">4</h2>
                         </div>
-                        
+
                         <div class="review-info">
-                            <h4>COMP2121</h4>
-                            
-                            <div class="rest">
-                                <p>Feb 3, 2022</p>
-                            </div>
+                            <h4 id="reviewClass">COMP2121</h4>
+
                         </div>
                     </div>
-                    
-                    <p>Heather is an amazing teacher but she replies to the emails very late.</p>
+
+                    <p id="reviewDescription">Heather is an amazing teacher but she replies to the emails very late.</p>
                 </div>
 
-                <div class="review">
-                    <div class="review-head">
-                        <div class="rating">
-                            <h2>3</h2>
-                        </div>
-                        
-                        <div class="review-info">
-                            <h4>OPTM0199</h4>
-                            
-                            <div class="rest">
-                                <p>Dec 21, 2021</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p>Great professor and very easy marker. She just needs to slow down her pace and make exams a little easier.</p>
-                </div>
-
-                <div class="review">
-                    <div class="review-head">
-                        <div class="rating">
-                            <h2>5</h2>
-                        </div>
-                        
-                        <div class="review-info">
-                            <h4>STATS1100</h4>
-                            
-                            <div class="rest">
-                                <p>Nov 13, 2021</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p>Best instructor at BCIT!!</p>
-                </div>
-
-                <button type="button" class="primary-button">Write A Review</button>
             </div>
+            <button type="button" class="primary-button" id="writeReviewBtn">Write A Review</button>
         </div>
     </div>
 
@@ -103,6 +66,8 @@
 
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
-    
+    <script src="/public/js/single-review.js"></script>
+
 </body>
+
 </html>

@@ -32,67 +32,43 @@ router.get("/reviews", (req, res) => {
     if (!req.user) {
         res.redirect("/login");
     } else {
-        const reviews = fs.readFileSync(directory.review);
-        const reviewsHTML = new JSDOM(reviews);
+        const review = fs.readFileSync(directory.review);
+        const reviewHTML = new JSDOM(review);
 
-        var listProf = adminHTML.window.document.getElementById("profList");
-        var profTemplate = reviewsHTML.window.document.getElementById("profTemplate");
-        var maxScoreSpan = document.createElement("span");
-        var maxScoreText = document.createTextNode(" / 5");
+        var profList = reviewHTML.window.document.getElementById("profList");
+        var profTemplate = reviewHTML.window.document.getElementById("profTemplate");
+
+        var maxScoreSpan = reviewHTML.window.document.createElement("span");
+        var maxScoreText = reviewHTML.window.document.createTextNode(" / 5");
         maxScoreSpan.appendChild(maxScoreText);
-        
-        db.collection("BBY_20_Professors").find().toArray((error, result) => {
-            for (var i = 0; i < result.length; i++) {
-                var number = result[i]._id;
-                var name = result[i].name;
-                var school = result[i].school;
-                var stars = result[i].stars;
-                var total = result[i].totalReviews;
-                var profInfo = profTemplate.cloneNode(true);
-                profTemplate.remove();
-                // userInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
-                var newScore = stars + maxScoreSpan;
-                profInfo.querySelector(".score").innerHTML = newScore;
-                profInfo.querySelector(".text").innerHTML = "See " + total + " reviews";
-                profInfo.querySelector("#profName").innerHTML = name;
-                listProf.appendChild(profInfo);
+
+        db.collection("BBY_20_Post").find().sort({ lastModified: -1 }).toArray((error, result) => {
+            if (result.length === 0) {
+                postTemplate.remove();
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var name = result[i].name;
+                    var school = result[i].school;
+                    var stars = result[i].stars;
+                    var total = result[i].totalReviews;
+                    var profInfo = profTemplate.cloneNode(true);
+                    profTemplate.remove();
+
+                    var newScore = stars + "" + maxScoreSpan;
+                    profInfo.querySelector("#stars").innerHTML = newScore;
+                    console.log(profInfo.querySelector("#stars").innerHTML);
+                    profInfo.querySelector("#moreReviews").innerHTML = "See " + total + " reviews";
+                    console.log(profInfo.querySelector("#moreReviews").innerHTML);
+                    profInfo.querySelector("#profName").innerHTML = name;
+                    console.log(profInfo.querySelector("#profName").innerHTML);
+                    profList.appendChild(profInfo);
+                }
             }
         })
 
-        res.send(reviewsHTML.serialize());
-    }
-});
 
-// post avatar
-router.post("/upload-process", upload.single("avatar"), (req, res) => {
-    if (req.user) {
-        db.collection("BBY_20_User").updateOne({
-            _id: req.user._id
-        }, {
-            $set: {
-                avatar: req.file.destination + req.file.filename
-            }
-        }, (error, result) => {
-            res.redirect("/profile");
-        })
-    }
-});
-
-// update user profile
-router.put("/profile-edit", (req, res) => {
-    if (req.user) {
-        db.collection("BBY_20_User").updateOne({
-            _id: req.user._id
-        }, {
-            $set: {
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password,
-                school: req.body.school
-            }
-        }, (error, result) => {
-            res.redirect("/profile");
-        });
+        res.send(reviewHTML.serialize());
     }
 });
 

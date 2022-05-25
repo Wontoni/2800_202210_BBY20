@@ -29,37 +29,23 @@
         <nav id="navTemplate"></nav>
 
         <div class="content">
-            <h1>Review: <span id="profName"></span></h1>
+            <h1>Request Professor</h1>
 
             <div class="form">
-                <form action="/new-review" method="POST">
+                <form action="/send-request" method="POST">
                     <div class="form-group">
-                        <input type="text" class="input" name="className" id="className"
-                            placeholder="Insert your class name" required>
+                        <input type="text" class="input" name="name" id="name"
+                            placeholder="Professor Full Name" required>
                         <small id="userNameError" class="form-error">*This field must be filled.</small>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="input" name="review" id="review" placeholder="Insert your review"
+                        <input type="text" class="input" name="school" id="school" placeholder="Insert Professor's School"
                             required>
                         <small id="userNameError" class="form-error">*This field must be filled.</small>
                     </div>
 
-
-                    <div class="form-group">
-                        <div class="rating">
-                            <span class="material-icons star">star_border</span>
-                            <span class="material-icons star">star_border</span>
-                            <span class="material-icons star">star_border</span>
-                            <span class="material-icons star">star_border</span>
-                            <span class="material-icons star">star_border</span>
-
-                            <input type="hidden" class="result" id="scoreNum" name="scoreNum">
-                            <input type="hidden" id="profNumber" name="profNumber">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="primary-button" id="review-number">Create New Review</button>
+                    <button type="submit" class="primary-button" id="review-number">Submit Request</button>
 
                 </form>
             </div>
@@ -71,7 +57,6 @@
 
     <script src="/public/js/skeleton.js"></script>
     <script src="/public/js/global.js"></script>
-    <script src="/public/js/create-review.js"></script>
 
 </body>
 
