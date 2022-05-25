@@ -70,10 +70,16 @@
 
             <!-- Add values to the form for current user information -->
             <div id="signUpForm">
-                <form action="/upload-process" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="avatar">
-                    <input type="submit" value="upload">
-                </form>
+                <div id="upload">
+                    <form action="/upload-process" method="POST" enctype="multipart/form-data">
+                        <div>
+                            <input type="file" name="avatar">
+                        </div>
+                        <div>
+                            <input type="submit" value="Upload File" id="photoupload" class="primary-button">
+                        </div>
+                    </form>
+                </div>
 
                 <div id="edit-message"></div>
 
@@ -101,7 +107,9 @@
                             placeholder="What school do you go to?">
                     </div>
                 </form>
-                <button type="button" id="edit-button" class="primary-button">Save</button>
+                <div id="save">
+                    <button type="button" id="edit-button" class="primary-button">Save</button>
+                </div>
             </div>
 
         </div>
