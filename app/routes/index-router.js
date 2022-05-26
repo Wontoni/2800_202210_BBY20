@@ -81,6 +81,7 @@ router.get("/main", (req, res) => {
                     postTemplate.remove();
                 } else {
                     for (var i = 0; i < result.length; i++) {
+                        var number = result[i]._id;
                         var avatar = result[i].userAvatar;
                         var username = result[i].username;
                         var time = result[i].lastModified;
@@ -88,6 +89,7 @@ router.get("/main", (req, res) => {
                         var description = result[i].description;
                         var postInfo = postTemplate.cloneNode(true);
                         postTemplate.remove();
+                        postInfo.querySelector("#more").setAttribute("data-number", `${number}`);
                         postInfo.querySelector("#avatar").setAttribute("src", `/${avatar}`);
                         postInfo.querySelector("#name").innerHTML = username;
                         postInfo.querySelector("#time").innerHTML = time;
@@ -142,6 +144,7 @@ router.get("/timeline", (req, res) => {
                     postInfo.querySelector("#time").innerHTML = time;
                     postInfo.querySelector("#title").innerHTML = title;
                     postInfo.querySelector("#description").innerHTML = description;
+                    // postInfo.querySelector("#postTemplate").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                     listTemplate.appendChild(postInfo);
