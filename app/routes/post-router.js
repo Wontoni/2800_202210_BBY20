@@ -13,7 +13,6 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
-const { devNull } = require("os");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -115,43 +114,44 @@ router.delete('/delete-post', (req, res) => {
 router.get('/single-post/:id', (req, res) => {
     if (!req.user) {
         res.redirect("/login");
-    }
-
-    const post = fs.readFileSync(directory.singlePost);
-    const postHTML = new JSDOM(post);
-
-    postHTML.window.document.getElementById("username").innerHTML = req.user.username;
-    postHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
-
-    db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-        postHTML.window.document.getElementById("avatar").setAttribute("src", `/${result.userAvatar}`);
-        postHTML.window.document.getElementById("name").innerHTML = result.username;
-        postHTML.window.document.getElementById("time").innerHTML = result.lastModified;
-        postHTML.window.document.getElementById("title").innerHTML = result.title;
-        postHTML.window.document.getElementById("description").innerHTML = result.description;
-
-        let commentContainer = postHTML.window.document.getElementById("comment-container");
-        let commentItem = postHTML.window.document.getElementById("comment-item");
-
-        db.collection("BBY_20_Comment").find({
-            postID : req.params.id
-        }).toArray((error, comments) => {
-            if (comments.length === 0) {
-                commentItem.remove();
-            } else {
-                for (let i = 0; i < comments.length; i++) {
-                    let comment = commentItem.cloneNode(true);
+    } else {
+        const post = fs.readFileSync(directory.singlePost);
+        const postHTML = new JSDOM(post);
+    
+        postHTML.window.document.getElementById("username").innerHTML = req.user.username;
+        postHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
+    
+        db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            postHTML.window.document.getElementById("avatar").setAttribute("src", `/${result.userAvatar}`);
+            postHTML.window.document.getElementById("name").innerHTML = result.username;
+            postHTML.window.document.getElementById("time").innerHTML = result.lastModified;
+            postHTML.window.document.getElementById("title").innerHTML = result.title;
+            postHTML.window.document.getElementById("description").innerHTML = result.description;
+    
+            let commentContainer = postHTML.window.document.getElementById("comment-container");
+            let commentItem = postHTML.window.document.getElementById("comment-item");
+    
+            db.collection("BBY_20_Comment").find({
+                postID : req.params.id
+            }).toArray((error, comments) => {
+                if (comments.length === 0) {
                     commentItem.remove();
-                    comment.querySelector("#time").innerHTML = comments[i].timestamp;
-                    comment.querySelector("#comment").innerHTML = comments[i].contents;
-                    comment.querySelector("#name").innerHTML = comments[i].userName;
-                    comment.querySelector("#commentAvatar").setAttribute("src", `/${comments[i].userAvatar}`);
-                    commentContainer.appendChild(comment);
+                } else {
+                    for (let i = 0; i < comments.length; i++) {
+                        let comment = commentItem.cloneNode(true);
+                        commentItem.remove();
+                        comment.querySelector("#time").innerHTML = comments[i].timestamp;
+                        comment.querySelector("#comment").innerHTML = comments[i].contents;
+                        comment.querySelector("#name").innerHTML = comments[i].userName;
+                        comment.querySelector("#commentAvatar").setAttribute("src", `/${comments[i].userAvatar}`);
+                        comment.querySelector(".delete-button").setAttribute("data-id", comments[i].commentID);
+                        commentContainer.appendChild(comment);
+                    }
                 }
-            }
-            res.send(postHTML.serialize());
+                res.send(postHTML.serialize());
+            });
         });
-    });
+    }
 });
 
 /* ------------------------------ Export Module ------------------------------ */

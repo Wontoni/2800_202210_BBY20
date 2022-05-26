@@ -27,34 +27,6 @@ MongoClient.connect(URL, (error, client) => {
 });
 
 /* ------------------------------ Routers ------------------------------ */
-// show comments
-// router.get("/single-post/:id", (req, res) => {
-//     if (req.user) {
-//         const post = fs.readFileSync(directory.post);
-//         const postHTML = new JSDOM(post);
-
-//         let commentContainer = postHTML.window.document.getElementById("comment-container");
-//         let commentItem = postHTML.window.document.getElementById("comment-item");
-
-//         db.collection("BBY_20_Comment").find({
-//             "postID" : parseInt(req.params.id)
-//         }).toArray((error, result) => {
-//             for (let i = 0; i < result.length; i++) {
-//                 let comment = commentItem.cloneNode(true);
-//                 commentItem.remove();
-//                 comment.querySelector("#name").innerHTML = result[i].userName;
-//                 comment.querySelector("#time").innerHTML = result[i].timestamp;
-//                 comment.querySelector("#comment").innerHTML = result[i].contents;
-//                 comment.querySelector("#avatar").setAttribute("src", result[i].userAvatar);
-//                 commentContainer.appendChild(comment);
-//             }
-//             res.send(postHTML.serialize());
-//         });
-//     } else {
-//         res.redirect("/login");
-//     }
-// });
-
 // create a comment
 router.post('/create-comment', (req, res) => {
     if (req.user) {
@@ -89,6 +61,27 @@ router.post('/create-comment', (req, res) => {
         });
     } else {
         res.redirect("/login");
+    }
+});
+
+// delete comment
+router.delete("/delete-comment", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        db.collection("BBY_20_Comment").deleteOne({
+            commentID : parseInt(req.body.commentID)
+        }, (error, result) => {
+            db.collection("BBY_20_Count").updateOne({
+                name : "NumberOfComments"
+            }, {
+                $inc : {
+                    totalComment : -1
+                }
+            }, (error, result) => {
+                res.send("Delete Success");
+            });
+        });
     }
 });
 
