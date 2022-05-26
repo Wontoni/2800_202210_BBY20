@@ -41,6 +41,11 @@
     min-width: 20rem;
 }
 
+#create-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
 .content .user {
     display: flex;
     padding: 1rem 0.5rem;
@@ -64,6 +69,14 @@
 }
 
 .content .user .tips-info {
+    flex-grow: 5;
+}
+
+.content .user .requests-info {
+    flex-grow: 5;
+}
+
+.content .user .professors-info {
     flex-grow: 5;
 }
 
@@ -107,6 +120,7 @@
 .content .create-user {
     width: 40%;
     min-width: 22rem;
+    max-height: 31rem;
     margin-left: 3rem;
     padding: 1rem 1rem 2rem;
     border: 1px solid #e5e5e5;

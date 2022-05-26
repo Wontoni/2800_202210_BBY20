@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Create Task | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/create-task.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <nav id="navTemplate"></nav>
+
+        <div class="content">
+            <h1>Create Task</h1>
+            
+            <div id="create-message"></div>
+
+            <div class="form">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="input" id="taskTitle" placeholder="Insert your title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="input" id="taskDesc" placeholder="Insert your task description">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" min="2022-05-01" max="2022-05-31" class="input" id="taskDate" placeholder="Enter your date">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="time" class="input" id="taskStart" placeholder="Enter start time">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="time" class="input" id="taskEnd" placeholder="Enter end time">
+                    </div>
+
+                    <button type="button" class="primary-button" id="create-button">Create New Task</button>
+                </form>
+            </div>    
+        </div>
+
+        <div class="secret">
+            <h1>L</h1>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="../../public/js/skeleton.js"></script>
+    <script src="../../public/js/global.js"></script>
+    <script src="../../public/js/create-task.js"></script>
+    
+</body>
+</html>

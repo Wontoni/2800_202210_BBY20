@@ -74,11 +74,10 @@
 .navList {
     display: flex;
     justify-content: space-evenly;
-    padding-right: 7.5%;
 }
 
 .homeNav img {
-    width: 500px;
+    width: 400px;
     height: auto;
     padding-top: 10%;
 }
@@ -93,7 +92,7 @@
 
 #navItem {
     padding-top: 110px;
-    font-size: 2vw;
+    font-size: 1.8vw;
     color: #F85C3A;
 }
 
@@ -115,7 +114,6 @@
     font-size: 35px;
 }
 
-
 .btnDiv {
     display: flex;
     justify-content: center;
@@ -129,16 +127,17 @@
 }
 
 .joinBtn {
-    padding: 20px 50px;
+    padding: 15px 30px;
     color: #F85C3A;
-    font-size: 30px;
-    border: 7px solid #F85C3A;
+    font-size: 25px;
+    border: 5px solid #F85C3A !important;
+    background-color: white;
 }
 
 .joinBtn:hover {
-    padding: 20px 50px;
+    padding: 15px 30px;
     color: white;
-    font-size: 30px;
+    font-size: 25px;
     background-color: #F85C3A;
     border: 7px solid #F85C3A;
     cursor: pointer;
@@ -211,7 +210,6 @@ img {
         height: auto;
     }
 
-
     .homeNav a {
         display: block;
         text-align: center;
@@ -228,7 +226,6 @@ img {
         text-align: center;
         font-size: 25px;
     }
-
 
     .btnDiv {
         display: flex;

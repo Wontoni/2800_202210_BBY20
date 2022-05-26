@@ -2,6 +2,31 @@
     min-height: 120vh;
 }
 
+#avatar {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50rem;
+    box-shadow: 0px 7px 20px rgb(0 0 0 / 10%);
+}
+
+#upload {
+    margin-bottom: 10px;
+}
+
+#photoupload {
+    width: 88px;
+    border: none;
+    margin-top: 5px;
+    padding: 4px 0px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+#save {
+    text-align: center;
+}
+
 .account-head {
     height: 30vh;
     background-color: #F85C3A;
@@ -34,7 +59,7 @@
     width: 150px;
     height: 150px;
     background-color: white;
-    border-radius: 50rem;
+    border-radius: 20rem;
     box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.1);
     font-size: 8rem;
 }
@@ -111,5 +136,9 @@
 
     .account-body {
         margin-left: 0;
+    }
+
+    #userAvatar {
+        margin-right: 5rem;
     }
 }

@@ -111,8 +111,17 @@ app.use("/", signupRouter);
 const adminRouter = require("./routes/admin-router");
 app.use("/", adminRouter);
 
-const mainRouter = require("./routes/main-router");
-app.use("/", mainRouter);
+const postRouter = require("./routes/post-router");
+app.use("/", postRouter);
+
+const plannerRouter = require("./routes/planner-router");
+app.use("/", plannerRouter);
+
+const tipRouter = require("./routes/tip-router");
+app.use("/", tipRouter);
+
+const commentRouter = require("./routes/comment-router");
+app.use("/", commentRouter);
 
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);

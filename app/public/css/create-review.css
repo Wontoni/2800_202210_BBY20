@@ -1,0 +1,34 @@
+.content .form {
+    padding-top: 2rem;
+}
+
+.content .input, select {
+    width: 100%;
+}
+
+.content button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.content .rating span {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.content .rating span:hover {
+    filter: drop-shadow(0 0 0.25rem rgba(248, 92, 58, 0.25));
+}
+
+.rating .result {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.rating #smallNo {
+    color: var(--paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+}
+

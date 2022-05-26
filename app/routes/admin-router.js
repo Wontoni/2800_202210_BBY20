@@ -11,6 +11,9 @@ const path = require("path");
 const fs = require("fs");
 // JSDOM
 const { JSDOM } = require("jsdom");
+// directory
+const directory = require("./directory");
+const { resourceLimits } = require("worker_threads");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -23,20 +26,6 @@ MongoClient.connect(URL, (error, client) => {
         db = client.db("Unified");
     }
 });
-
-/* ------------------------------ Directories ------------------------------ */
-const directory = {
-    index: path.join(__dirname, "../public/html", "index.html"),
-    main: path.join(__dirname, "../public/html", "main.html"),
-    signup: path.join(__dirname, "../public/html", "sign-up.html"),
-    login: path.join(__dirname, "../public/html", "login.html"),
-    profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html"),
-    upload: path.join(__dirname, "../public/assets/upload/"),
-    edit: path.join(__dirname, "../public/html", "edit.html"),
-    tips: path.join(__dirname, "../public/html", "admin_tips.html"),
-    editTips: path.join(__dirname, "../public/html", "edit-tips.html")
-};
 
 /* ------------------------------ Routers ------------------------------ */
 // delete a user
@@ -68,37 +57,52 @@ router.delete('/delete', (req, res) => {
 
 // create a user
 router.post('/create', (req, res) => {
-    db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
-        // add a user
-        let totalUsers = result.totalUser;
-        const defaultSchool = "";
-        const defaultAvatarURL = "public/assets/upload/default-avatar.png";
-        const defaultRole = "regular";
-        db.collection('BBY_20_User').insertOne({
-            _id: totalUsers + 1,
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            school: defaultSchool,
-            avatar: defaultAvatarURL,
-            role: defaultRole
-        }, (error, result) => {
-            // increment the total number of users
-            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
-                if (result.acknowledged) {
-                    res.redirect("/main");
-                }
+    db.collection("BBY_20_User").findOne({
+        username: req.body.username
+    }, (error, result) => {
+        let exist = false;
+        if (result) {
+            exist = true;
+        }
+
+        if (exist) {
+            res.json({
+                message: "This username already exists"
             });
-        });
+        } else {
+            db.collection('BBY_20_Count').findOne({ name: 'NumberOfUsers' }, (error, result) => {
+                // add a user
+                let totalUsers = result.totalUser;
+                const defaultSchool = "";
+                const defaultAvatarURL = "public/assets/upload/default-avatar.png";
+                const defaultRole = "regular";
+                db.collection('BBY_20_User').insertOne({
+                    _id: totalUsers + 1,
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: req.body.password,
+                    school: defaultSchool,
+                    avatar: defaultAvatarURL,
+                    role: defaultRole
+                }, (error, result) => {
+                    // increment the total number of users
+                    db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
+                        if (result.acknowledged) {
+                            res.redirect("/main");
+                        }
+                    });
+                });
+            });
+        }
     });
 });
 
 // show edit page
-router.get("/edit/:id", (req, res) => {
+router.get("/edit-user/:id", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-        const edit = fs.readFileSync(directory.edit);
+        const edit = fs.readFileSync(directory.editUser);
         const editHTML = new JSDOM(edit);
         db.collection('BBY_20_User').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
             editHTML.window.document.getElementById("userNumber").setAttribute("value", `${result._id}`);
@@ -114,142 +118,237 @@ router.get("/edit/:id", (req, res) => {
 // edit user information
 router.put("/user-edit", (req, res) => {
     req.body._id = parseInt(req.body._id);
-    db.collection('BBY_20_User').updateOne({ _id: req.body._id }, {
-        $set: {
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            school: req.body.school
-        }
-    }, (error, result) => {
-        db.collection('BBY_20_Post').updateMany({ userID: req.body._id }, {
-            $set: {
-                username: req.body.username
-            }
-        }, (error, result) => {
-            res.redirect("/main");
-        });
-    });
-});
-// Show tips page
-router.get("/tips", (req, res) => {
+
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-
-        const tips = fs.readFileSync(directory.tips);
-        const tipsHTML = new JSDOM(tips);
-        tipsHTML.window.document.getElementById("username").innerHTML = req.user.username;
-        var tipsTemplate = tipsHTML.window.document.getElementById("tipsTemplate");
-        var listTemplate = tipsHTML.window.document.getElementById("listTemplate");
-        db.collection("BBY_20_Tips").find().toArray((error, result) => {
-            for (var i = 0; i < result.length; i++) {
-                var number = result[i]._id;
-                var title = result[i].title;
-                var desc = result[i].description;
-
-                var tipsInfo = tipsTemplate.cloneNode(true);
-                tipsTemplate.remove();
-                tipsInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
-                tipsInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
-                tipsInfo.querySelector("#title").innerHTML = title;
-                tipsInfo.querySelector("#description").innerHTML = desc;
-
-                listTemplate.appendChild(tipsInfo);
+        db.collection("BBY_20_User").findOne({
+            username: req.body.username
+        }, (error, result) => {
+            let exist = false;
+            if (result) {
+                exist = true;
             }
-            tipsHTML.window.document.getElementById("total-tips").innerHTML = result.length + " tips";
-            res.send(tipsHTML.serialize());
-        });
 
-    }
-});
-
-// delete a tip
-router.delete('/delete-tip', (req, res) => {
-    req.body._id = parseInt(req.body._id);
-    db.collection('BBY_20_Tips').findOne({ _id: req.body._id }, (error, result) => {
-
-        db.collection('BBY_20_Count').findOne({ name: 'NumberOfTips' }, (error, result) => {
-
-            db.collection('BBY_20_Tips').deleteOne(req.body, (error, result) => {
-                // decrement the total number of tips
-                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfTips' }, { $inc: { totalTips: -1 } }, (error, result) => {
-                    res.sendFile(directory.tips);
+            if (exist) {
+                res.json({
+                    message: "This username already exists"
                 });
-            });
-
-        });
-    });
-});
-
-// create a tip
-router.post('/tip-create', (req, res) => {
-    db.collection("BBY_20_Tips").findOne({
-        title: req.body.title
-    }, (error, result) => {
-        let exist = false;
-        if (result) {
-            exist = true;
-        }
-
-        if (exist) {
-            res.json({
-                message: "This tips already exists"
-            });
-        } else {
-            db.collection('BBY_20_Count').findOne({ name: 'NumberOfTips' }, (error, result) => {
-                // add a tip
-                let totalTips = result.totalTips;
-
-                db.collection('BBY_20_Tips').insertOne({
-                    _id: totalTips + 1,
-                    title: req.body.title,
-                    description: req.body.description
+            } else {
+                db.collection('BBY_20_User').updateOne({ _id: req.body._id }, {
+                    $set: {
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: req.body.password,
+                        school: req.body.school
+                    }
                 }, (error, result) => {
-                    // increment the total number of tips
-                    db.collection('BBY_20_Count').updateOne({ name: 'NumberOfTips' }, { $inc: { totalTips: 1 } }, (error, result) => {
-
-                            res.redirect("/tips");
-                        
+                    db.collection('BBY_20_Post').updateMany({ userID: req.body._id }, {
+                        $set: {
+                            username: req.body.username
+                        }
+                    }, (error, result) => {
+                        res.redirect("/main");
                     });
                 });
-            });
-        }
-    });
-});
-
-// show edit tip page
-router.get("/edit-tips/:id", (req, res) => {
-    if (!req.user) {
-        res.sendFile(directory.login);
-    } else {
-        const editTips = fs.readFileSync(directory.editTips);
-        const editTipsHTML = new JSDOM(editTips);
-        db.collection('BBY_20_Tips').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-            editTipsHTML.window.document.getElementById("tipNumber").setAttribute("value", `${result._id}`);
-            editTipsHTML.window.document.getElementById("tipTitle").setAttribute("value", `${result.title}`);
-            editTipsHTML.window.document.getElementById("tipDescription").setAttribute("value", `${result.description}`);
-            res.send(editTipsHTML.serialize());
+            }
         });
     }
 });
 
-// edit tip information
-router.put("/tip-edit", (req, res) => {
+// Show requests page
+router.get("/requests", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const request = fs.readFileSync(directory.adminRequests);
+        const requestProfHTML = new JSDOM(request);
+
+        var requestsTemplate = requestProfHTML.window.document.getElementById("requestsTemplate");
+        var listTemplate = requestProfHTML.window.document.getElementById("listTemplate");
+        db.collection("BBY_20_Requests").find().sort({ lastModified: -1 }).toArray((error, result) => {
+            if (result.length === 0) {
+                requestsTemplate.remove();
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var name = result[i].name;
+                    var school = result[i].school;
+
+                    var requestsInfo = requestsTemplate.cloneNode(true);
+                    requestsTemplate.remove();
+                    requestsInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    requestsInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
+                    requestsInfo.querySelector("#title").innerHTML = name;
+                    requestsInfo.querySelector("#description").innerHTML = school;
+
+                    listTemplate.appendChild(requestsInfo);
+                }
+            }
+            requestProfHTML.window.document.getElementById("total-requests").innerHTML = result.length + " Requests";
+            res.send(requestProfHTML.serialize());
+        });
+
+    }
+});
+
+// delete a requests
+router.delete('/delete-request', (req, res) => {
     req.body._id = parseInt(req.body._id);
-    db.collection('BBY_20_Tips').updateOne({ _id: req.body._id }, {
-        $set: {
-            title: req.body.title,
-            description: req.body.description
-        }
-    }, (error, result) => {
-        res.redirect("/tips");
+    db.collection('BBY_20_Requests').findOne({ _id: req.body._id }, (error, result) => {
+        db.collection('BBY_20_Requests').deleteOne(req.body, (error, result) => {
+            res.sendFile(directory.adminRequests);
+        });
+    });
+});
+
+// accept a request
+router.put('/check-requests', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    var totalProfs = 0;
+    db.collection('BBY_20_Requests').findOne({ _id: req.body._id }, (error, result) => {
+        var nameF = result.name;
+        var schools = result.school;
+
+        db.collection('BBY_20_Count').findOne({ name: "NumberOfProfessors" }, (error, result) => {
+            totalProfs = result.totalProfessors;
+
+            db.collection('BBY_20_Professors').insertOne({
+                _id: totalProfs + 1,
+                name: nameF,
+                school: schools,
+                stars: 0,
+                totalReviews: 0
+            }, (error, result) => {
+
+                // increment the total number of professors
+                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfProfessors' }, { $inc: { totalProfessors: 1 } }, (error, result) => {
+                    if (result.acknowledged) {
+                        var requestNo = req.body._id
+                        db.collection('BBY_20_Requests').findOne({ _id: requestNo }, (error, result) => {
+                            db.collection('BBY_20_Requests').deleteOne(result, (error, result) => {
+                                res.sendFile(directory.adminRequests);
+                            });
+                        })
+                    }
+                });
+            });
+        })
+    }
+
+    );
+});
+
+// delete a requests
+router.get('/check-requests', (req, res) => {
+    res.redirect("/requests");
+});
+
+// Show professors page
+router.get("/professors", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const professors = fs.readFileSync(directory.adminProfessors);
+        const professorsProfHTML = new JSDOM(professors);
+
+        var professorsTemplate = professorsProfHTML.window.document.getElementById("professorsTemplate");
+        var listTemplate = professorsProfHTML.window.document.getElementById("listTemplate");
+        db.collection("BBY_20_Professors").find().sort({ lastModified: -1 }).toArray((error, result) => {
+            if (result.length === 0) {
+                professorsTemplate.remove();
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var name = result[i].name;
+                    var school = result[i].school;
+
+                    var professorsInfo = professorsTemplate.cloneNode(true);
+                    professorsTemplate.remove();
+                    professorsInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    professorsInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
+                    professorsInfo.querySelector("#title").innerHTML = name;
+                    professorsInfo.querySelector("#description").innerHTML = school;
+
+                    listTemplate.appendChild(professorsInfo);
+                }
+            }
+            professorsProfHTML.window.document.getElementById("total-professors").innerHTML = result.length + " Professors";
+            res.send(professorsProfHTML.serialize());
+        });
+
+    }
+});
+
+// delete a professor
+router.delete('/delete-professor', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Professors').findOne({ _id: req.body._id }, (error, result) => {
+        db.collection('BBY_20_Professors').deleteOne(req.body, (error, result) => {
+            db.collection('BBY_20_Review').deleteMany({ profID: parseInt(req.body._id) }, (error, result) => {
+                res.sendFile(directory.adminProfessors);
+            });
+        });
     });
 });
 
 
+// show edit page
+router.get("/edit-professor/:id", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const editProf = fs.readFileSync(directory.editProfessor);
+        const editProfHTML = new JSDOM(editProf);
+        db.collection('BBY_20_Professors').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            editProfHTML.window.document.getElementById("profNumber").setAttribute("value", `${result._id}`);
+            editProfHTML.window.document.getElementById("profName").setAttribute("value", `${result.name}`);
+            editProfHTML.window.document.getElementById("profSchool").setAttribute("value", `${result.school}`);
 
+            res.send(editProfHTML.serialize());
+        });
+    }
+});
 
+// edit user information
+router.put("/professor-edit", (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        db.collection('BBY_20_Professors').updateOne({ _id: req.body._id }, {
+            $set: {
+                name: req.body.name,
+                school: req.body.school
+            }
+        }, (error, result) => {
+            res.redirect("/professors");
+        });
+    }
+});
+
+// create a user
+router.post('/create-professor', (req, res) => {
+    db.collection('BBY_20_Count').findOne({ name: 'NumberOfProfessors' }, (error, result) => {
+        // add a user
+        let totalProfessors = result.totalProfessors;
+
+        db.collection('BBY_20_Professors').insertOne({
+            _id: totalProfessors + 1,
+            name: req.body.name,
+            school: req.body.school,
+            stars: 0,
+            totalReviews: 0
+        }, (error, result) => {
+            // increment the total number of users
+            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfProfessors' }, { $inc: { totalProfessors: 1 } }, (error, result) => {
+                if (result.acknowledged) {
+                    res.redirect("/professors");
+                }
+            });
+        });
+    });
+});
 
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;

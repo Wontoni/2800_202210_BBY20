@@ -8,6 +8,8 @@ const router = express.Router();
 const path = require("path");
 // passport
 const passport = require("passport");
+// directory
+const directory = require("./directory");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -20,16 +22,6 @@ MongoClient.connect(URL, (error, client) => {
         db = client.db("Unified");
     }
 });
-
-/* ------------------------------ File Directories ------------------------------ */
-const directory = {
-    main: path.join(__dirname, "../public/html", "main.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html"),
-    login: path.join(__dirname, "../public/html", "login.html"),
-    index: path.join(__dirname, "../public/html", "index.html"),
-    profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html")
-};
 
 /* ------------------------------ Routers ------------------------------ */
 // show login page

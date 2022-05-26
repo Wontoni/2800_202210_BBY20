@@ -18,7 +18,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../public/css/global.css">
-    <link rel="stylesheet" href="../../public/css/messages.css">
+    <link rel="stylesheet" href="../../public/css/message.css">
 </head>
 
 <body>
@@ -28,13 +28,7 @@
         </div>
 
         <div class="friendTitle">
-            My Friends
-            <div class="sForm">
-                <form>
-                    <input class="searchIcon" type="text" name="search" placeholder="Search">
-                    <span class="material-icons" id="addFriends">add_box</span>
-                </form>
-            </div>
+            Chat Rooms
         </div>
 
         <div class="leftFriends">
@@ -54,7 +48,7 @@
                     <!-- Maybe add most recent message below the name to fill content? -->
                 </div>
 
-                <div class="friendItem">
+                <!-- <div class="friendItem">
                     <span class="material-icons" id="profilePic">account_circle</span>
                     <span id="friendName">John Doe</span>
                 </div>
@@ -101,11 +95,36 @@
                 <div class="friendItem">
                     <span class="material-icons" id="profilePic">account_circle</span>
                     <span id="friendName">John Doe</span>
-                </div>
+                </div> -->
             </div>
         </div>
 
-        <div class="rightMsg">Add messages here</div>
+        <div class="msg-box">
+            <div class="msg yours">
+                <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                <p>Hello. How are you today?</p>
+                <span class="time-right">11:00</span>
+            </div>
+              
+            <div class="msg mine">
+                <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
+                <p>Hey! I'm fine. Thanks for asking!</p>
+                <span class="time-left">11:01</span>
+            </div>
+
+            <div class="msg yours">
+                <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                <p>Sweet! So, what do you wanna do today?</p>
+                <span class="time-right">11:02</span>
+            </div>
+              
+            <div class="msg mine">
+                <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
+                <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+                <span class="time-left">11:05</span>
+            </div>
+        </div>
+
         <div class="sendMsg">
             <form class="sForm">
                 <input type="text" name="message" placeholder="Message...">

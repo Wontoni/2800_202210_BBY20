@@ -11,6 +11,8 @@ const path = require("path");
 const fs = require("fs");
 // JSDOM
 const { JSDOM } = require("jsdom");
+// directory
+const directory = require("./directory");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -23,23 +25,6 @@ MongoClient.connect(URL, (error, client) => {
         db = client.db("Unified");
     }
 });
-
-/* ------------------------------ File Directories ------------------------------ */
-const directory = {
-    index: path.join(__dirname, "../public/html", "index.html"),
-    main: path.join(__dirname, "../public/html", "main.html"),
-    signup: path.join(__dirname, "../public/html", "sign-up.html"),
-    login: path.join(__dirname, "../public/html", "login.html"),
-    profile: path.join(__dirname, "../public/html", "profile.html"),
-    admin: path.join(__dirname, "../public/html", "admin.html"),
-    friend: path.join(__dirname, "../public/html", "friends.html"),
-    edit: path.join(__dirname, "../public/html", "edit.html"),
-    post: path.join(__dirname, "../public/html", "create-post.html"),
-    editPost: path.join(__dirname, "../public/html", "edit-post.html"),
-    timeline: path.join(__dirname, "../public/html", "timeline.html"),
-    friend: path.join(__dirname, "../public/html", "friends.html"),
-    easter: path.join(__dirname, "../public/html", "easter.html")
-};
 
 /* ------------------------------ Routers ------------------------------ */
 // show landing page
@@ -96,6 +81,7 @@ router.get("/main", (req, res) => {
                     postTemplate.remove();
                 } else {
                     for (var i = 0; i < result.length; i++) {
+                        var number = result[i]._id;
                         var avatar = result[i].userAvatar;
                         var username = result[i].username;
                         var time = result[i].lastModified;
@@ -103,6 +89,7 @@ router.get("/main", (req, res) => {
                         var description = result[i].description;
                         var postInfo = postTemplate.cloneNode(true);
                         postTemplate.remove();
+                        postInfo.querySelector("#more").setAttribute("data-number", `${number}`);
                         postInfo.querySelector("#avatar").setAttribute("src", `/${avatar}`);
                         postInfo.querySelector("#name").innerHTML = username;
                         postInfo.querySelector("#time").innerHTML = time;
@@ -111,7 +98,17 @@ router.get("/main", (req, res) => {
                         listTemplate.appendChild(postInfo);
                     }
                 }
-                res.send(mainHTML.serialize());
+
+                // Quick tips
+                db.collection("BBY_20_Tips").find().toArray((error, resultTip) => {
+                    var tipLoadNumber = Math.floor(Math.random() * resultTip.length);
+                    var tipTitle = resultTip[tipLoadNumber].title;
+                    var tipDesc = resultTip[tipLoadNumber].description;
+                    var tipDiv = mainHTML.window.document.getElementById("tipsPop");
+                    tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
+                    tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
+                    res.send(mainHTML.serialize());
+                });
             });
         }
     } else {
@@ -147,6 +144,7 @@ router.get("/timeline", (req, res) => {
                     postInfo.querySelector("#time").innerHTML = time;
                     postInfo.querySelector("#title").innerHTML = title;
                     postInfo.querySelector("#description").innerHTML = description;
+                    // postInfo.querySelector("#postTemplate").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                     listTemplate.appendChild(postInfo);
@@ -157,52 +155,15 @@ router.get("/timeline", (req, res) => {
     }
 });
 
-// delete a post
-router.delete('/delete-post', (req, res) => {
-    req.body._id = parseInt(req.body._id);
-    db.collection('BBY_20_Post').deleteOne({ _id: req.body._id }, (error, result) => {
-        res.sendFile(directory.timeline);
-    });
-});
-
-// show edit post page
-router.get("/edit-post/:id", (req, res) => {
+// show easter egg
+router.get("/easter", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
-        const editPost = fs.readFileSync(directory.editPost);
-        const editPostHTML = new JSDOM(editPost);
-        editPostHTML.window.document.getElementById("username").innerHTML = req.user.username;
-        editPostHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
-        db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
-            editPostHTML.window.document.getElementById("postNumber").setAttribute("value", `${req.params.id}`);
-            editPostHTML.window.document.getElementById("title").setAttribute("value", `${result.title}`);
-            editPostHTML.window.document.getElementById("tiny-editor").textContent = `${result.description}`;
-            res.send(editPostHTML.serialize());
-        });
+        const easter = fs.readFileSync(directory.easter);
+        const easterHTML = new JSDOM(easter);
+        res.send(easterHTML.serialize());
     }
-});
-
-// edit a post
-router.put("/post-edit", (req, res) => {
-    req.body._id = parseInt(req.body._id);
-    db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
-        $set: {
-            title: req.body.title,
-            description: req.body.description,
-            lastModified: new Date()
-        }
-    }, (error, result) => {
-        res.redirect("/timeline");
-    });
-});
-
-// show easter egg
-router.get("/easter", (req, res) => {
-
-    const easter = fs.readFileSync(directory.easter);
-    const easterHTML = new JSDOM(easter);
-    res.send(easterHTML.serialize());
 });
 
 /* ------------------------------ Export Module ------------------------------ */
