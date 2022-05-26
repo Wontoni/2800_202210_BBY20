@@ -283,6 +283,7 @@ h1 {
     border: none;
     border-radius: 2rem;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #userAvatar {
