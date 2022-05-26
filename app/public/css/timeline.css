@@ -151,6 +151,10 @@ h1 {
     border-top-right-radius: 1rem;
 }
 
+#total-comments {
+    margin-top: 15px;
+}
+
 .comment {
     width: 100%;
     margin: 1rem auto 2rem;
