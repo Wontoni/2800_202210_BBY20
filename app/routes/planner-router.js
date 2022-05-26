@@ -37,7 +37,6 @@ router.get("/planner", (req, res) => {
         
         var taskList = plannerHTML.window.document.getElementById("taskList");
         var taskTemplate = plannerHTML.window.document.getElementById("taskTemplate");
-        var allDates = plannerHTML.window.document.getElementsByClassName("date");
         
         db.collection("BBY_20_Tasks").find({userID: req.user._id }).toArray((error, result) => {
             if (result.length === 0) {
@@ -65,20 +64,6 @@ router.get("/planner", (req, res) => {
                         
                         taskList.appendChild(taskInfo);
                     }
-
-                    allDates.addEventListener("click", function() {
-                        var activeDate = $(".active").attr('id');
-                        
-                        if (activeDate === date) {
-                            taskInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
-                            taskInfo.querySelector("#startTime").innerHTML = startTime;
-                            taskInfo.querySelector("#endTime").innerHTML = endTime;
-                            taskInfo.querySelector("#title").innerHTML = title;
-                            taskInfo.querySelector("#description").innerHTML = description;
-                            
-                            taskList.appendChild(taskInfo);
-                        }
-                    })
                 }
             }
             
