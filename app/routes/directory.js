@@ -25,7 +25,11 @@ const directory = {
     single_review: path.join(__dirname, "../public/html", "single-review.html"),
     create_review: path.join(__dirname, "../public/html", "create-review.html"),
     requestProf: path.join(__dirname, "../public/html", "request-professor.html"),
-    adminRequests: path.join(__dirname, "../public/html", "admin-requests.html")
+    adminRequests: path.join(__dirname, "../public/html", "admin-requests.html"),
+    adminProfessors: path.join(__dirname, "../public/html", "admin-professors.html"),
+    editProfessor: path.join(__dirname, "../public/html", "edit-professor.html")
+
+
 };
 
 module.exports = directory;
