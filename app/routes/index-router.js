@@ -130,8 +130,8 @@ router.get("/timeline", (req, res) => {
         var postTemplate = timelineHTML.window.document.getElementById("postTemplate");
         db.collection("BBY_20_Post").find({ userID: req.user._id }).sort({ lastModified: -1 }).toArray((error, result) => {
             if (result.length === 0) {
-                postTemplate.remove();
                 timelineHTML.window.document.getElementById("no-post").innerHTML = "Oops, looks like there are no posts!";
+                postTemplate.remove();
             } else {
                 for (var i = 0; i < result.length; i++) {
                     var number = result[i]._id;
