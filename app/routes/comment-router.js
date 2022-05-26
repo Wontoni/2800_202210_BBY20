@@ -80,7 +80,7 @@ router.post('/create-comment', (req, res) => {
                             }
                         }, (error, result) => {
                             if (result.acknowledged) {
-                                res.redirect("/single-post");
+                                res.redirect("back");
                             }
                         });
                     }
