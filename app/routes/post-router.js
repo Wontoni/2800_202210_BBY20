@@ -13,6 +13,7 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+const { devNull } = require("os");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -107,6 +108,25 @@ router.delete('/delete-post', (req, res) => {
     req.body._id = parseInt(req.body._id);
     db.collection('BBY_20_Post').deleteOne({ _id: req.body._id }, (error, result) => {
         res.sendFile(directory.timeline);
+    });
+});
+
+// show post page
+router.get('/single-post/:id', (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    }
+    const post = fs.readFileSync(directory.singlePost);
+    const postHTML = new JSDOM(post);
+    postHTML.window.document.getElementById("username").innerHTML = req.user.username;
+    postHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
+    db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+        postHTML.window.document.getElementById("avatar").setAttribute("src", `/${result.userAvatar}`);
+        postHTML.window.document.getElementById("name").innerHTML = result.username;
+        postHTML.window.document.getElementById("time").innerHTML = result.lastModified;
+        postHTML.window.document.getElementById("title").innerHTML = result.title;
+        postHTML.window.document.getElementById("description").innerHTML = result.description;
+        res.send(postHTML.serialize());
     });
 });
 
