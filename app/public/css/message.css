@@ -32,7 +32,7 @@
     overflow-y: scroll;
 }
 
-.rightMsg {
+.chat-box {
     grid-column: 2 / span 1;
     grid-row: 2 / span 2;
 
@@ -141,3 +141,46 @@
 #sendBtn:hover {
     cursor: pointer;
 }
+
+.msg {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .mine {
+    border-color: #ccc;
+    background-color: #ddd;
+  }
+  
+  .msg::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .msg img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  
+  .msg img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+  }
+  
+  .time-right {
+    float: right;
+    color: #aaa;
+  }
+  
+  .time-left {
+    float: left;
+    color: #999;
+  }
