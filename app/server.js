@@ -117,5 +117,8 @@ app.use("/", postRouter);
 const tipRouter = require("./routes/tip-router");
 app.use("/", tipRouter);
 
+const commentRouter = require("./routes/comment-router");
+app.use("/", commentRouter);
+
 /* ------------------------------ Listen to Server ------------------------------ */
 app.listen(PORT);

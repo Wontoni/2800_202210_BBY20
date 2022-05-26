@@ -28,29 +28,32 @@ MongoClient.connect(URL, (error, client) => {
 
 /* ------------------------------ Routers ------------------------------ */
 // show comments
-router.get("/post/:id", (req, res) => {
-    if (req.user) {
-        const post = fs.readFileSync(directory.post);
-        const postHTML = new JSDOM(post);
+// router.get("/single-post/:id", (req, res) => {
+//     if (req.user) {
+//         const post = fs.readFileSync(directory.post);
+//         const postHTML = new JSDOM(post);
 
-        let commentContainer = postHTML.window.document.getElementById("comment-container");
-        let commentItem = postHTML.window.document.getElementById("comment-item");
+//         let commentContainer = postHTML.window.document.getElementById("comment-container");
+//         let commentItem = postHTML.window.document.getElementById("comment-item");
 
-        db.collection("BBY_20_Comment").find({
-            "post-id" : parseInt(req.params.id)
-        }).toArray((error, result) => {
-            for (let i = 0; i < result.length; i++) {
-                let comment = commentItem.cloneNode(true);
-                commentItem.remove();
-
-                commentContainer.appendChild(comment);
-            }
-            res.send(postHTML.serialize());
-        });
-    } else {
-        res.redirect("/login");
-    }
-});
+//         db.collection("BBY_20_Comment").find({
+//             "postID" : parseInt(req.params.id)
+//         }).toArray((error, result) => {
+//             for (let i = 0; i < result.length; i++) {
+//                 let comment = commentItem.cloneNode(true);
+//                 commentItem.remove();
+//                 comment.querySelector("#name").innerHTML = result[i].userName;
+//                 comment.querySelector("#time").innerHTML = result[i].timestamp;
+//                 comment.querySelector("#comment").innerHTML = result[i].contents;
+//                 comment.querySelector("#avatar").setAttribute("src", result[i].userAvatar);
+//                 commentContainer.appendChild(comment);
+//             }
+//             res.send(postHTML.serialize());
+//         });
+//     } else {
+//         res.redirect("/login");
+//     }
+// });
 
 // create a comment
 router.post('/create-comment', (req, res) => {
@@ -60,13 +63,13 @@ router.post('/create-comment', (req, res) => {
         }, (error, result) => {
             if (!error) {
                 db.collection('BBY_20_Comment').insertOne({
-                    "comment-id" : result.totalComment + 1,
+                    "commentID" : result.totalComment + 1,
                     "contents" : req.body.contents,
+                    "postID" : req.body.postID,
                     "timestamp" : new Date(),
-                    "post-id" : parseInt(req.params.id),
-                    "user-id" : req.user._id,
-                    "user-name" : req.user.username,
-                    "user-avatar" : req.user.avatar
+                    "userID" : req.user._id,
+                    "userName" : req.user.username,
+                    "userAvatar" : req.user.avatar
                 }, (error, result) => {
                     if (!error) {
                         db.collection('BBY_20_Count').updateOne({
@@ -77,7 +80,7 @@ router.post('/create-comment', (req, res) => {
                             }
                         }, (error, result) => {
                             if (result.acknowledged) {
-                                res.redirect("back");
+                                res.redirect("/single-post");
                             }
                         });
                     }

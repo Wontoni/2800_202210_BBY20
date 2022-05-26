@@ -114,19 +114,47 @@ router.delete('/delete-post', (req, res) => {
 // show post page
 router.get('/single-post/:id', (req, res) => {
     if (!req.user) {
-        res.sendFile(directory.login);
+        res.redirect("/login");
     }
+
     const post = fs.readFileSync(directory.singlePost);
     const postHTML = new JSDOM(post);
+
     postHTML.window.document.getElementById("username").innerHTML = req.user.username;
     postHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
+
     db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
         postHTML.window.document.getElementById("avatar").setAttribute("src", `/${result.userAvatar}`);
         postHTML.window.document.getElementById("name").innerHTML = result.username;
         postHTML.window.document.getElementById("time").innerHTML = result.lastModified;
         postHTML.window.document.getElementById("title").innerHTML = result.title;
         postHTML.window.document.getElementById("description").innerHTML = result.description;
-        res.send(postHTML.serialize());
+
+        let commentContainer = postHTML.window.document.getElementById("comment-container");
+        let commentItem = postHTML.window.document.getElementById("comment-item");
+
+        db.collection("BBY_20_Comment").find({
+            postID : req.params.id
+        }).toArray((error, result) => {
+            if (result.length === 0) {
+                commentItem.remove();
+            } else {
+                for (let i = 0; i < result.length; i++) {
+                    let comment = commentItem.cloneNode(true);
+                    commentItem.remove();
+                    comment.querySelector("#name").innerHTML = result[i].userName;
+                    comment.querySelector("#time").innerHTML = result[i].timestamp;
+                    comment.querySelector("#comment").innerHTML = result[i].contents;
+                    db.collection("BBY_20_User").findOne({
+                        _id : result[i].userID
+                    }, (error, result) => {
+                        comment.querySelector("#commentAvatar").setAttribute("src", result.avatar);
+                    });
+                    commentContainer.appendChild(comment);
+                }
+            }
+            res.send(postHTML.serialize());
+        });
     });
 });
 
