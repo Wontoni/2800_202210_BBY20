@@ -10,7 +10,7 @@ const directory = {
     profile: path.join(__dirname, "../public/html", "profile.html"),
     admin: path.join(__dirname, "../public/html", "admin.html"),
     friend: path.join(__dirname, "../public/html", "friends.html"),
-    edit: path.join(__dirname, "../public/html", "edit.html"),
+    editPost: path.join(__dirname, "../public/html", "edit-post.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
     timeline: path.join(__dirname, "../public/html", "timeline.html"),
     friend: path.join(__dirname, "../public/html", "friends.html"),

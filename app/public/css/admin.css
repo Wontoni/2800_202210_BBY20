@@ -41,6 +41,11 @@
     min-width: 20rem;
 }
 
+#create-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
 .content .user {
     display: flex;
     padding: 1rem 0.5rem;

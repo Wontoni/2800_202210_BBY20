@@ -2,10 +2,10 @@
     margin: 0%;
     padding: 0%;
     font-family: "nunito-sans";
-    transition: width 2s, height 4s;
+    transition: width 1s, height 1s;
 }
 
-.tipsPop {
+#tipsPop {
     position: fixed;
     bottom: 2rem;
     right: 2rem;

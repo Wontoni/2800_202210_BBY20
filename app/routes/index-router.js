@@ -98,15 +98,15 @@ router.get("/main", (req, res) => {
                 }
 
                 // Quick tips
-                // db.collection("BBY_20_Tips").find().sort({ lastModified: -1 }).toArray((error, result) => {
-                //     var tipLoadNumber = Math.floor(Math.random() * result.length);
-                //     var tipTitle = result[tipLoadNumber].title;
-                //     var tipDesc = result[tipLoadNumber].description;
-                //     var tipDiv = mainHTML.window.document.getElementById("tipsPop");
-                //     tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
-                //     tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
+                db.collection("BBY_20_Tips").find().toArray((error, resultTip) => {
+                    var tipLoadNumber = Math.floor(Math.random() * resultTip.length);
+                    var tipTitle = resultTip[tipLoadNumber].title;
+                    var tipDesc = resultTip[tipLoadNumber].description;
+                    var tipDiv = mainHTML.window.document.getElementById("tipsPop");
+                    tipDiv.querySelector("#TOFD").innerHTML = tipTitle;
+                    tipDiv.querySelector("#readMoreContent").innerHTML = tipDesc;
                     res.send(mainHTML.serialize());
-                // });
+                });
             });
         }
     } else {
