@@ -135,21 +135,17 @@ router.get('/single-post/:id', (req, res) => {
 
         db.collection("BBY_20_Comment").find({
             postID : req.params.id
-        }).toArray((error, result) => {
-            if (result.length === 0) {
+        }).toArray((error, comments) => {
+            if (comments.length === 0) {
                 commentItem.remove();
             } else {
-                for (let i = 0; i < result.length; i++) {
+                for (let i = 0; i < comments.length; i++) {
                     let comment = commentItem.cloneNode(true);
                     commentItem.remove();
-                    comment.querySelector("#name").innerHTML = result[i].userName;
-                    comment.querySelector("#time").innerHTML = result[i].timestamp;
-                    comment.querySelector("#comment").innerHTML = result[i].contents;
-                    db.collection("BBY_20_User").findOne({
-                        _id : result[i].userID
-                    }, (error, result) => {
-                        comment.querySelector("#commentAvatar").setAttribute("src", result.avatar);
-                    });
+                    comment.querySelector("#time").innerHTML = comments[i].timestamp;
+                    comment.querySelector("#comment").innerHTML = comments[i].contents;
+                    comment.querySelector("#name").innerHTML = comments[i].userName;
+                    comment.querySelector("#commentAvatar").setAttribute("src", `/${comments[i].userAvatar}`);
                     commentContainer.appendChild(comment);
                 }
             }
