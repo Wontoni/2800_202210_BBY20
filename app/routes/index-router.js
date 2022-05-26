@@ -131,6 +131,7 @@ router.get("/timeline", (req, res) => {
         db.collection("BBY_20_Post").find({ userID: req.user._id }).sort({ lastModified: -1 }).toArray((error, result) => {
             if (result.length === 0) {
                 postTemplate.remove();
+                timelineHTML.window.document.getElementById("no-post").innerHTML = "Oops, looks like there are no posts!";
             } else {
                 for (var i = 0; i < result.length; i++) {
                     var number = result[i]._id;
@@ -139,12 +140,13 @@ router.get("/timeline", (req, res) => {
                     var title = result[i].title;
                     var description = result[i].description;
                     var postInfo = postTemplate.cloneNode(true);
+                    var noPost = timelineHTML.window.document.getElementById("no-post");
+                    noPost.remove();
                     postTemplate.remove();
                     postInfo.querySelector("#name").innerHTML = username;
                     postInfo.querySelector("#time").innerHTML = time;
                     postInfo.querySelector("#title").innerHTML = title;
                     postInfo.querySelector("#description").innerHTML = description;
-                    // postInfo.querySelector("#postTemplate").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                     listTemplate.appendChild(postInfo);
