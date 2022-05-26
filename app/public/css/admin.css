@@ -76,6 +76,10 @@
     flex-grow: 5;
 }
 
+.content .user .professors-info {
+    flex-grow: 5;
+}
+
 .content .user #name {
     font-family: obviously-wide, sans-serif;
     margin-top: -0.15rem;
