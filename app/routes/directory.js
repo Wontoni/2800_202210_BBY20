@@ -18,6 +18,10 @@ const directory = {
     editUser: path.join(__dirname, "../public/html", "edit-user.html"),
     tips: path.join(__dirname, "../public/html", "admin_tips.html"),
     editTips: path.join(__dirname, "../public/html", "edit-tips.html"),
+    planner: path.join(__dirname, "../public/html", "planner.html"),
+    task: path.join(__dirname, "../public/html", "create-task.html"),
+    editTask: path.join(__dirname, "../public/html", "edit-task.html"),
+    finishedTasks: path.join(__dirname, "../public/html", "finished-tasks.html"),
     upload: path.join(__dirname, "../public/assets/upload/")
 };
 

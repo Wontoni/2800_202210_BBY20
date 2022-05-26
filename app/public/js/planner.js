@@ -1,3 +1,5 @@
+"use strict";
+
 $(document).ready(function(){
     $(".date").click(function() {
         $(".date").removeClass("active");
@@ -11,7 +13,7 @@ var dd = today.getDate();
 if (dd < 10) {
     dd = "0" + dd;
 }
-dd = "date-" + dd;
+dd = "2022-05-" + dd;
 
 var element = document.getElementById(dd);
 element.scrollIntoView({inline: "center", behavior: "smooth"});
@@ -23,6 +25,19 @@ $("#next").click(function() {
 
 $("#prev").click(function() {
     $(".dates").animate({scrollLeft: "-=63px"}, 500);
+});
+
+$('.edit').click((e) => {
+    var taskNumber = e.target.dataset.number;
+    $.ajax({
+        method: 'GET',
+        url: `/edit-task/${taskNumber}`,
+        data: { _id: taskNumber }
+    }).done((result) => {
+        window.location.href = `/edit-task/${taskNumber}`;
+    }).fail((error) => {
+        console.log("error");
+    });
 });
 
 
