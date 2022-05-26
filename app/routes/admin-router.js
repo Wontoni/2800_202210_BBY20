@@ -204,7 +204,7 @@ router.delete('/delete-request', (req, res) => {
 
 // accept a request
 router.put('/check-requests', (req, res) => {
-    req.body._id = parseInt(req.body._id); 
+    req.body._id = parseInt(req.body._id);
     var totalProfs = 0;
     db.collection('BBY_20_Requests').findOne({ _id: req.body._id }, (error, result) => {
         var nameF = result.name;
@@ -243,5 +243,112 @@ router.put('/check-requests', (req, res) => {
 router.get('/check-requests', (req, res) => {
     res.redirect("/requests");
 });
+
+// Show professors page
+router.get("/professors", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const professors = fs.readFileSync(directory.adminProfessors);
+        const professorsProfHTML = new JSDOM(professors);
+
+        var professorsTemplate = professorsProfHTML.window.document.getElementById("professorsTemplate");
+        var listTemplate = professorsProfHTML.window.document.getElementById("listTemplate");
+        db.collection("BBY_20_Professors").find().sort({ lastModified: -1 }).toArray((error, result) => {
+            if (result.length === 0) {
+                professorsTemplate.remove();
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var name = result[i].name;
+                    var school = result[i].school;
+
+                    var professorsInfo = professorsTemplate.cloneNode(true);
+                    professorsTemplate.remove();
+                    professorsInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    professorsInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
+                    professorsInfo.querySelector("#title").innerHTML = name;
+                    professorsInfo.querySelector("#description").innerHTML = school;
+
+                    listTemplate.appendChild(professorsInfo);
+                }
+            }
+            professorsProfHTML.window.document.getElementById("total-professors").innerHTML = result.length + " Professors";
+            res.send(professorsProfHTML.serialize());
+        });
+
+    }
+});
+
+// delete a professor
+router.delete('/delete-professor', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Professors').findOne({ _id: req.body._id }, (error, result) => {
+        db.collection('BBY_20_Professors').deleteOne(req.body, (error, result) => {
+            db.collection('BBY_20_Review').deleteMany({ profID: parseInt(req.body._id) }, (error, result) => {
+                res.sendFile(directory.adminProfessors);
+            });
+        });
+    });
+});
+
+
+// show edit page
+router.get("/edit-professor/:id", (req, res) => {
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        const editProf = fs.readFileSync(directory.editProfessor);
+        const editProfHTML = new JSDOM(editProf);
+        db.collection('BBY_20_Professors').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
+            editProfHTML.window.document.getElementById("profNumber").setAttribute("value", `${result._id}`);
+            editProfHTML.window.document.getElementById("profName").setAttribute("value", `${result.name}`);
+            editProfHTML.window.document.getElementById("profSchool").setAttribute("value", `${result.school}`);
+
+            res.send(editProfHTML.serialize());
+        });
+    }
+});
+
+// edit user information
+router.put("/professor-edit", (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    if (!req.user) {
+        res.sendFile(directory.login);
+    } else {
+        db.collection('BBY_20_Professors').updateOne({ _id: req.body._id }, {
+            $set: {
+                name: req.body.name,
+                school: req.body.school
+            }
+        }, (error, result) => {
+            res.redirect("/professors");
+        });
+    }
+});
+
+// create a user
+router.post('/create-professor', (req, res) => {
+    db.collection('BBY_20_Count').findOne({ name: 'NumberOfProfessors' }, (error, result) => {
+        // add a user
+        let totalProfessors = result.totalProfessors;
+
+        db.collection('BBY_20_Professors').insertOne({
+            _id: totalProfessors + 1,
+            name: req.body.name,
+            school: req.body.school,
+            stars: 0,
+            totalReviews: 0
+        }, (error, result) => {
+            // increment the total number of users
+            db.collection('BBY_20_Count').updateOne({ name: 'NumberOfProfessors' }, { $inc: { totalProfessors: 1 } }, (error, result) => {
+                if (result.acknowledged) {
+                    res.redirect("/professors");
+                }
+            });
+        });
+    });
+});
+
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;

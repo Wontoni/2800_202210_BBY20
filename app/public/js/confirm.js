@@ -8,7 +8,6 @@ $('.button').click(function (e) {
 
     var dataNum = e.target.dataset.number;
     $('#confirmBtn').attr('data-number', dataNum);
-    console.log(dataNum);
 })
 
 // Close confirm popup
