@@ -289,6 +289,10 @@ h1 {
     color: var(--paragraph);
 }
 
+.timeline .post-content img {
+    width: 100%;
+}
+
 .timeline input[name="comment"] {
     background-color: #f9f9f9;
     width: 100%;

@@ -31,29 +31,37 @@ MongoClient.connect(URL, (error, client) => {
 router.post('/create-comment', (req, res) => {
     if (req.user) {
         db.collection('BBY_20_Count').findOne({
-            name : 'NumberOfComments'
+            name: 'NumberOfComments'
         }, (error, result) => {
             if (!error) {
                 db.collection('BBY_20_Comment').insertOne({
-                    "commentID" : result.totalComment + 1,
-                    "contents" : req.body.contents,
-                    "postID" : req.body.postID,
-                    "timestamp" : new Date(),
-                    "userID" : req.user._id,
-                    "userName" : req.user.username,
-                    "userAvatar" : req.user.avatar
+                    "_id": result.totalComment + 1,
+                    "contents": req.body.contents,
+                    "postID": req.body.postID,
+                    "timestamp": new Date(),
+                    "userID": req.user._id,
+                    "userName": req.user.username,
+                    "userAvatar": req.user.avatar
                 }, (error, result) => {
                     if (!error) {
                         db.collection('BBY_20_Count').updateOne({
-                            name : 'NumberOfComments'
+                            name: 'NumberOfComments'
                         }, {
-                            $inc : {
-                                totalComment : 1
+                            $inc: {
+                                totalComment: 1
                             }
                         }, (error, result) => {
-                            if (result.acknowledged) {
-                                res.redirect("back");
-                            }
+                            db.collection('BBY_20_Post').updateOne({
+                                _id: parseInt(req.body.postID)
+                            }, {
+                                $inc: {
+                                    totalComment: 1
+                                }
+                            }, (error, result) => {
+                                if (result.acknowledged) {
+                                    res.redirect("back");
+                                }
+                            });
                         });
                     }
                 });
@@ -70,13 +78,13 @@ router.delete("/delete-comment", (req, res) => {
         res.sendFile(directory.login);
     } else {
         db.collection("BBY_20_Comment").deleteOne({
-            commentID : parseInt(req.body.commentID)
+            _id: parseInt(req.body.commentID)
         }, (error, result) => {
-            db.collection("BBY_20_Count").updateOne({
-                name : "NumberOfComments"
+            db.collection("BBY_20_Post").updateOne({
+                _id: parseInt(req.body.postID)
             }, {
-                $inc : {
-                    totalComment : -1
+                $inc: {
+                    totalComment: -1
                 }
             }, (error, result) => {
                 res.send("Delete Success");
