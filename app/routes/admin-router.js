@@ -13,6 +13,7 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+const { resourceLimits } = require("worker_threads");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -128,7 +129,7 @@ router.put("/user-edit", (req, res) => {
             if (result) {
                 exist = true;
             }
-    
+
             if (exist) {
                 res.json({
                     message: "This username already exists"
@@ -155,5 +156,92 @@ router.put("/user-edit", (req, res) => {
     }
 });
 
+// Show requests page
+router.get("/requests", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+    } else {
+        const request = fs.readFileSync(directory.adminRequests);
+        const requestProfHTML = new JSDOM(request);
+
+        var requestsTemplate = requestProfHTML.window.document.getElementById("requestsTemplate");
+        var listTemplate = requestProfHTML.window.document.getElementById("listTemplate");
+        db.collection("BBY_20_Requests").find().sort({ lastModified: -1 }).toArray((error, result) => {
+            if (result.length === 0) {
+                requestsTemplate.remove();
+            } else {
+                for (var i = 0; i < result.length; i++) {
+                    var number = result[i]._id;
+                    var name = result[i].name;
+                    var school = result[i].school;
+
+                    var requestsInfo = requestsTemplate.cloneNode(true);
+                    requestsTemplate.remove();
+                    requestsInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
+                    requestsInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
+                    requestsInfo.querySelector("#title").innerHTML = name;
+                    requestsInfo.querySelector("#description").innerHTML = school;
+
+                    listTemplate.appendChild(requestsInfo);
+                }
+            }
+            requestProfHTML.window.document.getElementById("total-requests").innerHTML = result.length + " Requests";
+            res.send(requestProfHTML.serialize());
+        });
+
+    }
+});
+
+// delete a requests
+router.delete('/delete-request', (req, res) => {
+    req.body._id = parseInt(req.body._id);
+    db.collection('BBY_20_Requests').findOne({ _id: req.body._id }, (error, result) => {
+        db.collection('BBY_20_Requests').deleteOne(req.body, (error, result) => {
+            res.sendFile(directory.adminRequests);
+        });
+    });
+});
+
+// accept a request
+router.put('/check-requests', (req, res) => {
+    req.body._id = parseInt(req.body._id); 
+    var totalProfs = 0;
+    db.collection('BBY_20_Requests').findOne({ _id: req.body._id }, (error, result) => {
+        var nameF = result.name;
+        var schools = result.school;
+
+        db.collection('BBY_20_Count').findOne({ name: "NumberOfProfessors" }, (error, result) => {
+            totalProfs = result.totalProfessors;
+
+            db.collection('BBY_20_Professors').insertOne({
+                _id: totalProfs + 1,
+                name: nameF,
+                school: schools,
+                stars: 0,
+                totalReviews: 0
+            }, (error, result) => {
+
+                // increment the total number of professors
+                db.collection('BBY_20_Count').updateOne({ name: 'NumberOfProfessors' }, { $inc: { totalProfessors: 1 } }, (error, result) => {
+                    if (result.acknowledged) {
+                        var requestNo = req.body._id
+                        db.collection('BBY_20_Requests').findOne({ _id: requestNo }, (error, result) => {
+                            db.collection('BBY_20_Requests').deleteOne(result, (error, result) => {
+                                res.sendFile(directory.adminRequests);
+                            });
+                        })
+                    }
+                });
+            });
+        })
+    }
+
+    );
+});
+
+// delete a requests
+router.get('/check-requests', (req, res) => {
+    res.redirect("/requests");
+});
 /* ------------------------------ Export Module ------------------------------ */
 module.exports = router;

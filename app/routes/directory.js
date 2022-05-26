@@ -12,6 +12,7 @@ const directory = {
     friend: path.join(__dirname, "../public/html", "friends.html"),
     editPost: path.join(__dirname, "../public/html", "edit-post.html"),
     post: path.join(__dirname, "../public/html", "create-post.html"),
+    editPost: path.join(__dirname, "../public/html", "edit-post.html"),
     timeline: path.join(__dirname, "../public/html", "timeline.html"),
     friend: path.join(__dirname, "../public/html", "friends.html"),
     easter: path.join(__dirname, "../public/html", "easter.html"),
@@ -20,6 +21,11 @@ const directory = {
     editTips: path.join(__dirname, "../public/html", "edit-tips.html"),
     upload: path.join(__dirname, "../public/assets/upload/"),
     singlePost: path.join(__dirname, "../public/html", "single-post.html"),
+    review: path.join(__dirname, "../public/html", "reviews.html"),
+    single_review: path.join(__dirname, "../public/html", "single-review.html"),
+    create_review: path.join(__dirname, "../public/html", "create-review.html"),
+    requestProf: path.join(__dirname, "../public/html", "request-professor.html"),
+    adminRequests: path.join(__dirname, "../public/html", "admin-requests.html")
 };
 
 module.exports = directory;

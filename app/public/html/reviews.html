@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Professor Reviews | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/reviews.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <nav id="navTemplate"></nav>
+
+        <div class="content">
+            <h1>Professor Reviews</h1>
+
+            <div class="tags">
+                <div class="tag-outer active">
+                    <div class="tag bcit">
+                        <p>BCIT</p>
+                    </div>
+                </div>
+                <div class="tag-outer">
+                    <div class="tag ubc">
+                        <p>UBC</p>
+                    </div>
+                </div>
+                <div class="tag-outer">
+                    <div class="tag sfu">
+                        <p>SFU</p>
+                    </div>
+                </div>
+                <div class="tag-outer">
+                    <div class="tag langara">
+                        <p>Langara</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="professors" id="profList">
+
+                <div class="prof" id="profTemplate">
+                    <div class="top">
+                        <p class="score" id="stars"></p>
+                        <div class="reviews">
+                            <p class="text" id="moreReviews"></p>
+                            <p>
+                                <span class="material-icons">chevron_right</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <h3 id="profName"></h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="button" class="primary-button" onclick="location.href=`/request-professor`;">Request a Professor</button>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="/public/js/skeleton.js"></script>
+    <script src="/public/js/global.js"></script>
+    <script src="/public/js/review.js"></script>
+    
+</body>
+</html>
