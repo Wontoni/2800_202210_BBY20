@@ -114,6 +114,9 @@ app.use("/", adminRouter);
 const postRouter = require("./routes/post-router");
 app.use("/", postRouter);
 
+const plannerRouter = require("./routes/planner-router");
+app.use("/", plannerRouter);
+
 const tipRouter = require("./routes/tip-router");
 app.use("/", tipRouter);
 

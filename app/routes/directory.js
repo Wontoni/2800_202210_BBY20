@@ -27,9 +27,11 @@ const directory = {
     requestProf: path.join(__dirname, "../public/html", "request-professor.html"),
     adminRequests: path.join(__dirname, "../public/html", "admin-requests.html"),
     adminProfessors: path.join(__dirname, "../public/html", "admin-professors.html"),
-    editProfessor: path.join(__dirname, "../public/html", "edit-professor.html")
-
-
+    editProfessor: path.join(__dirname, "../public/html", "edit-professor.html"),
+    planner: path.join(__dirname, "../public/html", "planner.html"),
+    task: path.join(__dirname, "../public/html", "create-task.html"),
+    editTask: path.join(__dirname, "../public/html", "edit-task.html"),
+    finishedTasks: path.join(__dirname, "../public/html", "finished-tasks.html")
 };
 
 module.exports = directory;

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Task Planner | Unified</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/assets/logo/un-logo-mini.svg">
+
+    <!-- Adobe Fonts (Obviously Wide + Nunito Sans) -->
+    <link rel="stylesheet" href="https://use.typekit.net/xup5ffl.css">
+
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link rel="stylesheet" href="/public/css/planner.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <nav id="navTemplate"></nav>
+
+        <div class="content">
+            <div class="head">
+                <div class="month">
+                    <h1>May</h1>
+                </div>
+
+                <div class="add-task">
+                    <a href="/create-task">
+                        <span class="material-icons">add</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="calendar">
+                <button id="prev">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+
+                <div class="dates">
+                    <div class="date" id="2022-05-01">
+                        <p>SUN</p>
+                        <h5>01</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-02">
+                        <p>MON</p>
+                        <h5>02</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-03">
+                        <p>TUE</p>
+                        <h5>03</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-04">
+                        <p>WED</p>
+                        <h5>04</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-05">
+                        <p>THU</p>
+                        <h5>05</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-06">
+                        <p>FRI</p>
+                        <h5>06</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-07">
+                        <p>SAT</p>
+                        <h5>07</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-08">
+                        <p>SUN</p>
+                        <h5>08</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-09">
+                        <p>MON</p>
+                        <h5>09</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-10">
+                        <p>TUE</p>
+                        <h5>10</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-11">
+                        <p>WED</p>
+                        <h5>11</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-12">
+                        <p>THU</p>
+                        <h5>12</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-13">
+                        <p>FRI</p>
+                        <h5>13</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-14">
+                        <p>SAT</p>
+                        <h5>14</h5>
+                        <div class="indicators"></div>
+                    </div>
+
+                    <div class="date" id="2022-05-15">
+                        <p>SUN</p>
+                        <h5>15</h5>
+                        <div class="indicators"></div>
+                    </div>
+
+                    <div class="date" id="2022-05-16">
+                        <p>MON</p>
+                        <h5>16</h5>
+                        <div class="indicators">
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="date" id="2022-05-17">
+                        <p>TUE</p>
+                        <h5>17</h5>
+                        <div class="indicators">
+
+                        </div>
+                    </div>
+
+                    <div class="date" id="2022-05-18">
+                        <p>WED</p>
+                        <h5>18</h5>
+                        <div class="indicators">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="date" id="2022-05-19">
+                        <p>THU</p>
+                        <h5>19</h5>
+                        <div class="indicators">
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="date" id="2022-05-20">
+                        <p>FRI</p>
+                        <h5>20</h5>
+                        <div class="indicators">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-21">
+                        <p>SAT</p>
+                        <h5>21</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-22">
+                        <p>SUN</p>
+                        <h5>22</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-23">
+                        <p>MON</p>
+                        <h5>23</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-24">
+                        <p>TUE</p>
+                        <h5>24</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-25">
+                        <p>WED</p>
+                        <h5>25</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-26">
+                        <p>THU</p>
+                        <h5>26</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-27">
+                        <p>FRI</p>
+                        <h5>27</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-28">
+                        <p>SAT</p>
+                        <h5>28</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-29">
+                        <p>SUN</p>
+                        <h5>29</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-30">
+                        <p>MON</p>
+                        <h5>30</h5>
+                        <div class="indicators"></div>
+                    </div>
+                    
+                    <div class="date" id="2022-05-31">
+                        <p>TUE</p>
+                        <h5>31</h5>
+                        <div class="indicators"></div>
+                    </div>
+                </div>
+
+                <button id="next">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+
+            <div class="tasks" id="taskList">
+                <div class="task" id="taskTemplate">
+                    <div class="task-head">
+                        <p><span id="startTime"></span> - <span id="endTime"></span></p>
+                        <span class="material-icons edit" id="edit-number">more_horiz</span>
+                    </div>
+                    <h4 id="title"></h4>
+                    <p id="description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="/public/js/skeleton.js"></script>
+    <script src="/public/js/global.js"></script>
+    <script src="/public/js/planner.js"></script>
+    
+</body>
+</html>
