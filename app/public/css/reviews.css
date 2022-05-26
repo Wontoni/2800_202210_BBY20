@@ -1,0 +1,93 @@
+.tags {
+    width: 100%;
+    /* overflow: hidden; */
+    margin-top: 2rem;
+    display: flex;
+}
+
+.tag-outer {
+    border-radius: 1rem;
+}
+
+.tags .active {
+    border: 1px solid var(--primary-color);
+}
+
+.tag {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 4rem;
+    height: 4rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+}
+
+.tag p {
+    color: white;
+}
+
+.bcit {
+    background-color: #43890b;
+}
+
+.ubc {
+    background-color: #002145;
+}
+
+.sfu {
+    background-color: #c12a36;
+}
+
+.langara {
+    background-color: #555;
+}
+
+.professors {
+    margin-top: 1.5rem;
+}
+
+.professors .prof {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.professors .top {
+    display: flex;
+}
+
+.professors .score {
+    flex-grow: 1;
+}
+
+.professors .score {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.professors .score span {
+    color: var(--paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.professors .reviews {
+    display: flex;
+}
+
+.professors .reviews .text {
+    margin-top: 0.25rem;
+    cursor: pointer;
+}
+
+.professors .bottom h3 {
+    font-weight: 500;
+}
+
+.content button {
+    width: 100%;
+}
