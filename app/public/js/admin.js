@@ -18,7 +18,9 @@ $('.edit').click((e) => {
     $.ajax({
         method: 'GET',
         url: `/edit-user/${userNumber}`,
-        data: { _id: userNumber }
+        data: {
+            _id: userNumber
+        }
     }).done((result) => {
         window.location.href = `/edit-user/${userNumber}`;
     }).fail((error) => {
