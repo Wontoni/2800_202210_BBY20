@@ -52,7 +52,8 @@ router.post('/create-post', (req, res) => {
                 userAvatar: req.user.avatar,
                 title: req.body.title,
                 description: req.body.description,
-                lastModified: new Date()
+                lastModified: new Date(),
+                totalComment: 0
             }, (error, result) => {
                 if (!error) {
                     db.collection('BBY_20_Count').updateOne({
@@ -144,7 +145,7 @@ router.get('/single-post/:id', (req, res) => {
                         comment.querySelector("#comment").innerHTML = comments[i].contents;
                         comment.querySelector("#name").innerHTML = comments[i].userName;
                         comment.querySelector("#commentAvatar").setAttribute("src", `/${comments[i].userAvatar}`);
-                        comment.querySelector(".delete-button").setAttribute("data-id", comments[i].commentID);
+                        comment.querySelector(".delete-button").setAttribute("data-id", comments[i]._id);
                         commentContainer.appendChild(comment);
                     }
                 }

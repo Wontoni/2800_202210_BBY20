@@ -87,6 +87,7 @@ router.get("/main", (req, res) => {
                         var time = result[i].lastModified;
                         var title = result[i].title;
                         var description = result[i].description;
+                        var totalComment = result[i].totalComment;
                         var postInfo = postTemplate.cloneNode(true);
                         postTemplate.remove();
                         postInfo.querySelector("#more").setAttribute("data-number", `${number}`);
@@ -95,6 +96,7 @@ router.get("/main", (req, res) => {
                         postInfo.querySelector("#time").innerHTML = time;
                         postInfo.querySelector("#title").innerHTML = title;
                         postInfo.querySelector("#description").innerHTML = description;
+                        postInfo.querySelector("#total-comments").innerHTML = totalComment + " comments";
                         listTemplate.appendChild(postInfo);
                     }
                 }
@@ -133,20 +135,22 @@ router.get("/timeline", (req, res) => {
                 timelineHTML.window.document.getElementById("no-post").innerHTML = "Oops, looks like there are no posts!";
                 postTemplate.remove();
             } else {
+                var noPost = timelineHTML.window.document.getElementById("no-post");
+                noPost.remove();
                 for (var i = 0; i < result.length; i++) {
                     var number = result[i]._id;
                     var username = result[i].username;
                     var time = result[i].lastModified;
                     var title = result[i].title;
                     var description = result[i].description;
+                    var totalComment = result[i].totalComment;
                     var postInfo = postTemplate.cloneNode(true);
-                    var noPost = timelineHTML.window.document.getElementById("no-post");
-                    noPost.remove();
                     postTemplate.remove();
                     postInfo.querySelector("#name").innerHTML = username;
                     postInfo.querySelector("#time").innerHTML = time;
                     postInfo.querySelector("#title").innerHTML = title;
                     postInfo.querySelector("#description").innerHTML = description;
+                    postInfo.querySelector("#total-comments").innerHTML = totalComment + " comments";
                     postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                     listTemplate.appendChild(postInfo);
