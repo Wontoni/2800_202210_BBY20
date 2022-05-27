@@ -117,7 +117,7 @@ router.get("/edit-user/:id", (req, res) => {
 
 // edit user information
 router.put("/user-edit", (req, res) => {
-    req.body._id = parseInt(req.body._id);
+    const userID = parseInt(req.body._id);
 
     if (!req.user) {
         res.sendFile(directory.login);
@@ -130,28 +130,36 @@ router.put("/user-edit", (req, res) => {
                 exist = true;
             }
 
-            if (exist) {
-                res.json({
-                    message: "This username already exists"
-                });
-            } else {
-                db.collection('BBY_20_User').updateOne({ _id: req.body._id }, {
-                    $set: {
-                        username: req.body.username,
-                        email: req.body.email,
-                        password: req.body.password,
-                        school: req.body.school
-                    }
-                }, (error, result) => {
-                    db.collection('BBY_20_Post').updateMany({ userID: req.body._id }, {
+                if (exist) {
+                    res.json({
+                        message: "This username already exists"
+                    });
+                } else {
+                    db.collection('BBY_20_User').updateOne({ _id: userID }, {
                         $set: {
-                            username: req.body.username
+                            username: req.body.username,
+                            email: req.body.email,
+                            password: req.body.password,
+                            school: req.body.school
                         }
                     }, (error, result) => {
-                        res.redirect("/main");
+                        db.collection('BBY_20_Post').updateMany({ userID: userID }, {
+                            $set: {
+                                username : req.body.username
+                            }
+                        }, (error, result) => {
+                            db.collection("BBY_20_Comment").updateOne({
+                                userID : userID
+                            }, {
+                                $set : {
+                                    userName : req.body.username
+                                }
+                            }, (error, result) => {
+                                res.send("Update Success");
+                            });
+                        });
                     });
-                });
-            }
+                }
         });
     }
 });

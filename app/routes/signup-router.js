@@ -63,7 +63,7 @@ router.post('/sign-up', (req, res) => {
                 }, (error, result) => {
                     // increment the total number of users
                     db.collection('BBY_20_Count').updateOne({ name: 'NumberOfUsers' }, { $inc: { totalUser: 1 } }, (error, result) => {
-                        if (result) {
+                        if (result.acknowledged) {
                             res.redirect("/login");
                         }
                     });
