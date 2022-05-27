@@ -21,8 +21,6 @@ $('.edit').click((e) => {
         data: { _id: profNumber }
     }).done((result) => {
         window.location.href = `/edit-professor/${profNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 

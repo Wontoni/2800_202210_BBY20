@@ -8,8 +8,6 @@ $('.delete').click((e) => {
         data: { _id: postNumber }
     }).done((result) => {
         window.location.href = `/timeline`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 
@@ -21,7 +19,5 @@ $('.edit').click((e) => {
         data: { _id: postNumber }
     }).done((result) => {
         window.location.href = `/edit-post/${postNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });

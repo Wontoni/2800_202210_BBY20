@@ -6,7 +6,5 @@ $('.more').click((e) => {
         data: { _id: postNumber }
     }).done((result) => {
         window.location.href = `/single-post/${postNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });

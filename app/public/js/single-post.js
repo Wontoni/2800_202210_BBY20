@@ -21,25 +21,6 @@ document.getElementById("add-button").addEventListener("click", () => {
     });
 });
 
-// document.querySelectorAll(".delete-button").addEventListener("click", (e) => {
-//     let commentID = e.target.dataset.id;
-//     console.log(commentID);
-//     fetch("/delete-comment", {
-//         method : "DELETE",
-//         headers : {
-//             "Content-Type" : "application/json"
-//         },
-//         body : JSON.stringify({
-//             commentID : commentID
-//         })
-//     }).then((res) => {
-//         return res.json();
-//     }).then((data) => {
-//     }).catch(() => {
-//         window.location.href = `/single-post/${postID}`;
-//     });
-// });
-
 $('.delete-button').click((e) => {
     const postID = window.location.pathname.split("/")[2];
     let commentID = e.target.dataset.id;
@@ -52,7 +33,5 @@ $('.delete-button').click((e) => {
         }
     }).done((result) => {
         window.location.href = `/single-post/${postID}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });

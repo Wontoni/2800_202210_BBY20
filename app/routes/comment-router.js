@@ -13,6 +13,8 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -29,15 +31,18 @@ MongoClient.connect(URL, (error, client) => {
 /* ------------------------------ Routers ------------------------------ */
 // create a comment
 router.post('/create-comment', (req, res) => {
+    let sanitizedContents = sanitizeHTML(req.body.contents);
+    let sanitizedPostID = sanitizeHTML(req.body.postID);
+
     if (req.user) {
         db.collection('BBY_20_Count').findOne({
-            name : 'NumberOfComments'
+            name: 'NumberOfComments'
         }, (error, result) => {
             if (!error) {
                 db.collection('BBY_20_Comment').insertOne({
-                    "commentID" : result.totalComment + 1,
-                    "contents" : req.body.contents,
-                    "postID" : req.body.postID,
+                    "_id" : result.totalComment + 1,
+                    "contents" : sanitizedContents,
+                    "postID" : sanitizedPostID,
                     "timestamp" : new Date(),
                     "userID" : req.user._id,
                     "userName" : req.user.username,
@@ -45,15 +50,23 @@ router.post('/create-comment', (req, res) => {
                 }, (error, result) => {
                     if (!error) {
                         db.collection('BBY_20_Count').updateOne({
-                            name : 'NumberOfComments'
+                            name: 'NumberOfComments'
                         }, {
-                            $inc : {
-                                totalComment : 1
+                            $inc: {
+                                totalComment: 1
                             }
                         }, (error, result) => {
-                            if (result.acknowledged) {
-                                res.redirect("back");
-                            }
+                            db.collection('BBY_20_Post').updateOne({
+                                _id: parseInt(req.body.postID)
+                            }, {
+                                $inc: {
+                                    totalComment: 1
+                                }
+                            }, (error, result) => {
+                                if (result.acknowledged) {
+                                    res.redirect("back");
+                                }
+                            });
                         });
                     }
                 });
@@ -70,13 +83,13 @@ router.delete("/delete-comment", (req, res) => {
         res.sendFile(directory.login);
     } else {
         db.collection("BBY_20_Comment").deleteOne({
-            commentID : parseInt(req.body.commentID)
+            _id: parseInt(req.body.commentID)
         }, (error, result) => {
-            db.collection("BBY_20_Count").updateOne({
-                name : "NumberOfComments"
+            db.collection("BBY_20_Post").updateOne({
+                _id: parseInt(req.body.postID)
             }, {
-                $inc : {
-                    totalComment : -1
+                $inc: {
+                    totalComment: -1
                 }
             }, (error, result) => {
                 res.send("Delete Success");

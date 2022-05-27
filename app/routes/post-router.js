@@ -13,6 +13,8 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -34,7 +36,6 @@ router.get("/create-post", (req, res) => {
     } else {
         const post = fs.readFileSync(directory.post);
         const postHTML = new JSDOM(post);
-        postHTML.window.document.getElementById("username").innerHTML = req.user.username;
         postHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         res.send(postHTML.serialize());
     }
@@ -42,6 +43,15 @@ router.get("/create-post", (req, res) => {
 
 // create a post
 router.post('/create-post', (req, res) => {
+    let sanitizedTitle = sanitizeHTML(req.body.title);
+    let sanitizedDescription = sanitizeHTML(req.body.description, {
+        allowedTags:['img'],
+        allowedAttributes: {
+            img: ['src', 'align']
+        },
+        allowedSchemes: [ 'data', 'http', 'https']
+    });
+
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfPosts' }, (error, result) => {
         if (!error) {
             var totalPost = result.totalPost;
@@ -50,9 +60,10 @@ router.post('/create-post', (req, res) => {
                 userID: req.user._id,
                 username: req.user.username,
                 userAvatar: req.user.avatar,
-                title: req.body.title,
-                description: req.body.description,
-                lastModified: new Date()
+                title: sanitizedTitle,
+                description: sanitizedDescription,
+                lastModified: new Date(),
+                totalComment: 0
             }, (error, result) => {
                 if (!error) {
                     db.collection('BBY_20_Count').updateOne({
@@ -90,11 +101,20 @@ router.get("/edit-post/:id", (req, res) => {
 
 // edit a post
 router.put("/post-edit", (req, res) => {
+    let sanitizedTitle = sanitizeHTML(req.body.title);
+    let sanitizedDescription = sanitizeHTML(req.body.description, {
+        allowedTags:['img'],
+        allowedAttributes: {
+            img: ['src', 'align']
+        },
+        allowedSchemes: [ 'data', 'http', 'https']
+    });
+
     req.body._id = parseInt(req.body._id);
     db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
         $set: {
-            title: req.body.title,
-            description: req.body.description,
+            title: sanitizedTitle,
+            description: sanitizedDescription,
             lastModified: new Date()
         }
     }, (error, result) => {
@@ -117,22 +137,22 @@ router.get('/single-post/:id', (req, res) => {
     } else {
         const post = fs.readFileSync(directory.singlePost);
         const postHTML = new JSDOM(post);
-    
+
         postHTML.window.document.getElementById("username").innerHTML = req.user.username;
         postHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
-    
+
         db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
             postHTML.window.document.getElementById("avatar").setAttribute("src", `/${result.userAvatar}`);
             postHTML.window.document.getElementById("name").innerHTML = result.username;
             postHTML.window.document.getElementById("time").innerHTML = result.lastModified;
             postHTML.window.document.getElementById("title").innerHTML = result.title;
             postHTML.window.document.getElementById("description").innerHTML = result.description;
-    
+
             let commentContainer = postHTML.window.document.getElementById("comment-container");
             let commentItem = postHTML.window.document.getElementById("comment-item");
-    
+
             db.collection("BBY_20_Comment").find({
-                postID : req.params.id
+                postID: req.params.id
             }).toArray((error, comments) => {
                 if (comments.length === 0) {
                     commentItem.remove();
@@ -144,7 +164,7 @@ router.get('/single-post/:id', (req, res) => {
                         comment.querySelector("#comment").innerHTML = comments[i].contents;
                         comment.querySelector("#name").innerHTML = comments[i].userName;
                         comment.querySelector("#commentAvatar").setAttribute("src", `/${comments[i].userAvatar}`);
-                        comment.querySelector(".delete-button").setAttribute("data-id", comments[i].commentID);
+                        comment.querySelector(".delete-button").setAttribute("data-id", comments[i]._id);
                         commentContainer.appendChild(comment);
                     }
                 }

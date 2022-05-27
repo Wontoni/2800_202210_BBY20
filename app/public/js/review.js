@@ -8,7 +8,5 @@ $('.text').click((e) => {
         data: { _id: profNumber }
     }).done((result) => {
         window.location.href = `/single-review/${profNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });

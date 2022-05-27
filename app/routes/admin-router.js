@@ -13,7 +13,8 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
-const { resourceLimits } = require("worker_threads");
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -35,7 +36,7 @@ router.delete('/delete', (req, res) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
                 if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
-                    // Popup saying can't delete last admin user
+                    res.sendFile(directory.main);
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
                         // decrement the total number of admin users
@@ -57,14 +58,17 @@ router.delete('/delete', (req, res) => {
 
 // create a user
 router.post('/create', (req, res) => {
+    let sanitizedUsername = sanitizeHTML(req.body.username);
+    let sanitizedEmail = sanitizeHTML(req.body.email);
+    let sanitizedPassword = sanitizeHTML(req.body.password);
+
     db.collection("BBY_20_User").findOne({
-        username: req.body.username
+        username : sanitizedUsername
     }, (error, result) => {
         let exist = false;
         if (result) {
             exist = true;
         }
-
         if (exist) {
             res.json({
                 message: "This username already exists"
@@ -78,9 +82,9 @@ router.post('/create', (req, res) => {
                 const defaultRole = "regular";
                 db.collection('BBY_20_User').insertOne({
                     _id: totalUsers + 1,
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: req.body.password,
+                    username: sanitizedUsername,
+                    email: sanitizedEmail,
+                    password: sanitizedPassword,
                     school: defaultSchool,
                     avatar: defaultAvatarURL,
                     role: defaultRole
@@ -117,49 +121,53 @@ router.get("/edit-user/:id", (req, res) => {
 
 // edit user information
 router.put("/user-edit", (req, res) => {
+    let sanitizedUsername = sanitizeHTML(req.body.username);
+    let sanitizedEmail = sanitizeHTML(req.body.email);
+    let sanitizedPassword = sanitizeHTML(req.body.password);
+    let sanitizedSchool = sanitizeHTML(req.body.school);
+
     const userID = parseInt(req.body._id);
 
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
         db.collection("BBY_20_User").findOne({
-            username: req.body.username
+            username: sanitizedUsername
         }, (error, result) => {
             let exist = false;
             if (result) {
                 exist = true;
             }
-
-                if (exist) {
-                    res.json({
-                        message: "This username already exists"
-                    });
-                } else {
-                    db.collection('BBY_20_User').updateOne({ _id: userID }, {
+            if (exist) {
+                res.json({
+                    message: "This username already exists"
+                });
+            } else {
+                db.collection('BBY_20_User').updateOne({ _id: userID }, {
+                    $set: {
+                        username: sanitizedUsername,
+                        email: sanitizedEmail,
+                        password: sanitizedPassword,
+                        school: sanitizedSchool
+                    }
+                }, (error, result) => {
+                    db.collection('BBY_20_Post').updateMany({ userID: userID }, {
                         $set: {
-                            username: req.body.username,
-                            email: req.body.email,
-                            password: req.body.password,
-                            school: req.body.school
+                            username : sanitizedUsername
                         }
                     }, (error, result) => {
-                        db.collection('BBY_20_Post').updateMany({ userID: userID }, {
-                            $set: {
-                                username : req.body.username
+                        db.collection("BBY_20_Comment").updateOne({
+                            userID : userID
+                        }, {
+                            $set : {
+                                userName : sanitizedUsername
                             }
                         }, (error, result) => {
-                            db.collection("BBY_20_Comment").updateOne({
-                                userID : userID
-                            }, {
-                                $set : {
-                                    userName : req.body.username
-                                }
-                            }, (error, result) => {
-                                res.send("Update Success");
-                            });
+                            res.send("Update Success");
                         });
                     });
-                }
+                });
+            }
         });
     }
 });
@@ -301,7 +309,7 @@ router.delete('/delete-professor', (req, res) => {
 });
 
 
-// show edit page
+// show edit professor page
 router.get("/edit-professor/:id", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
@@ -318,16 +326,19 @@ router.get("/edit-professor/:id", (req, res) => {
     }
 });
 
-// edit user information
+// edit professor information
 router.put("/professor-edit", (req, res) => {
+    let sanitizedName = sanitizeHTML(req.body.name);
+    let sanitizedSchool = sanitizeHTML(req.body.school);
+
     req.body._id = parseInt(req.body._id);
     if (!req.user) {
         res.sendFile(directory.login);
     } else {
         db.collection('BBY_20_Professors').updateOne({ _id: req.body._id }, {
             $set: {
-                name: req.body.name,
-                school: req.body.school
+                name: sanitizedName,
+                school: sanitizedSchool
             }
         }, (error, result) => {
             res.redirect("/professors");
@@ -335,20 +346,23 @@ router.put("/professor-edit", (req, res) => {
     }
 });
 
-// create a user
+// create a professor
 router.post('/create-professor', (req, res) => {
+    let sanitizedName = sanitizeHTML(req.body.name);
+    let sanitizedSchool = sanitizeHTML(req.body.school);
+
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfProfessors' }, (error, result) => {
-        // add a user
+        // add a professor
         let totalProfessors = result.totalProfessors;
 
         db.collection('BBY_20_Professors').insertOne({
             _id: totalProfessors + 1,
-            name: req.body.name,
-            school: req.body.school,
+            name: sanitizedName,
+            school: sanitizedSchool,
             stars: 0,
             totalReviews: 0
         }, (error, result) => {
-            // increment the total number of users
+            // increment the total number of professors
             db.collection('BBY_20_Count').updateOne({ name: 'NumberOfProfessors' }, { $inc: { totalProfessors: 1 } }, (error, result) => {
                 if (result.acknowledged) {
                     res.redirect("/professors");

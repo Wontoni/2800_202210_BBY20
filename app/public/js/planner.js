@@ -35,8 +35,6 @@ $('.edit').click((e) => {
         data: { _id: taskNumber }
     }).done((result) => {
         window.location.href = `/edit-task/${taskNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 

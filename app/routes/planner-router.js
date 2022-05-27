@@ -34,6 +34,7 @@ router.get("/planner", (req, res) => {
     } else {
         const planner = fs.readFileSync(directory.planner);
         const plannerHTML = new JSDOM(planner);
+        plannerHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         
         var taskList = plannerHTML.window.document.getElementById("taskList");
         var taskTemplate = plannerHTML.window.document.getElementById("taskTemplate");
@@ -79,6 +80,7 @@ router.get("/create-task", (req, res) => {
     } else {
         const task = fs.readFileSync(directory.task);
         const taskHTML = new JSDOM(task);
+        taskHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
 
         res.send(taskHTML.serialize());
     }
@@ -151,7 +153,6 @@ router.put("/task-edit", (req, res) => {
             lastModified: new Date()
         }
     }, (error, result) => {
-        console.log("worked");
         res.redirect("/planner");
     });
 });
