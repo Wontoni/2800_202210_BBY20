@@ -34,7 +34,6 @@ router.get("/create-post", (req, res) => {
     } else {
         const post = fs.readFileSync(directory.post);
         const postHTML = new JSDOM(post);
-        postHTML.window.document.getElementById("username").innerHTML = req.user.username;
         postHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
         res.send(postHTML.serialize());
     }
@@ -118,22 +117,22 @@ router.get('/single-post/:id', (req, res) => {
     } else {
         const post = fs.readFileSync(directory.singlePost);
         const postHTML = new JSDOM(post);
-    
+
         postHTML.window.document.getElementById("username").innerHTML = req.user.username;
         postHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
-    
+
         db.collection('BBY_20_Post').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
             postHTML.window.document.getElementById("avatar").setAttribute("src", `/${result.userAvatar}`);
             postHTML.window.document.getElementById("name").innerHTML = result.username;
             postHTML.window.document.getElementById("time").innerHTML = result.lastModified;
             postHTML.window.document.getElementById("title").innerHTML = result.title;
             postHTML.window.document.getElementById("description").innerHTML = result.description;
-    
+
             let commentContainer = postHTML.window.document.getElementById("comment-container");
             let commentItem = postHTML.window.document.getElementById("comment-item");
-    
+
             db.collection("BBY_20_Comment").find({
-                postID : req.params.id
+                postID: req.params.id
             }).toArray((error, comments) => {
                 if (comments.length === 0) {
                     commentItem.remove();

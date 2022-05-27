@@ -135,6 +135,7 @@ router.get("/reviews", (req, res) => {
     } else {
         const review = fs.readFileSync(directory.review);
         const reviewHTML = new JSDOM(review);
+        reviewHTML.window.document.getElementById("userAvatar").setAttribute("src", `${req.user.avatar}`);
 
         var profList = reviewHTML.window.document.getElementById("profList");
         var profTemplate = reviewHTML.window.document.getElementById("profTemplate");
@@ -182,6 +183,7 @@ router.get("/single-review/:id", (req, res) => {
     } else {
         const singleReview = fs.readFileSync(directory.single_review);
         const singleReviewHTML = new JSDOM(singleReview);
+        singleReviewHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
 
         var reviewList = singleReviewHTML.window.document.getElementById("reviewList");
         var reviewTemplate = singleReviewHTML.window.document.getElementById("reviewTemplate");
@@ -229,6 +231,7 @@ router.get("/create-review/:id", (req, res) => {
     } else {
         const createReview = fs.readFileSync(directory.create_review);
         const createReviewHTML = new JSDOM(createReview);
+        createReviewHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
 
         db.collection('BBY_20_Professors').findOne({ _id: parseInt(req.params.id) }, (error, result) => {
             createReviewHTML.window.document.getElementById("profName").innerHTML = result.name;
@@ -294,6 +297,7 @@ router.get("/request-professor", (req, res) => {
     } else {
         const request = fs.readFileSync(directory.requestProf);
         const requestProfHTML = new JSDOM(request);
+        requestProfHTML.window.document.getElementById("userAvatar").setAttribute("src", `/${req.user.avatar}`);
 
         res.send(requestProfHTML.serialize());
 
