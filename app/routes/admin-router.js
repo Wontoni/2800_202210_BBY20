@@ -35,7 +35,7 @@ router.delete('/delete', (req, res) => {
         if (result.role === "admin") {
             db.collection('BBY_20_Count').findOne({ name: 'NumberOfAdmins' }, (error, result) => {
                 if (result.totalAdmin === 1) {  // if there is only one admin, not allowed to delete
-                    // Popup saying can't delete last admin user
+                    res.sendFile(directory.main);
                 } else {
                     db.collection('BBY_20_User').deleteOne(req.body, (error, result) => {
                         // decrement the total number of admin users
@@ -64,7 +64,6 @@ router.post('/create', (req, res) => {
         if (result) {
             exist = true;
         }
-
         if (exist) {
             res.json({
                 message: "This username already exists"
@@ -129,37 +128,36 @@ router.put("/user-edit", (req, res) => {
             if (result) {
                 exist = true;
             }
-
-                if (exist) {
-                    res.json({
-                        message: "This username already exists"
-                    });
-                } else {
-                    db.collection('BBY_20_User').updateOne({ _id: userID }, {
+            if (exist) {
+                res.json({
+                    message: "This username already exists"
+                });
+            } else {
+                db.collection('BBY_20_User').updateOne({ _id: userID }, {
+                    $set: {
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: req.body.password,
+                        school: req.body.school
+                    }
+                }, (error, result) => {
+                    db.collection('BBY_20_Post').updateMany({ userID: userID }, {
                         $set: {
-                            username: req.body.username,
-                            email: req.body.email,
-                            password: req.body.password,
-                            school: req.body.school
+                            username: req.body.username
                         }
                     }, (error, result) => {
-                        db.collection('BBY_20_Post').updateMany({ userID: userID }, {
+                        db.collection("BBY_20_Comment").updateOne({
+                            userID: userID
+                        }, {
                             $set: {
-                                username : req.body.username
+                                userName: req.body.username
                             }
                         }, (error, result) => {
-                            db.collection("BBY_20_Comment").updateOne({
-                                userID : userID
-                            }, {
-                                $set : {
-                                    userName : req.body.username
-                                }
-                            }, (error, result) => {
-                                res.send("Update Success");
-                            });
+                            res.send("Update Success");
                         });
                     });
-                }
+                });
+            }
         });
     }
 });
@@ -301,7 +299,7 @@ router.delete('/delete-professor', (req, res) => {
 });
 
 
-// show edit page
+// show edit professor page
 router.get("/edit-professor/:id", (req, res) => {
     if (!req.user) {
         res.sendFile(directory.login);
@@ -318,7 +316,7 @@ router.get("/edit-professor/:id", (req, res) => {
     }
 });
 
-// edit user information
+// edit professor information
 router.put("/professor-edit", (req, res) => {
     req.body._id = parseInt(req.body._id);
     if (!req.user) {
@@ -335,10 +333,10 @@ router.put("/professor-edit", (req, res) => {
     }
 });
 
-// create a user
+// create a professor
 router.post('/create-professor', (req, res) => {
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfProfessors' }, (error, result) => {
-        // add a user
+        // add a professor
         let totalProfessors = result.totalProfessors;
 
         db.collection('BBY_20_Professors').insertOne({
@@ -348,7 +346,7 @@ router.post('/create-professor', (req, res) => {
             stars: 0,
             totalReviews: 0
         }, (error, result) => {
-            // increment the total number of users
+            // increment the total number of professors
             db.collection('BBY_20_Count').updateOne({ name: 'NumberOfProfessors' }, { $inc: { totalProfessors: 1 } }, (error, result) => {
                 if (result.acknowledged) {
                     res.redirect("/professors");
