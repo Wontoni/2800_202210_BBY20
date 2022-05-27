@@ -23,11 +23,13 @@ const storage = multer.diskStorage({
         let ext = path.extname(file.originalname);
         cb(null, req.user._id + "_" + req.user.username + ext);
     }
-    // filefilter
 });
 const upload = multer({
     storage: storage
 });
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
+
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
 const URL = "mongodb+srv://bby20:unified20@cluster0.wphdm.mongodb.net/Unified?retryWrites=true&w=majority";

@@ -13,6 +13,8 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -42,6 +44,15 @@ router.get("/create-post", (req, res) => {
 
 // create a post
 router.post('/create-post', (req, res) => {
+    let sanitizedTitle = sanitizeHTML(req.body.title);
+    let sanitizedDescription = sanitizeHTML(req.body.description, {
+        allowedTags:['img'],
+        allowedAttributes: {
+            img: ['src', 'align']
+        },
+        allowedSchemes: [ 'data', 'http', 'https']
+    });
+
     db.collection('BBY_20_Count').findOne({ name: 'NumberOfPosts' }, (error, result) => {
         if (!error) {
             var totalPost = result.totalPost;
@@ -50,8 +61,8 @@ router.post('/create-post', (req, res) => {
                 userID: req.user._id,
                 username: req.user.username,
                 userAvatar: req.user.avatar,
-                title: req.body.title,
-                description: req.body.description,
+                title: sanitizedTitle,
+                description: sanitizedDescription,
                 lastModified: new Date()
             }, (error, result) => {
                 if (!error) {
@@ -90,11 +101,20 @@ router.get("/edit-post/:id", (req, res) => {
 
 // edit a post
 router.put("/post-edit", (req, res) => {
+    let sanitizedTitle = sanitizeHTML(req.body.title);
+    let sanitizedDescription = sanitizeHTML(req.body.description, {
+        allowedTags:['img'],
+        allowedAttributes: {
+            img: ['src', 'align']
+        },
+        allowedSchemes: [ 'data', 'http', 'https']
+    });
+
     req.body._id = parseInt(req.body._id);
     db.collection('BBY_20_Post').updateOne({ _id: req.body._id }, {
         $set: {
-            title: req.body.title,
-            description: req.body.description,
+            title: sanitizedTitle,
+            description: sanitizedDescription,
             lastModified: new Date()
         }
     }, (error, result) => {

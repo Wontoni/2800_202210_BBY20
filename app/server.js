@@ -79,7 +79,6 @@ const path = require("path");
 // tinymce
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
-
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
 const URL = "mongodb+srv://bby20:unified20@cluster0.wphdm.mongodb.net/Unified?retryWrites=true&w=majority";

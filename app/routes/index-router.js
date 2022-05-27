@@ -144,7 +144,6 @@ router.get("/timeline", (req, res) => {
                     postInfo.querySelector("#time").innerHTML = time;
                     postInfo.querySelector("#title").innerHTML = title;
                     postInfo.querySelector("#description").innerHTML = description;
-                    // postInfo.querySelector("#postTemplate").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#delete-number").setAttribute("data-number", `${number}`);
                     postInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                     listTemplate.appendChild(postInfo);
