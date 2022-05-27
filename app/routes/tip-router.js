@@ -13,6 +13,8 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -80,6 +82,9 @@ router.delete('/delete-tip', (req, res) => {
 
 // create a tip
 router.post('/tip-create', (req, res) => {
+    let sanitizedTitle = sanitizeHTML(req.body.title);
+    let sanitizedDescription = sanitizeHTML(req.body.description);
+
     db.collection("BBY_20_Tips").findOne({
         title: req.body.title
     }, (error, result) => {
@@ -99,8 +104,8 @@ router.post('/tip-create', (req, res) => {
 
                 db.collection('BBY_20_Tips').insertOne({
                     _id: totalTips + 1,
-                    title: req.body.title,
-                    description: req.body.description
+                    title: sanitizedTitle,
+                    description: sanitizedDescription
                 }, (error, result) => {
                     // increment the total number of tips
                     db.collection('BBY_20_Count').updateOne({ name: 'NumberOfTips' }, { $inc: { totalTips: 1 } }, (error, result) => {
@@ -132,11 +137,14 @@ router.get("/edit-tips/:id", (req, res) => {
 
 // edit tip information
 router.put("/tip-edit", (req, res) => {
+    let sanitizedTitle = sanitizeHTML(req.body.title);
+    let sanitizedDescription = sanitizeHTML(req.body.description);
+
     req.body._id = parseInt(req.body._id);
     db.collection('BBY_20_Tips').updateOne({ _id: req.body._id }, {
         $set: {
-            title: req.body.title,
-            description: req.body.description
+            title: sanitizedTitle,
+            description: sanitizedDescription
         }
     }, (error, result) => {
         res.redirect("/tips");

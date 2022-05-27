@@ -23,11 +23,13 @@ const storage = multer.diskStorage({
         let ext = path.extname(file.originalname);
         cb(null, req.user._id + "_" + req.user.username + ext);
     }
-    // filefilter
 });
 const upload = multer({
     storage: storage
 });
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
+
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
 const URL = "mongodb+srv://bby20:unified20@cluster0.wphdm.mongodb.net/Unified?retryWrites=true&w=majority";
@@ -91,6 +93,11 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
 
 // update user profile
 router.put("/profile-edit", (req, res) => {
+    let sanitizedUsername = sanitizeHTML(req.body.username);
+    let sanitizedEmail = sanitizeHTML(req.body.email);
+    let sanitizedPassword = sanitizeHTML(req.body.password);
+    let sanitizedSchool = sanitizeHTML(req.body.school);
+
     if (req.user) {
         db.collection("BBY_20_User").findOne({
             username: req.body.username
@@ -109,15 +116,15 @@ router.put("/profile-edit", (req, res) => {
                     _id: req.user._id
                 }, {
                     $set: {
-                        username: req.body.username,
-                        email: req.body.email,
-                        password: req.body.password,
-                        school: req.body.school
+                        username: sanitizedUsername,
+                        email: sanitizedEmail,
+                        password: sanitizedPassword,
+                        school: sanitizedSchool
                     }
                 }, (error, result) => {
                     db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
                         $set: {
-                            username: req.body.username
+                            username: sanitizedUsername
                         }
                     }, (error, result) => {
                         res.redirect("/profile");

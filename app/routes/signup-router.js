@@ -13,6 +13,8 @@ const fs = require("fs");
 const { JSDOM } = require("jsdom");
 // directory
 const directory = require("./directory");
+// sanitize-html
+const sanitizeHTML = require("sanitize-html");
 
 /* ------------------------------ DB Setting ------------------------------ */
 const MongoClient = require("mongodb").MongoClient;
@@ -34,8 +36,12 @@ router.get("/sign-up", (req, res) => {
 
 // signup process
 router.post('/sign-up', (req, res) => {
+    let sanitizedUsername = sanitizeHTML(req.body.username);
+    let sanitizedEmail = sanitizeHTML(req.body.email);
+    let sanitizedPassword = sanitizeHTML(req.body.password);
+    
     db.collection("BBY_20_User").findOne({
-        username: req.body.username
+        username: sanitizedUsername
     }, (error, result) => {
         let exist = false;
         if (result) {
@@ -54,9 +60,9 @@ router.post('/sign-up', (req, res) => {
                 const defaultRole = "regular";
                 db.collection('BBY_20_User').insertOne({
                     _id: result.totalUser + 1,
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: req.body.password,
+                    username: sanitizedUsername,
+                    email: sanitizedEmail,
+                    password: sanitizedPassword,
                     school: defaultSchool,
                     avatar: defaultAvatarURL,
                     role: defaultRole
