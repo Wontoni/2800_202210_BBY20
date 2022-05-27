@@ -93,6 +93,11 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
 
 // update user profile
 router.put("/profile-edit", (req, res) => {
+    let sanitizedUsername = sanitizeHTML(req.body.username);
+    let sanitizedEmail = sanitizeHTML(req.body.email);
+    let sanitizedPassword = sanitizeHTML(req.body.password);
+    let sanitizedSchool = sanitizeHTML(req.body.school);
+
     if (req.user) {
         db.collection("BBY_20_User").findOne({
             username: req.body.username
@@ -111,15 +116,15 @@ router.put("/profile-edit", (req, res) => {
                     _id: req.user._id
                 }, {
                     $set: {
-                        username: req.body.username,
-                        email: req.body.email,
-                        password: req.body.password,
-                        school: req.body.school
+                        username: sanitizedUsername,
+                        email: sanitizedEmail,
+                        password: sanitizedPassword,
+                        school: sanitizedSchool
                     }
                 }, (error, result) => {
                     db.collection('BBY_20_Post').updateMany({ userID: req.user._id }, {
                         $set: {
-                            username: req.body.username
+                            username: sanitizedUsername
                         }
                     }, (error, result) => {
                         res.redirect("/profile");
