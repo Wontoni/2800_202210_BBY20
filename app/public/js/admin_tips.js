@@ -2,15 +2,12 @@
 
 $('.delete').click((e) => {
     var userNumber = e.target.dataset.number;
-    console.log(userNumber);
     $.ajax({
         method: 'DELETE',
         url: '/delete-tip',
         data: { _id: userNumber }
     }).done((result) => {
         window.location.href = `/tips`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 
@@ -22,8 +19,6 @@ $('.edit').click((e) => {
         data: { _id: tipNumber }
     }).done((result) => {
         window.location.href = `/edit-tips/${tipNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 

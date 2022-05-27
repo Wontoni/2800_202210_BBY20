@@ -8,8 +8,6 @@ $('.delete').click((e) => {
         data: { _id: userNumber }
     }).done((result) => {
         window.location.href = `/requests`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 
@@ -21,7 +19,5 @@ $('.check').click((e) => {
         data: { _id: requestNumber }
     }).done((result) => {
         window.location.href = "/check-requests";
-    }).fail((error) => {
-        console.log("error");
     });
 });

@@ -57,11 +57,8 @@ router.get("/reviews", (req, res) => {
 
                     var newScore = stars + "" + maxScoreSpan;
                     profInfo.querySelector("#stars").innerHTML = newScore;
-                    console.log(profInfo.querySelector("#stars").innerHTML);
                     profInfo.querySelector("#moreReviews").innerHTML = "See " + total + " reviews";
-                    console.log(profInfo.querySelector("#moreReviews").innerHTML);
                     profInfo.querySelector("#profName").innerHTML = name;
-                    console.log(profInfo.querySelector("#profName").innerHTML);
                     profList.appendChild(profInfo);
                 }
             }
