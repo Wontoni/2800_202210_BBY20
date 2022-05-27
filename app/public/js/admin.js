@@ -8,8 +8,6 @@ $('.delete').click((e) => {
         data: { _id: userNumber }
     }).done((result) => {
         window.location.href = `/main`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 
@@ -23,8 +21,6 @@ $('.edit').click((e) => {
         }
     }).done((result) => {
         window.location.href = `/edit-user/${userNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 

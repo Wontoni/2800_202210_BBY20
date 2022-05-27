@@ -14,7 +14,6 @@ document.getElementById("create-button").addEventListener("click", () => {
             "endTime" : document.getElementById("taskEnd").value,
         })
     }).then((res) => {
-        console.log(res.json() + " 1");
         return res.json();
     }).then((data) => {
         document.getElementById("taskTitle").value = null;

@@ -8,8 +8,6 @@ $('#writeReviewBtn').click((e) => {
         data: { _id: profNumber }
     }).done((result) => {
         window.location.href = `/create-review/${profNumber}`;
-    }).fail((error) => {
-        console.log("error");
     });
 });
 

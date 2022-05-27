@@ -151,7 +151,6 @@ router.put("/task-edit", (req, res) => {
             lastModified: new Date()
         }
     }, (error, result) => {
-        console.log("worked");
         res.redirect("/planner");
     });
 });
