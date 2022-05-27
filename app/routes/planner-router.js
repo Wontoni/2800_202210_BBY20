@@ -56,7 +56,7 @@ router.get("/planner", (req, res) => {
 
                     var today = new Date();
 
-                    if (date === today.toISOString().split('T')[0]) {
+                    // if (date === today.toISOString().split('T')[0]) {
                         taskInfo.querySelector("#edit-number").setAttribute("data-number", `${number}`);
                         taskInfo.querySelector("#startTime").innerHTML = startTime;
                         taskInfo.querySelector("#endTime").innerHTML = endTime;
@@ -64,7 +64,7 @@ router.get("/planner", (req, res) => {
                         taskInfo.querySelector("#description").innerHTML = description;
                         
                         taskList.appendChild(taskInfo);
-                    }
+                    // }
                 }
             }
             
