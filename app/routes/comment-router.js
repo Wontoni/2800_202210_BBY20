@@ -40,7 +40,7 @@ router.post('/create-comment', (req, res) => {
         }, (error, result) => {
             if (!error) {
                 db.collection('BBY_20_Comment').insertOne({
-                    "commentID" : result.totalComment + 1,
+                    "_id" : result.totalComment + 1,
                     "contents" : sanitizedContents,
                     "postID" : sanitizedPostID,
                     "timestamp" : new Date(),
