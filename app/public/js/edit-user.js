@@ -1,6 +1,7 @@
 "use strict";
 
 document.getElementById("edit-button").addEventListener("click", () => {
+    const userID = window.location.pathname.split("/")[2];
     fetch("/user-edit", {
         method : "PUT",
         headers : {
@@ -18,7 +19,6 @@ document.getElementById("edit-button").addEventListener("click", () => {
     }).then((data) => {
         document.getElementById("edit-message").innerHTML = data.message;
     }).catch(() => {
-        const id = document.getElementById("userNumber").value
-        window.location.href = "/main";
+        window.location.href = `/edit-user/${userID}`;
     });
 });

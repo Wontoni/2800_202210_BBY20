@@ -58,7 +58,7 @@ router.get("/profile", (req, res) => {
     }
 });
 
-// post avatar
+// update avatar
 router.post("/upload-process", upload.single("avatar"), (req, res) => {
     if (req.user) {
         db.collection("BBY_20_User").updateOne({
@@ -68,7 +68,23 @@ router.post("/upload-process", upload.single("avatar"), (req, res) => {
                 avatar: req.file.destination + req.file.filename
             }
         }, (error, result) => {
-            res.redirect("/profile");
+            db.collection("BBY_20_Post").updateOne({
+                userID : req.user._id
+            }, {
+                $set : {
+                    userAvatar : req.file.destination + req.file.filename
+                }
+            }, (error, result) => {
+                db.collection("BBY_20_Comment").updateOne({
+                    userID : req.user._id
+                }, {
+                    $set : {
+                        userAvatar : req.file.destination + req.file.filename
+                    }
+                }, (error, result) => {
+                    res.redirect("/profile");
+                });
+            })
         })
     }
 });
@@ -84,7 +100,7 @@ router.put("/profile-edit", (req, res) => {
                 exist = true;
             }
 
-            if (exist) {
+            if (exist && (req.user.username !== req.body.username)) {
                 res.json({
                     message: "This username already exists"
                 });
