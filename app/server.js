@@ -1,7 +1,7 @@
 "use strict";
 
 /* ------------------------------ Port ------------------------------ */
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 /* ------------------------------ Module ------------------------------ */
 // express
 const express = require("express");
